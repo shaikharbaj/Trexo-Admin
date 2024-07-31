@@ -1,7 +1,8 @@
 
 import { getDictionary } from "@/app/dictionaries";
 import DatePickerWithRange from "@/components/date-picker-with-range";
-import { DashboardSelect, DashboardCounter, SalesAnalytics } from "@/components/dashboard";
+import { DashboardYearSelect, DashboardCounter, SalesAnalytics, SellerCitySales, SellerSalesReport, FinancierSalesReport, BuyerSalesReport } from "@/components/dashboard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
 interface DashboardProps {
@@ -29,7 +30,7 @@ const DashboardPage = async ({ params: { lang } }: DashboardProps) => {
         <div className="flex items-center gap-2">
           <div className="opacity-80 text-xs">Download Report:</div>
           <div>
-            <DashboardSelect />
+            <DashboardYearSelect />
           </div>
           <button className="p-2 bg-primary text-primary-foreground border-secondary border rounded-full">
             <svg
@@ -66,7 +67,13 @@ const DashboardPage = async ({ params: { lang } }: DashboardProps) => {
           </div>
           <div className="col-span-12 lg:col-span-4">
             {/* User Stats */}
+            <SellerCitySales />
           </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <SellerSalesReport />
+          <FinancierSalesReport />
+          <BuyerSalesReport />
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-const DashboardSelect = () => {
+const DashboardYearSelect = () => {
   return (
     <Select>
       <SelectTrigger className="w-[124px]">
@@ -19,4 +19,4 @@ const DashboardSelect = () => {
   );
 };
 
-export default DashboardSelect;
+export default DashboardYearSelect;
