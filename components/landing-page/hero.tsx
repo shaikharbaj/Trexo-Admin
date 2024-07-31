@@ -27,7 +27,7 @@ const Hero = () => {
               </div>
               <div className="flex mt-9 justify-center gap-4 lg:gap-8">
                 <Button asChild size="xl">
-                  <Link href="/auth/login">Go to Login Page </Link>
+                  <Link href="/login">Go to Login Page </Link>
                 </Button>
               </div>
             </div>

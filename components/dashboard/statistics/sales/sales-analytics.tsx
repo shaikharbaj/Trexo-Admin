@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useThemeStore } from "@/store";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DashboardSelect from "../../dasboard-select";
+import DashboardSelect from "../../dasboard-year-select";
 import {
   getGridConfig,
   getXAxisConfig,
