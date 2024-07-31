@@ -267,12 +267,17 @@ const GlobalSettingForm: React.FunctionComponent<
         </div>
         <div>
           <Label
-            htmlFor="curency"
+            htmlFor="currency_symbol"
             className="text-sm font-medium text-default-600 mb-1"
           >
             Currency Symbol:
           </Label>
           <CurrencySelect />
+          {errors?.currency_symbol && (
+            <div className=" text-destructive mt-2">
+              {errors?.currency_symbol?.message}
+            </div>
+          )}
         </div>
         <div>
           <Label
