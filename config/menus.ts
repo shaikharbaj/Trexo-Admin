@@ -21,80 +21,92 @@ export interface MenuItemProps {
 export const menusConfig = {
   mainNav: [
     {
-      title: " Dashboard",
+      title: "Dashboard",
       icon: DashBoard,
       href: "/dashboard",
     },
     {
-      title: "Global Setting",
+      title: "Settings",
       icon: Settings,
       child: [
         {
-          title: "Main Setting",
-          href: "/mainsetting",
+          title: "Global Setting",
+          href: "/setting/global-setting",
           icon: Settings,
-        },
-        {
-          title: "Product Features",
-          href: "/productfeatures",
-          icon: Pointer,
-        },
-        {
-          title: "Payment Mode",
-          href: "/project",
-          icon: ClipBoard2,
-        },
-        {
-          title: "Role",
-          href: "/project",
-          icon: UserSign,
-        },
+        }
       ],
     },
     {
-      title: "Quatation",
-      icon: Application,
-      href: "/quatation",
-    },
+      title: "Masters",
+      icon: Settings,
+      child: [
+        {
+          title: "Industry",
+          href: "/dashboard/industry",
+          icon: Settings,
+        },
+        {
+          title: "Category",
+          href: "/dashboard/category",
+          icon: Settings,
+        },
+        {
+          title: "Attribute",
+          href: "/dashboard/attribute",
+          icon: Settings,
+        },
+        {
+          title: "Attribute Value",
+          href: "/dashboard/attribute-value",
+          icon: Settings,
+        }
+      ],
+    }
   ],
   sidebarNav: {
     modern: [
       {
-        title: " Dashboard",
+        title: "Dashboard",
         icon: DashBoard,
         href: "/dashboard",
       },
       {
-        title: "Global Setting",
+        title: "Settings",
         icon: Settings,
         child: [
           {
-            title: "Main Setting",
-            href: "/mainsetting",
+            title: "Global Setting",
+            href: "/setting/global-setting",
             icon: Settings,
-          },
-          {
-            title: "Product Features",
-            href: "/productfeatures",
-            icon: Pointer,
-          },
-          {
-            title: "Payment Mode",
-            href: "/project",
-            icon: ClipBoard2,
-          },
-          {
-            title: "Role",
-            href: "/project",
-            icon: UserSign,
-          },
+          }
         ],
       },
       {
-        title: "Quatation",
-        icon: Application,
-        href: "/quatation",
-      },
+        title: "Masters",
+        icon: Settings,
+        child: [
+          {
+            title: "Industry",
+            href: "/industry",
+            icon: Settings,
+          },
+          {
+            title: "Category",
+            href: "/category",
+            icon: Settings,
+          },
+          {
+            title: "Attribute",
+            href: "/attribute",
+            icon: Settings,
+          },
+          {
+            title: "Attribute Value",
+            href: "/attribute-value",
+            icon: Settings,
+          }
+        ],
+      }
     ],
     classic: [
       {
@@ -102,41 +114,47 @@ export const menusConfig = {
         title: "menu",
       },
       {
-        title: " Dashboard",
+        title: "Dashboard",
         icon: DashBoard,
         href: "/dashboard",
       },
       {
-        title: "Global Setting",
+        title: "Settings",
         icon: Settings,
         child: [
           {
-            title: "Main Setting",
-            href: "/mainsetting",
+            title: "Global Setting",
+            href: "/setting/global-setting",
             icon: Settings,
-          },
-          {
-            title: "Product Features",
-            href: "/productfeatures",
-            icon: Pointer,
-          },
-          {
-            title: "Payment Mode",
-            href: "/project",
-            icon: ClipBoard2,
-          },
-          {
-            title: "Role",
-            href: "/project",
-            icon: UserSign,
-          },
+          }
         ],
       },
       {
-        title: "Quatation",
-        icon: Application,
-        href: "/quatation",
-      },
+        title: "Masters",
+        icon: Settings,
+        child: [
+          {
+            title: "Industry",
+            href: "/industry",
+            icon: Settings,
+          },
+          {
+            title: "Category",
+            href: "/category",
+            icon: Settings,
+          },
+          {
+            title: "Attribute",
+            href: "/attribute",
+            icon: Settings,
+          },
+          {
+            title: "Attribute Value",
+            href: "/attribute-value",
+            icon: Settings,
+          }
+        ],
+      }
     ],
   },
 };
