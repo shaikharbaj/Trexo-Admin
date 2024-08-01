@@ -10,18 +10,24 @@ function getLocale(request: Request) {
   const acceptedLanguage = request.headers.get("accept-language") ?? undefined;
   let headers = { "accept-language": acceptedLanguage };
   let languages = new Negotiator({ headers }).languages();
-
   return match(languages, locales, defaultLocale); // -> 'en-US'
 }
 
 export function middleware(request: any) {
-  // Check if there is any supported locale in the pathname
-  const pathname = request.nextUrl.pathname;
-
+  const url = request.nextUrl.clone();
+  const pathname = request.nextUrl.pathname; // Check if there is any supported locale in the pathname
+  const token = request.cookies.get("token")?.value;
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
-
+  // if (!token) {
+  //   if (request.nextUrl.pathname.startsWith("/dashboard")) {
+  //     return NextResponse.redirect(new URL("/login", request.url));
+  //   }
+  // } else if (url.pathname === "/login" || url.pathname === "/") {
+  //   url.pathname = "/dashboard";
+  //   return NextResponse.redirect(url);
+  // }
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
