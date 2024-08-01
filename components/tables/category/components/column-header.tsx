@@ -4,7 +4,6 @@ import {
   XCircle,
   Eye,
 } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,13 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Column } from "@tanstack/react-table";
 
-interface DataTableColumnHeaderProps {
+interface ColumnHeaderProps {
   column: Column<any, any>;
   title: string;
   className?: string;
 }
 
-export function DataTableColumnHeader({ column, title, className }:DataTableColumnHeaderProps) {
+export function ColumnHeader({ column, title, className }:ColumnHeaderProps) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }

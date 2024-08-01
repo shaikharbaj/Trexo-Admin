@@ -8,11 +8,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface DataTableRowActionsProps {
+interface RowActionsProps {
   row: Row<any>;
 }
 
-export function DataTableRowActions({ row }: DataTableRowActionsProps) {
+export function RowActions({ row }: RowActionsProps) {
 
   return (
     <DropdownMenu>

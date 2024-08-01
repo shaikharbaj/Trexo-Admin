@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { columns } from './components/columns';
 import { DataTable } from './components/data-table';
+import { columns } from './components/columns';
 
 interface ITableProps {
     trans: {
@@ -10,17 +10,18 @@ interface ITableProps {
 
 const data = [
     {
-        title: "Solar",
+        industry: "Solar",
+        category: "Solar Panels",
         status: "active",
     },
     {
-        title: "Health Care",
+        industry: "HealthCare",
+        category: "Medical Equipments",
         status: "inactive",
     }
 ]
 
-const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
-
+const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
     return (
         <Fragment>
             <DataTable
@@ -31,4 +32,4 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
     )
 }
 
-export default IndustryTable;
+export default CategoryTable;

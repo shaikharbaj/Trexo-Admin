@@ -2,13 +2,14 @@
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "../../dataTable/components/data-table-column-header";
-import { DataTableRowActions } from "./table-actions";
+import { ColumnHeader } from "./column-header";
+import { RowActions } from "./actions";
 
 interface Industry {
-  title?: string;
-  priority?: string;
+  title: string;
+  status: string;
 }
+
 export const columns: ColumnDef<Industry>[] = [
   {
     id: "select",
@@ -37,7 +38,7 @@ export const columns: ColumnDef<Industry>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <ColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
       return (
@@ -52,7 +53,7 @@ export const columns: ColumnDef<Industry>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <ColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
       return (
@@ -73,6 +74,6 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <RowActions row={row} />,
   },
 ];
