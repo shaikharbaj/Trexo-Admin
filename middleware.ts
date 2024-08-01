@@ -1,21 +1,13 @@
 import { NextResponse } from "next/server";
 import { menusConfig } from "./config/menus";
 
-const privateRoutes = [
-  '/dashboard',
-  '/global-settings',
-  '/industry'
-];
-const publicRoutes = [
-  '/login',
-  '/forgot-password'
-];
+const publicRoutes = ["/login", "/forgot-password"];
 
 // Function to recursively find all href values
-function findHrefs(navArray:any) {
+function findHrefs(navArray: any) {
   let hrefs = <any>[];
 
-  navArray.forEach((item:any) => {
+  navArray.forEach((item: any) => {
     if (item.href) {
       hrefs.push(item.href);
     }
