@@ -1,5 +1,8 @@
 "use client";
-import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Icon } from "@iconify/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +16,19 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "@iconify/react";
-import Image from "next/image";
-import Link from "next/link";
 import avatar5 from "@/public/images/avatar/avatar-5.jpg";
+import { logout } from "@/service/auth.service";
+
 const ProfileInfo = () => {
+  const navigation = useRouter();
+  
+  //Function to handel logout
+  const handelLogout = () => {
+    const response: any = logout();
+    if (response?.status === true && response?.statusCode === 200) {
+      navigation.replace("login");
+    }
+  }
 
   return (
     <DropdownMenu>
@@ -164,7 +175,7 @@ const ProfileInfo = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator className="mb-0 dark:bg-background" />
         <DropdownMenuItem
-          onSelect={() => signOut()}
+          onSelect={() => handelLogout()}
           className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize my-1 px-3 dark:hover:bg-background cursor-pointer"
         >
           <Icon icon="heroicons:power" className="w-4 h-4" />

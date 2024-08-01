@@ -1,7 +1,7 @@
 import { store } from "@/redux/store";
 import { loginThunk } from "@/redux/thunk/auth.thunk";
 import { setAuth } from "@/redux/slice/auth.slice";
-import { setCookie } from "@/utils/cookie";
+import { setCookie, removeCookie } from "@/utils/cookie";
 
 //Function to login admin user
 export const login = async (loginPayload: any) => {
@@ -23,3 +23,14 @@ export const login = async (loginPayload: any) => {
       );
     }
 };
+
+export const logout = () => {
+  try {
+    removeCookie("token");
+    return { status: true, statusCode: 200, message: 'Logout Successfully.' };
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || "Something went wrong."
+    );
+  }
+}

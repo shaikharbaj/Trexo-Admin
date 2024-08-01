@@ -9,8 +9,7 @@ import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { RootState } from "@/redux/store";
-import { setAuth } from "@/redux/slice/auth.slice";
-import { useMediaQuery, useAppDispatch, useAppSelector } from "@/hooks";
+import { useMediaQuery, useAppSelector } from "@/hooks";
 import { SiteLogo } from "@/components/svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +20,6 @@ import { login } from "@/service/auth.service";
 
 const Login = () => {
   const navigation = useRouter();
-  const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state: RootState) => state.auth);
   const [isPending, startTransition] = React.useTransition();
   const [passwordType, setPasswordType] = React.useState("password");
@@ -48,11 +46,6 @@ const Login = () => {
     } else if (passwordType === "password") {
       setPasswordType("text");
     }
-  };
-
-  //Function to toggle visibility
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
   };
 
   //Function to handel form submit
