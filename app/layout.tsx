@@ -1,13 +1,13 @@
-import "../assets/scss/globals.scss";
-import "../assets/scss/theme.scss";
+import "./assets/scss/globals.scss";
+import "./assets/scss/theme.scss";
 import { Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
-import Providers from "@/provider/providers";
 import "simplebar-react/dist/simplebar.min.css";
-import TanstackProvider from "@/provider/providers.client";
-import AuthProvider from "@/provider/auth.provider";
 import "flatpickr/dist/themes/light.css";
+import Providers from "@/provider/providers";
+import TanstackProvider from "@/provider/providers.client";
 import DirectionProvider from "@/provider/direction.provider";
+import ReduxProvider from "@/redux/redux-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -27,11 +27,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang={lang}>
-      <TanstackProvider>
-        <Providers>
-          <DirectionProvider lang={lang}>{children}</DirectionProvider>
-        </Providers>
-      </TanstackProvider>
+      <ReduxProvider>
+        <TanstackProvider>
+          <Providers>
+            <DirectionProvider lang={lang}>{children}</DirectionProvider>
+          </Providers>
+        </TanstackProvider>
+      </ReduxProvider>
     </html>
   );
 }

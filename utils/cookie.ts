@@ -1,10 +1,10 @@
-import Cookies from "../../node_modules/@types/js-cookie";
+import Cookies from 'js-cookie';
 
 //Function to set value in cookie
 export const setCookie = (
   key: string,
   value: any,
-  options: any = { expires: 7 }
+  options: any = { expires: 1 }
 ) => {
   Cookies.set(key, value, options);
 };

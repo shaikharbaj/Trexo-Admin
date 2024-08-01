@@ -2,17 +2,13 @@
 import { getDictionary } from "@/app/dictionaries";
 import DatePickerWithRange from "@/components/date-picker-with-range";
 import { DashboardYearSelect, DashboardCounter, SalesAnalytics, SellerCitySales, SellerSalesReport, FinancierSalesReport, BuyerSalesReport } from "@/components/dashboard";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
 interface DashboardProps {
-  params: {
-    lang: any;
-  };
 }
 
-const DashboardPage = async ({ params: { lang } }: DashboardProps) => {
-  const trans = await getDictionary(lang);
+const DashboardPage = async () => {
+  const trans = await getDictionary('en');
   return (
     <>
       <div className="flex justify-between items-center bg-primary text-primary-foreground rounded-2xl p-10 pb-24">

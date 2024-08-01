@@ -29,6 +29,10 @@ const nextConfig = {
 
     return config;
   },
+  env: {
+    PILOT_BASE_URL: process.env.PILOT_BASE_URL,
+    API_BASE_URL: process.env.API_BASE_URL
+  },
   images: {
     remotePatterns: [
       {

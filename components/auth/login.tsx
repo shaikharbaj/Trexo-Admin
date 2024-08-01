@@ -1,21 +1,28 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
+import { RootState } from "@/redux/store";
+import { setAuth } from "@/redux/slice/auth.slice";
+import { useMediaQuery, useAppDispatch, useAppSelector } from "@/hooks";
 import { SiteLogo } from "@/components/svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { loginSchema } from "@/validations";
+import { login } from "@/service/auth.service";
 
 const Login = () => {
+  const navigation = useRouter();
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state: RootState) => state.auth);
   const [isPending, startTransition] = React.useTransition();
   const [passwordType, setPasswordType] = React.useState("password");
   const [isVisible, setIsVisible] = React.useState(false);
@@ -29,8 +36,8 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
     mode: "all",
     defaultValues: {
-      email: "dashtail@codeshaper.net",
-      password: "password",
+      email: "",
+      password: "",
     },
   });
 
@@ -51,21 +58,22 @@ const Login = () => {
   //Function to handel form submit
   const onSubmit = (data: { email: string; password: string }) => {
     startTransition(async () => {
-      console.log("data ", data);
-      toast.success("Login Successful");
-      // let response = await signIn("credentials", {
-      //   email: data.email,
-      //   password: data.password,
-      //   redirect: false,
-      // });
-      // console.log('response ', response);
-      // if (response?.ok) {
-      //   toast.success("Login Successful");
-      //   window.location.assign("/dashboard");
-      //   reset();
-      // } else if (response?.error) {
-      //   toast.error(response?.error);
-      // }
+      try {
+        const loginPayload = {
+          email: data.email,
+          password: data.password,
+        };
+        const response: any = await login(loginPayload);
+        if (response?.status === true && response?.statusCode === 200) {
+          reset();
+          toast.success(response?.message);
+          navigation.replace("dashboard");
+        } else {
+          toast.error(response?.message);
+        }
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     });
   };
 
