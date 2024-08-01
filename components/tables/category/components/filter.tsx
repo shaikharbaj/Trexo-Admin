@@ -27,12 +27,12 @@ interface Option {
   label: string;
   icon?: React.ComponentType<{ className?: string }>;
 }
-interface DataTableFacetedFilterProps {
+interface FilterProps {
   column: Column<any, any>;
   title: string;
   options: Option[];
 }
-export function DataTableFacetedFilter({ column, title, options }: DataTableFacetedFilterProps) {
+export function Filter({ column, title, options }: FilterProps) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 

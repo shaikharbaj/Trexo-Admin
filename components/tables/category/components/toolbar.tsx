@@ -2,11 +2,11 @@
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "../../dataTable/components/data-table-view-options";
-import { DataTableFacetedFilter } from "../../dataTable/components/data-table-faceted-filter";
+import { DataTableViewOptions } from "../../../dataTable/components/data-table-view-options";
 import { Table } from "@tanstack/react-table";
+import { Filter } from "./filter";
 
-interface DataTableToolbarProps {
+interface ToolbarProps {
   table: Table<any>;
 }
 
@@ -21,11 +21,11 @@ const statusOptions = [
   }
 ]
 
-export function DataTableToolbar({ table }: DataTableToolbarProps) {
+export function Toolbar({ table }: ToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    table.getColumn("title")?.setFilterValue(value);
+    table.getColumn("category")?.setFilterValue(value);
   };
   const statusColumn = table.getColumn("status");
 
@@ -33,13 +33,13 @@ export function DataTableToolbar({ table }: DataTableToolbarProps) {
     <div className="flex flex-1 flex-wrap items-center gap-2">
       <Input
         placeholder="Filter tasks..."
-        value={table.getColumn("title")?.getFilterValue() as string || ""}
+        value={table.getColumn("category")?.getFilterValue() as string || ""}
         onChange={handleFilterChange}
         className="h-8 min-w-[200px] max-w-sm"
       />
 
       {statusColumn && (
-        <DataTableFacetedFilter
+        <Filter
           column={statusColumn}
           title="Status"
           options={statusOptions}
