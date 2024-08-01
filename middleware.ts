@@ -27,13 +27,12 @@ function findHrefs(navArray:any) {
   return hrefs;
 }
 
-const hrefs = findHrefs(menusConfig.mainNav);
-
 export function middleware(request: any) {
   const url = request.nextUrl.clone();
   const pathname = request.nextUrl.pathname; // Check if there is any supported locale in the pathname
   const token = request.cookies.get("token")?.value;
   if (!token) {
+    const hrefs = findHrefs(menusConfig.mainNav);
     if (hrefs.includes(pathname)) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
