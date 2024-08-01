@@ -42,22 +42,22 @@ export const menusConfig = {
       child: [
         {
           title: "Industry",
-          href: "/dashboard/industry",
+          href: "/industry",
           icon: Settings,
         },
         {
           title: "Category",
-          href: "/dashboard/category",
+          href: "/category",
           icon: Settings,
         },
         {
           title: "Attribute",
-          href: "/dashboard/attribute",
+          href: "/attribute",
           icon: Settings,
         },
         {
           title: "Attribute Value",
-          href: "/dashboard/attribute-value",
+          href: "/attribute-value",
           icon: Settings,
         }
       ],
