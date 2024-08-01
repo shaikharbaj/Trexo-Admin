@@ -5,10 +5,10 @@ import {
     Card,
     CardContent,
 } from "@/components/ui/card";
-import IndustryTable from "@/components/tables/master/IndustryTable";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { CreateUpdateIndustryModal } from "@/components/modals";
+import { IndustryTable } from "@/components/tables";
 
 interface IIndustryProps {
     trans: {

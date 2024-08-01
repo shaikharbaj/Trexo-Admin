@@ -1,6 +1,6 @@
 import React from "react";
 import { getDictionary } from "@/app/dictionaries";
-import IndustryList from "@/components/master/industry/list";
+import IndustryList from "@/components/industry/list";
 
 interface IPageProps {
   params: {

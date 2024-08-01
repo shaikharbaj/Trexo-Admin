@@ -1,7 +1,6 @@
-import { columns } from '@/components/dataTable/components/columns';
 import { DataTable } from '@/components/dataTable/components/data-table';
-import { data } from '@/components/dataTable/data';
 import React, { Fragment } from 'react';
+import { columns } from './table-columns';
 
 interface ITableProps {
     trans: {
@@ -9,7 +8,19 @@ interface ITableProps {
     };
 }
 
+const data = [
+    {
+        title: "Solar",
+        status: "active",
+    },
+    {
+        title: "Health Care",
+        status: "inactive",
+    }
+]
+
 const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
+
     return (
         <Fragment>
             <DataTable
