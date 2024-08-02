@@ -3,6 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
+import { RootState } from "@/redux/store";
+import { useAppSelector } from "@/hooks";
+import { useMounted } from "@/hooks/use-mounted";
+import { logout } from "@/service/auth.service";
+import { fetchProfile } from "@/service/profile.service";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,11 +22,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import avatar5 from "@/public/images/avatar/avatar-5.jpg";
-import { logout } from "@/service/auth.service";
 
 const ProfileInfo = () => {
   const navigation = useRouter();
-  
+  const mounted = useMounted();
+  const {isProfileLoading, profile} = useAppSelector((state: RootState) => state.profile);
+
+  if(mounted) {
+    if(Object.keys(profile).length === 0 || profile?.uuid === undefined) {
+      fetchProfile();
+    }
+  } 
+
   //Function to handel logout
   const handelLogout = () => {
     const response: any = logout();
@@ -54,13 +66,13 @@ const ProfileInfo = () => {
           />
           <div>
             <div className="text-sm font-medium text-default-800 capitalize ">
-              {"Mcc Callem"}
+              {profile?.first_name} {profile?.last_name}
             </div>
             <Link
               href="/dashboard"
               className="text-xs text-default-600 hover:text-primary"
             >
-              @uxuidesigner
+              @{profile?.user_type}
             </Link>
           </div>
         </DropdownMenuLabel>
@@ -69,7 +81,7 @@ const ProfileInfo = () => {
             {
               name: "profile",
               icon: "heroicons:user",
-              href: "/user-profile"
+              href: "/dashboard"
             },
             {
               name: "Billing",

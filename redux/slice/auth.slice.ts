@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk } from "../thunk/auth.thunk";
+import { getCookie } from "@/utils/cookie";
 
 
-const localStorageData: any = {}; //Getting value from local storage
+const token = getCookie('token');
 const initialState = {
   isLoading: false,
-  isLoggedIn: localStorageData?.isLoggedIn
-    ? localStorageData.isLoggedIn
-    : false,
-  token: localStorageData?.token ? localStorageData.token : "",
+  isLoggedIn: token ? true : false,
+  token: token ? token : "",
 };
 
 export const auth = createSlice({

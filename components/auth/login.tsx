@@ -17,13 +17,13 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { loginSchema } from "@/validations";
 import { login } from "@/service/auth.service";
+import { fetchProfile } from "@/service/profile.service";
 
 const Login = () => {
   const navigation = useRouter();
   const { isLoading } = useAppSelector((state: RootState) => state.auth);
   const [isPending, startTransition] = React.useTransition();
   const [passwordType, setPasswordType] = React.useState("password");
-  const [isVisible, setIsVisible] = React.useState(false);
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
   const {
     register,
@@ -58,7 +58,7 @@ const Login = () => {
         };
         const response: any = await login(loginPayload);
         if (response?.status === true && response?.statusCode === 200) {
-          reset();
+          fetchProfile();
           toast.success(response?.message);
           navigation.replace("dashboard");
         } else {

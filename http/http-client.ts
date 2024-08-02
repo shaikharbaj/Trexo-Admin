@@ -1,17 +1,7 @@
-import { getCookie } from "@/utils/cookie";
 import axios, { AxiosInstance } from "axios";
+import { getCookie } from "@/utils/cookie";
 
-const PILOT_BASE_URL: string = process.env.PILOT_BASE_URL as string;
 const API_BASE_URL: string = process.env.API_BASE_URL as string;
-
-const pilotClient: AxiosInstance = axios.create({
-  baseURL: PILOT_BASE_URL,
-  timeout: 10000,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  },
-});
 
 const publicClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -71,4 +61,4 @@ privateClient.interceptors.response.use(
   }
 );
 
-export { pilotClient, publicClient, privateClient };
+export { publicClient, privateClient };

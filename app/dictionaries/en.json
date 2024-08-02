@@ -191,5 +191,9 @@
   "application": "application",
   "components": "components",
   "forms": "forms",
-  "menu": "menu"
+  "menu": "menu",
+  "salutation": {
+    "welcome": "Welcome",
+    "back": "Back"
+  }
 }
