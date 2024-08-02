@@ -23,7 +23,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Column } from "@tanstack/react-table";
 interface Option {
-  value: string;
+  value: any;
   label: string;
   icon?: React.ComponentType<{ className?: string }>;
 }

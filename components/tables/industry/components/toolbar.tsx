@@ -12,11 +12,11 @@ interface ToolbarProps {
 
 const statusOptions = [
   {
-    value:"active",
+    value:true,
     label:"Active"
   },
   {
-    value:"inactive",
+    value:false,
     label:"Inactive"
   }
 ]
@@ -25,15 +25,15 @@ export function Toolbar({ table }: ToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    table.getColumn("title")?.setFilterValue(value);
+    table.getColumn("industry_name")?.setFilterValue(value);
   };
-  const statusColumn = table.getColumn("status");
+  const statusColumn = table.getColumn("is_active"); 
 
   return (
     <div className="flex flex-1 flex-wrap items-center gap-2">
       <Input
         placeholder="Filter industry..."
-        value={table.getColumn("title")?.getFilterValue() as string || ""}
+        value={table.getColumn("industry_name")?.getFilterValue() as string || ""}
         onChange={handleFilterChange}
         className="h-8 min-w-[200px] max-w-sm"
       />

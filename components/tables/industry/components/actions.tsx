@@ -7,12 +7,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { deleteIndustry } from "@/service/industry.service";
+import toast from "react-hot-toast";
 
 interface RowActionsProps {
   row: Row<any>;
 }
 
 export function RowActions({ row }: RowActionsProps) {
+
+  const handleRecordDelete = async (uuid: string) => {
+    try {
+      const response: any = await deleteIndustry(uuid);
+      if (response?.status === true && response?.statusCode === 200) {
+        toast.success(response?.message);
+      } else {
+        toast.error(response?.message);
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
+  }
 
   return (
     <DropdownMenu>
@@ -27,7 +42,9 @@ export function RowActions({ row }: RowActionsProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => handleRecordDelete(row.original.uuid)}>Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
