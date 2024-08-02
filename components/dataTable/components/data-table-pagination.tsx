@@ -14,13 +14,34 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Table } from "@tanstack/react-table";
+import { RootState } from "@/redux/store";
+import { useAppSelector } from "@/hooks";
+import { navigatePage, setPage } from "@/service/pagination.service";
 
 interface DataTablePaginationProps {
   table: Table<any>;
 }
 
-
 export function DataTablePagination({ table }: DataTablePaginationProps) {
+  const { meta } = useAppSelector((state: RootState) => state.paginate);
+
+  // Helper functions to handle pagination
+  const handlePageSizeChange = async (value: string) => {
+    try {
+      await setPage(Number(value));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const goToPage = async (pageIndex: number) => {
+    try {
+      await navigatePage(pageIndex);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex items-center flex-wrap gap-2 justify-between px-2">
       <div className="flex-1 text-sm text-muted-foreground whitespace-nowrap">
@@ -31,13 +52,11 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">Rows per page</p>
           <Select
-            value={`${table.getState().pagination.pageSize}`}
-            onValueChange={(value) => {
-              table.setPageSize(Number(value));
-            }}
+            value={meta.perPage.toString()}
+            onValueChange={handlePageSizeChange}
           >
             <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
+              <SelectValue placeholder={meta.perPage.toString()} />
             </SelectTrigger>
             <SelectContent side="top">
               {[10, 20, 30, 40, 50].map((pageSize) => (
@@ -49,15 +68,14 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium text-muted-foreground">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+          Page {meta.currentPage} of {meta.lastPage}
         </div>
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => goToPage(1)}
+            disabled={meta.currentPage === 1}
           >
             <span className="sr-only">Go to first page</span>
             <ChevronsLeft className="h-4 w-4 rtl:rotate-180" />
@@ -65,8 +83,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => goToPage(meta.currentPage - 1)}
+            disabled={meta.currentPage === 1}
           >
             <span className="sr-only">Go to previous page</span>
             <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
@@ -74,8 +92,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => goToPage(meta.currentPage + 1)}
+            disabled={meta.currentPage === meta.lastPage}
           >
             <span className="sr-only">Go to next page</span>
             <ChevronRight className="h-4 w-4 rtl:rotate-180" />
@@ -83,8 +101,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
+            onClick={() => goToPage(meta.lastPage)}
+            disabled={meta.currentPage === meta.lastPage}
           >
             <span className="sr-only">Go to last page</span>
             <ChevronsRight className="h-4 w-4 rtl:rotate-180" />

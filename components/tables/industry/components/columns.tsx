@@ -6,8 +6,10 @@ import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 
 interface Industry {
-  title: string;
-  status: string;
+  uuid?: string;
+  industry_name?: string;
+  is_active?: string;
+  slug?: string;
 }
 
 export const columns: ColumnDef<Industry>[] = [
@@ -36,22 +38,22 @@ export const columns: ColumnDef<Industry>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "industry_name",
     header: ({ column }) => (
-      <ColumnHeader column={column} title="Title" />
+      <ColumnHeader column={column} title="Industry Name" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("industry_name")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "is_active",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Status" />
     ),
@@ -60,15 +62,15 @@ export const columns: ColumnDef<Industry>[] = [
         <div className="flex items-center">
           <Badge
             color={
-              (row.getValue('status') === "active" && "success") ||
-              (row.getValue('status') === "inactive" && "destructive") || "default"
+              (row.getValue('is_active') === true && "success") ||
+              (row.getValue('is_active') === false && "destructive") || "default"
             }>
-            {row.getValue('status')}
+            {row.getValue('is_active') === true ? 'Active' : "Inactive"}
           </Badge>
         </div>
       );
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, id, value) => {      
       return value.includes(row.getValue(id));
     },
   },

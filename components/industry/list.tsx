@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
 import {
     Card,
@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { CreateUpdateIndustryModal } from "@/components/modals";
 import { IndustryTable } from "@/components/tables";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 interface IIndustryProps {
     trans: {
@@ -19,7 +21,14 @@ interface IIndustryProps {
 const IndustryList: React.FunctionComponent<IIndustryProps> = ({
     trans,
 }) => {
+    const { refresh } = useAppSelector((state: RootState) => state.industry);
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+    const [refreshComponent, setRefreshComponent] = useState<boolean>(refresh);
+
+    useEffect(() => {
+        setRefreshComponent((refresh));
+    }, [refresh])
+
     return (
         <div className="space-y-6">
             <div className="flex items-center flex-wrap justify-between gap-4">
@@ -42,12 +51,13 @@ const IndustryList: React.FunctionComponent<IIndustryProps> = ({
                         <CreateUpdateIndustryModal
                             modalIsOpen={modalIsOpen}
                             setModalIsOpen={setModalIsOpen}
+                            action="Add"
                         />
                     </div>
                 </div>
             </div>
             <div className="grid grid-cols-1 gap-6">
-                <Card>
+                <Card key={String(refreshComponent)}>
                     <CardContent className="pt-6">
                         <IndustryTable trans={trans} />
                     </CardContent>
