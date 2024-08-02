@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { loginSchema } from "@/validations";
 import { login } from "@/service/auth.service";
+import { fetchProfile } from "@/service/profile.service";
 
 const Login = () => {
   const navigation = useRouter();
@@ -57,6 +58,7 @@ const Login = () => {
         };
         const response: any = await login(loginPayload);
         if (response?.status === true && response?.statusCode === 200) {
+          fetchProfile();
           toast.success(response?.message);
           navigation.replace("dashboard");
         } else {

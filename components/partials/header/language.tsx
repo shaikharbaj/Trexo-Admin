@@ -18,6 +18,12 @@ import {
 import flag1 from "@/public/images/all-img/flag-1.png";
 import flag3 from "@/public/images/all-img/flag-3.png";
 
+type Language = {
+  name: string;
+  flag: any;
+  language?: string;
+};
+
 const languages = [
   {
     name: "en",
@@ -30,17 +36,12 @@ const languages = [
 ];
 
 const Language = () => {
-  type Language = {
-    name: string;
-    flag: any;
-    language?: string;
-  };
   const { isRtl, setRtl } = useThemeStore();
   const dispatch = useAppDispatch();
   const selectedLang = useAppSelector((state: RootState) => state.language);
   const [selectedLanguage, setSelectedLanguage] =
-    useState<Language>(selectedLang);
-
+    useState<Language>(selectedLang); 
+    
   //Function to filter language
   function filterLanguage(selectedLanguage: string) {
     const language = languages.find((language) => {
