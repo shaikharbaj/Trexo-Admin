@@ -1,5 +1,5 @@
 import React from "react";
-import { getDictionary } from "@/app/dictionaries";
+
 import GlobalSetting from "@/components/global-setting/global-setting";
 
 interface IPageProps {
@@ -8,9 +8,7 @@ interface IPageProps {
   };
 }
 
-const Page: React.FunctionComponent<IPageProps> = async ({
-  params: { lang },
-}) => {
+const Page: React.FunctionComponent<IPageProps> = async () => {
   const trans = {};
   return <GlobalSetting trans={trans} />;
 };

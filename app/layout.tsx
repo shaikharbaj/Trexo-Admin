@@ -21,14 +21,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({
-  children,
-  params: { lang },
+  children
 }: {
   children: React.ReactNode;
-  params: { lang: string };
 }) {
   const locale = await getLocale();
-  console.log('LLLLLoclale ', locale);
   const messages = await getMessages();
   return (
     <html lang={locale}>

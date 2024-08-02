@@ -8,7 +8,6 @@ const rootReducer = combineReducers({
     auth: authSlice,
     industry: industrySlice,
     paginate: paginateSlice,
-    language: languageSlice,
     profile: profileSlice
 });
 
