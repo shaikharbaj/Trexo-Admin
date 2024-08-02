@@ -37,7 +37,7 @@ const SubMenuHandler = ({
             <span className="inline-flex items-center     ">
               <item.icon className="w-5 h-5" />
             </span>
-            <div className=" ">{translate(title, trans)}</div>
+            <div className=" ">{trans(title)}</div>
           </div>
           <div className="flex-0">
             <div

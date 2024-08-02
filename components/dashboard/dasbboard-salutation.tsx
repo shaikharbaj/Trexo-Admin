@@ -4,7 +4,7 @@ import { useAppSelector } from "@/hooks";
 import { dateWithDayNameDayMonthNameAndYear } from "@/utils/date";
 
 interface IDashboardSalutationProps {
-  trans: any;
+  trans: (key: string) => string;
 }
 
 const DashboardSalutation = ({ trans }: IDashboardSalutationProps) => {
@@ -15,7 +15,7 @@ const DashboardSalutation = ({ trans }: IDashboardSalutationProps) => {
     <div className=" space-y-2">
       <div className=" font-light text-2xl">
         {" "}
-        {trans?.welcome} {trans?.back},{" "}
+        {trans('welcome')} {trans('back')}
         <span className="font-semibold">
           {" "}
           <span>

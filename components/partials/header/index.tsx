@@ -43,10 +43,8 @@ const NavTools = ({
 };
 const Header = ({
   handleOpenSearch,
-  trans,
 }: {
   handleOpenSearch: () => void;
-  trans: string;
 }) => {
   const { collapsed, sidebarType, setCollapsed, subMenu, setSidebarType } =
     useSidebar();
@@ -83,7 +81,7 @@ const Header = ({
         </div>
         {isDesktop && (
           <div className=" bg-card bg-card/90 backdrop-blur-lg  w-full px-6  shadow-md">
-            <HorizontalMenu trans={trans} />
+            <HorizontalMenu/>
           </div>
         )}
       </ClassicHeader>

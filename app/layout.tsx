@@ -1,6 +1,8 @@
 import "./assets/scss/globals.scss";
 import "./assets/scss/theme.scss";
 import { Inter } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 import "simplebar-react/dist/simplebar.min.css";
 import "flatpickr/dist/themes/light.css";
@@ -18,21 +20,26 @@ export const metadata = {
   description: siteConfig.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { lang },
 }: {
   children: React.ReactNode;
   params: { lang: string };
 }) {
+  const locale = await getLocale();
+  console.log('LLLLLoclale ', locale);
+  const messages = await getMessages();
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <ReduxProvider>
-        <TanstackProvider>
-          <Providers>
-            <DirectionProvider lang={lang}>{children}</DirectionProvider>
-          </Providers>
-        </TanstackProvider>
+        <NextIntlClientProvider messages={messages}>
+          <TanstackProvider>
+            <Providers>
+              <DirectionProvider lang={locale}>{children}</DirectionProvider>
+            </Providers>
+          </TanstackProvider>
+        </NextIntlClientProvider>
       </ReduxProvider>
     </html>
   );

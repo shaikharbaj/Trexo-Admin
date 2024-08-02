@@ -16,7 +16,6 @@ import { useMounted } from "@/hooks/use-mounted";
 
 interface IDashboardLayoutProps {
   children: ReactNode;
-  trans: any;
 }
 
 const LayoutWrapper = ({
@@ -24,15 +23,13 @@ const LayoutWrapper = ({
   isMobile,
   setOpen,
   open,
-  location,
-  trans,
+  location
 }: {
   children: React.ReactNode;
   isMobile: boolean;
   setOpen: any;
   open: boolean;
   location: any;
-  trans: any;
 }) => {
   return (
     <>
@@ -63,15 +60,14 @@ const LayoutWrapper = ({
       >
         <main>{children}</main>
       </motion.div>
-      <MobileSidebar trans={trans} className="left-[300px]" />
+      <MobileSidebar className="left-[300px]" />
       <HeaderSearch open={open} setOpen={setOpen} />
     </>
   );
 };
 
 const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
-  children,
-  trans,
+  children
 }) => {
   const { collapsed, sidebarType, setCollapsed, subMenu } = useSidebar();
   const [open, setOpen] = useState(false);
@@ -85,8 +81,8 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
   if (layout === "semibox") {
     return (
       <>
-        <Header handleOpenSearch={() => setOpen(true)} trans={trans} />
-        <Sidebar trans={trans} />
+        <Header handleOpenSearch={() => setOpen(true)} />
+        <Sidebar />
         <div
           className={cn("content-wrapper transition-all duration-150 ", {
             "ltr:xl:ml-[72px] rtl:xl:mr-[72px]": collapsed,
@@ -100,7 +96,6 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
                 setOpen={setOpen}
                 open={open}
                 location={location}
-                trans={trans}
               >
                 {children}
               </LayoutWrapper>
@@ -115,7 +110,7 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
   if (layout === "horizontal") {
     return (
       <>
-        <Header handleOpenSearch={() => setOpen(true)} trans={trans} />
+        <Header handleOpenSearch={() => setOpen(true)} />
         <div className={cn("content-wrapper transition-all duration-150 ")}>
           <div
             className={cn("  pt-6 px-6 pb-8  page-min-height-horizontal ", {})}
@@ -125,7 +120,6 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
               setOpen={setOpen}
               open={open}
               location={location}
-              trans={trans}
             >
               {children}
             </LayoutWrapper>
@@ -139,8 +133,8 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
   if (sidebarType !== "module") {
     return (
       <>
-        <Header handleOpenSearch={() => setOpen(true)} trans={trans} />
-        <Sidebar trans={trans} />
+        <Header handleOpenSearch={() => setOpen(true)} />
+        <Sidebar />
         <div
           className={cn("content-wrapper transition-all duration-150 ", {
             "ltr:xl:ml-[248px] rtl:xl:mr-[248px] ": !collapsed,
@@ -153,7 +147,6 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
               setOpen={setOpen}
               open={open}
               location={location}
-              trans={trans}
             >
               {children}
             </LayoutWrapper>
@@ -166,8 +159,8 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
   }
   return (
     <>
-      <Header handleOpenSearch={() => setOpen(true)} trans={trans} />
-      <Sidebar trans={trans} />
+      <Header handleOpenSearch={() => setOpen(true)} />
+      <Sidebar/>
       <div
         className={cn("content-wrapper transition-all duration-150 ", {
           "ltr:xl:ml-[300px] rtl:xl:mr-[300px]": !collapsed,
@@ -180,7 +173,6 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({
             setOpen={setOpen}
             open={open}
             location={location}
-            trans={trans}
           >
             {children}
           </LayoutWrapper>

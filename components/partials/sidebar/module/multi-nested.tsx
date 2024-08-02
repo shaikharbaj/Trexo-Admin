@@ -56,7 +56,7 @@ const MultiNestedMenus = ({
                         }
                       )}
                     ></span>
-                    <span>{translate(item.title, trans)}</span>
+                    <span>{trans(item.title)}</span>
                   </div>
                 </div>
               </Link>

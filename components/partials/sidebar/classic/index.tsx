@@ -12,7 +12,9 @@ import SingleMenuItem from "./single-menu-item";
 import SubMenuHandler from "./sub-menu-handler";
 import NestedSubMenu from "../common/nested-menus";
 import AddBlock from "../common/add-block";
-const ClassicSidebar = ({ trans }: { trans: string }) => {
+import { useTranslations } from "next-intl";
+const ClassicSidebar = () => {
+  const t = useTranslations('Menu');
   const { sidebarBg } = useSidebar();
   const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
   const [activeMultiMenu, setMultiMenu] = useState<number | null>(null);
@@ -107,13 +109,13 @@ const ClassicSidebar = ({ trans }: { trans: string }) => {
                   item={item}
                   collapsed={collapsed}
                   hovered={hovered}
-                  trans={trans}
+                  trans={t}
                 />
               )}
 
               {/* menu label */}
               {item.isHeader && !item.child && (!collapsed || hovered) && (
-                <MenuLabel item={item} trans={trans} />
+                <MenuLabel item={item} trans={t} />
               )}
 
               {/* sub menu */}
@@ -126,7 +128,7 @@ const ClassicSidebar = ({ trans }: { trans: string }) => {
                     activeSubmenu={activeSubmenu}
                     collapsed={collapsed}
                     hovered={hovered}
-                    trans={trans}
+                    trans={t}
                   />
 
                   {(!collapsed || hovered) && (
@@ -136,9 +138,7 @@ const ClassicSidebar = ({ trans }: { trans: string }) => {
                       activeSubmenu={activeSubmenu}
                       item={item}
                       index={i}
-
-
-                      trans={trans}
+                      trans={t}
                     />
                   )}
                 </>

@@ -45,7 +45,7 @@ const SingleMenuItem = ({ item, collapsed, trans }: {
                     className="bg-primary  text-primary-foreground data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade text-violet11 select-none rounded-[4px]  px-[15px] py-[10px] text-[15px] leading-none  shadow-sm will-change-[transform,opacity]"
                     sideOffset={5}
                   >
-                    {translate(title, trans)}
+                    {trans(title)}
                     <Tooltip.Arrow className="fill-primary" />
                   </Tooltip.Content>
                 </Tooltip.Portal>
@@ -67,7 +67,7 @@ const SingleMenuItem = ({ item, collapsed, trans }: {
             <span className="flex-grow-0">
               <item.icon className="w-5 h-5" />
             </span>
-            <div className="text-box flex-grow ">{translate(title, trans)}</div>
+            <div className="text-box flex-grow ">{trans(title)}</div>
             {badge && <Badge className=" rounded">{item.badge}</Badge>}
           </div>
         )}

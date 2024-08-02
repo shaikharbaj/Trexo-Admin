@@ -19,7 +19,7 @@ function LockLink({ href, children, subItem, trans }: {
         ></span>
         <div className="flex-1 truncate  flex  text-default-600">
           <div className="flex-1  truncate">
-            {translate(subItem.title, trans)}
+            {trans(subItem.title)}
           </div>
           <Badge className="leading-0 capitalize flex-none px-1 text-xs font-normal">
             {subItem.badge}
@@ -53,7 +53,7 @@ const SubMenuItem = ({ subItem, trans }: {
         )}
       >
         <span className="flex-1 truncate">
-          {translate(subItem.title, trans)}
+          {trans(subItem.title)}
         </span>
       </div>
     </LockLink>

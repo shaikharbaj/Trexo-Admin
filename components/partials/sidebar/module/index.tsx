@@ -16,8 +16,10 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import MenuOverlayPortal from "./MenuOverlayPortal";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
-const ModuleSidebar = ({ trans }: { trans: any }) => {
+const ModuleSidebar = () => {
+  const t = useTranslations('Menu');
   const menus: any = menusConfig?.sidebarNav?.modern || [];
   const { subMenu, setSubmenu, collapsed, setCollapsed, sidebarBg } =
     useSidebar();
@@ -175,7 +177,7 @@ const ModuleSidebar = ({ trans }: { trans: any }) => {
                   activeIndex={activeIndex}
                   item={item}
                   locationName={locationName}
-                  trans={trans}
+                  trans={t}
                 />
               </div>
             ))}
@@ -200,7 +202,7 @@ const ModuleSidebar = ({ trans }: { trans: any }) => {
             ></div>
           )}
           <h2 className="text-lg  bg-transparent   z-50   font-semibold  flex gap-4 items-center   text-default-700 sticky top-0 py-4  px-4   capitalize ">
-            <span className=" block ">{translate(getMenuTitle(), trans)}</span>
+            <span className=" block ">{t(getMenuTitle())}</span>
             {!isDesktop && (
               <Button
                 size="icon"
@@ -222,7 +224,7 @@ const ModuleSidebar = ({ trans }: { trans: any }) => {
                 {currentSubMenu?.map((childItem, j) => (
                   <li key={j} className="mb-1.5 last:mb-0">
                     <MenuItem
-                      trans={trans}
+                      trans={t}
                       childItem={childItem}
                       toggleNested={toggleNested}
                       index={j}
@@ -236,7 +238,7 @@ const ModuleSidebar = ({ trans }: { trans: any }) => {
                       locationName={locationName}
                       toggleMulti={toggleMultiNested}
                       multiIndex={multiNestedIndex}
-                      trans={trans}
+                      trans={t}
                     />
                   </li>
                 ))}

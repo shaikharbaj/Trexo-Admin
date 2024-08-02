@@ -32,7 +32,7 @@ const SingleMenuItem = ({ item, collapsed, hovered, trans }: {
             <span className="flex-grow-0">
               <item.icon className="w-5 h-5  " />
             </span>
-            <div className="text-box flex-grow">{translate(title, trans)}</div>
+            <div className="text-box flex-grow">{trans(title)}</div>
             {badge && <Badge className=" rounded">{item.badge}</Badge>}
           </div>
         ) : (

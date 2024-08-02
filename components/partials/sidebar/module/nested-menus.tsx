@@ -52,7 +52,7 @@ const NestedMenus = ({
 
               >
                 <div className={cn("pl-3  text-sm capitalize  font-normal ")}>
-                  {translate(item.title, trans)}
+                  {trans(item.title)}
                 </div>
               </LinkButton>
               <MultiNestedMenus

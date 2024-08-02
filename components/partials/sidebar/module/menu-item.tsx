@@ -30,7 +30,7 @@ function NavLink({ childItem, locationName, trans }: {
           <childItem.icon className=" h-5 w-5" />
         </span>
       )}
-      <div className="flex-grow truncate">{translate(title, trans)}</div>
+      <div className="flex-grow truncate">{trans(title)}</div>
       {badge && <Badge className="rounded h-min ">{badge}</Badge>}
     </Link>
   );
@@ -72,7 +72,7 @@ const MenuItem = ({
               <childItem.icon className=" h-5 w-5" />
             </span>
             <span className="flex-grow truncate">
-              {translate(title, trans)}
+              {trans(title)}
             </span>
           </div>
           {childItem.nested && (

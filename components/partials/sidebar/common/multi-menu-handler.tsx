@@ -31,7 +31,7 @@ const MultiMenuHandler = ({
         }
       )}
     >
-      <span className="flex-1">{translate(subItem.title, trans)}</span>
+      <span className="flex-1">{trans(subItem.title)}</span>
       <div className="flex-none">
         <span
           className={cn(

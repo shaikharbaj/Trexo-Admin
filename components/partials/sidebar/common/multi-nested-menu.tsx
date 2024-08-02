@@ -47,7 +47,7 @@ const MultiNestedMenu = ({ subItem, subIndex, activeMultiMenu, trans }: {
                       }
                     )}
                   ></span>
-                  <span className="flex-1">{translate(item.title, trans)}</span>
+                  <span className="flex-1">{trans(item.title)}</span>
                 </span>
               </Link>
             </li>

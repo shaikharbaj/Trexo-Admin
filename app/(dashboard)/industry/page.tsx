@@ -11,7 +11,7 @@ interface IPageProps {
 const Page: React.FunctionComponent<IPageProps> = async ({
   params: { lang },
 }) => {
-  const trans = await getDictionary('en');
+  const trans = {};
   return <IndustryList trans={trans} />;
 };
 

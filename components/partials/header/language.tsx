@@ -1,14 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Image from "next/image";
+import { useLocale } from "next-intl";
 import { Check } from "lucide-react";
-import { useAppSelector, useAppDispatch } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useThemeStore } from "@/store";
-import { RootState } from "@/redux/store";
-import { setLanguage } from "@/redux/slice/language.slice";
-import { setLocalStorage } from "@/utils/local-storage";
+import { setUserLocale } from "@/service/locale.service";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import flag1 from "@/public/images/all-img/flag-1.png";
 import flag3 from "@/public/images/all-img/flag-3.png";
-
-type Language = {
-  name: string;
-  flag: any;
-  language?: string;
-};
 
 const languages = [
   {
@@ -36,11 +28,17 @@ const languages = [
 ];
 
 const Language = () => {
+  const locale = useLocale();
+  const [isPending, startTransition] = useTransition();
   const { isRtl, setRtl } = useThemeStore();
-  const dispatch = useAppDispatch();
-  const selectedLang = useAppSelector((state: RootState) => state.language);
-  const [selectedLanguage, setSelectedLanguage] =
-    useState<Language>(selectedLang); 
+  const [selectedLanguage, setSelectedLanguage] = useState<any>({}); 
+
+  useEffect(() => {
+    let langObj = filterLanguage(locale);
+    if(langObj) {
+      setSelectedLanguage(langObj);
+    }
+  },[locale]);  
     
   //Function to filter language
   function filterLanguage(selectedLanguage: string) {
@@ -53,12 +51,13 @@ const Language = () => {
   //Function to handel language change
   const handleLanguageChange = (lang: string) => {
     const language = filterLanguage(lang);
-    if (language) {
-      dispatch(setLanguage(language));
-      setSelectedLanguage(language);
-      setLocalStorage("TREXOPRO_ADMIN_LANG", language);
-      setRtl(language?.name === "ar");
-    }
+    startTransition(() => {
+      if (language) {
+        setSelectedLanguage(language);
+        setUserLocale(language?.name);
+        setRtl(language?.name === "ar");
+      }
+    });
   };
 
   return (
@@ -67,13 +66,13 @@ const Language = () => {
         <Button type="button" className="bg-transparent hover:bg-transparent">
           <span className="w-6 h-6 rounded-full me-1.5">
             <Image
-              src={selectedLanguage ? selectedLanguage.flag : flag1}
+              src={selectedLanguage?.flag ? selectedLanguage.flag : flag1}
               alt=""
               className="w-full h-full object-cover rounded-full"
             />
           </span>
           <span className="text-sm text-default-600 capitalize">
-            {selectedLanguage ? selectedLanguage.name : "En"}
+            {selectedLanguage?.name ? selectedLanguage.name : "En"}
           </span>
         </Button>
       </DropdownMenuTrigger>

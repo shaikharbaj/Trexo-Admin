@@ -7,7 +7,9 @@ import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import image from "@/public/images/all-img/man-with-laptop.png";
 import Image from "next/image";
-export default function MainMenu({ trans }: { trans: any }) {
+import { useTranslations } from "next-intl";
+export default function MainMenu() {
+  const t = useTranslations('Menu');
   const menus = menusConfig.mainNav || [];
 
   const [offset, setOffset] = React.useState<number | null>(null);
@@ -45,7 +47,7 @@ export default function MainMenu({ trans }: { trans: any }) {
                 <div className=" flex items-center  py-4 cursor-pointer group data-[state=open]:text-primary">
                   <item.icon className="h-5 w-5 mr-2" />
                   <span className="text-sm font-medium text-default-700">
-                    {translate(item.title, trans)}
+                    {t(item.title)}
                   </span>
                   <ChevronDown
                     className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
@@ -67,7 +69,7 @@ export default function MainMenu({ trans }: { trans: any }) {
                         title={childItem.title}
                         href={childItem.href}
                         childItem={childItem}
-                        trans={trans}
+                        trans={t}
                       >
                         <childItem.icon className="h-5 w-5" />
                       </ListItem>
@@ -181,7 +183,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, any>(
         ref={forwardedRef}
       >
         <div>{children}</div>
-        <div className=" capitalize">{translate(title, trans)}</div>
+        <div className=" capitalize">{trans(title)}</div>
       </Link>
     </NavigationMenu.Link>
   )

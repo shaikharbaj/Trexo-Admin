@@ -53,7 +53,7 @@ const SingleIconMenu = ({ index, activeIndex, item, locationName, trans }: {
             )}
           </TooltipTrigger>
           <TooltipContent side="right" className=" capitalize">
-            {translate(title, trans)}
+            {trans(title)}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

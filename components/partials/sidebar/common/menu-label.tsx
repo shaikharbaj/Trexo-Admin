@@ -1,5 +1,5 @@
 import React from "react";
-import { cn, translate } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 const MenuLabel = ({ item, className, trans }: {
   item: any,
@@ -14,7 +14,7 @@ const MenuLabel = ({ item, className, trans }: {
         className
       )}
     >
-      {translate(title, trans)}
+      {trans(title)}
     </div>
   );
 };
