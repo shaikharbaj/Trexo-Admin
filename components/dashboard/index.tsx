@@ -1,4 +1,6 @@
 "use client";
+import { RootState } from "@/redux/store";
+import { useAppSelector } from "@/hooks";
 import DatePickerWithRange from "../date-picker-with-range";
 import DashboardSalutation from "./dasbboard-salutation";
 import DashboardYearSelect from "./dasboard-year-select";
@@ -9,12 +11,15 @@ import SellerSalesReport from "./statistics/reports/seller/sales/sales-report";
 import SalesAnalytics from "./statistics/sales/sales-analytics";
 import SellerCitySales from "./statistics/users/seller/city-sales";
 
-const Dashboard = () => {
-    const trans = {};
+interface IDashboardProps {
+  trans: any;
+}
+
+const Dashboard = ({ trans }: IDashboardProps) => {
   return (
     <>
       <div className="flex justify-between items-center bg-primary text-primary-foreground rounded-2xl p-10 pb-24">
-        <DashboardSalutation />
+        <DashboardSalutation trans={trans?.salutation}/>
         <div className="flex items-center gap-2">
           <div className="opacity-80 text-xs">Download Report:</div>
           <div>
@@ -44,7 +49,7 @@ const Dashboard = () => {
       <div className="space-y-6 mt-10">
         <div className="flex items-center flex-wrap justify-between gap-4">
           <div className="text-2xl font-semibold text-default-800 pb-2 relative after:absolute after:h-0.5 after:rounded-md after:w-11 after:bg-primary after:left-0 after:bottom-0">
-            {/* Analytics {trans?.dashboard} */}
+            Analytics {trans?.dashboard}
           </div>
           <DatePickerWithRange />
         </div>

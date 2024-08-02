@@ -60,6 +60,7 @@ const Language = () => {
       setRtl(language?.name === "ar");
     }
   };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

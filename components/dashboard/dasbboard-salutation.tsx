@@ -3,7 +3,11 @@ import { RootState } from "@/redux/store";
 import { useAppSelector } from "@/hooks";
 import { dateWithDayNameDayMonthNameAndYear } from "@/utils/date";
 
-const DashboardSalutation = () => {
+interface IDashboardSalutationProps {
+  trans: any;
+}
+
+const DashboardSalutation = ({ trans }: IDashboardSalutationProps) => {
   const { isProfileLoading, profile } = useAppSelector(
     (state: RootState) => state.profile
   );
@@ -11,7 +15,7 @@ const DashboardSalutation = () => {
     <div className=" space-y-2">
       <div className=" font-light text-2xl">
         {" "}
-        Welcome Back,{" "}
+        {trans?.welcome} {trans?.back},{" "}
         <span className="font-semibold">
           {" "}
           <span>

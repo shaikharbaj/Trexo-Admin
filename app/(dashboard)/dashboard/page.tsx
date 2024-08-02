@@ -1,9 +1,11 @@
+import { getDictionary } from "@/app/dictionaries";
 import Dashboard from "@/components/dashboard";
 
 interface DashboardProps {}
 
 const DashboardPage = async () => {
-  return <Dashboard />;
+  const trans = await getDictionary('en');
+  return <Dashboard trans={trans} />;
 };
 
 export default DashboardPage;
