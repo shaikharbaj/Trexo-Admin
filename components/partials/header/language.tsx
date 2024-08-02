@@ -1,7 +1,14 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { Check } from "lucide-react";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/store";
+import { RootState } from "@/redux/store";
+import { setLanguage } from "@/redux/slice/language.slice";
+import { setLocalStorage } from "@/utils/local-storage";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,51 +16,47 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import flag1 from "@/public/images/all-img/flag-1.png";
-import flag2 from "@/public/images/all-img/flag-2.png";
 import flag3 from "@/public/images/all-img/flag-3.png";
-import { useState } from "react";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useRouter, usePathname } from "next/navigation";
-import { useThemeStore } from "@/store";
+
 const languages = [
   {
     name: "en",
     flag: flag1,
   },
   {
-    name: "bn",
-    flag: flag2,
-  },
-  {
     name: "ar",
     flag: flag3,
   },
 ];
+
 const Language = () => {
   type Language = {
     name: string;
     flag: any;
     language?: string;
   };
-
-  const router = useRouter();
-  const pathname = usePathname();
   const { isRtl, setRtl } = useThemeStore();
-  const found = pathname ? languages.find((lang) => pathname.includes(lang.name)) : null;
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(
-    found ?? languages[0]
-  );
+  const dispatch = useAppDispatch();
+  const selectedLang = useAppSelector((state: RootState) => state.language);
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<Language>(selectedLang);
 
-  const handleSelected = (lang: string) => {
-    setSelectedLanguage({
-      ...selectedLanguage,
-      name: lang,
-      language: lang === "en" ? "En" : "Bn",
+  //Function to filter language
+  function filterLanguage(selectedLanguage: string) {
+    const language = languages.find((language) => {
+      return language.name === selectedLanguage;
     });
-    setRtl(lang === "ar");
-    if (pathname) {
-      router.push(`/${lang}/${pathname.split("/")[2]}`);
+    return language;
+  }
+
+  //Function to handel language change
+  const handleLanguageChange = (lang: string) => {
+    const language = filterLanguage(lang);
+    if (language) {
+      dispatch(setLanguage(language));
+      setSelectedLanguage(language);
+      setLocalStorage("TREXOPRO_ADMIN_LANG", language);
+      setRtl(language?.name === "ar");
     }
   };
   return (
@@ -83,7 +86,7 @@ const Language = () => {
                   selectedLanguage && selectedLanguage.name === item.name,
               }
             )}
-            onClick={() => handleSelected(item.name)}
+            onClick={() => handleLanguageChange(item.name)}
           >
             <span className="w-6 h-6 rounded-full me-1.5">
               <Image

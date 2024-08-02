@@ -23,7 +23,6 @@ const Login = () => {
   const { isLoading } = useAppSelector((state: RootState) => state.auth);
   const [isPending, startTransition] = React.useTransition();
   const [passwordType, setPasswordType] = React.useState("password");
-  const [isVisible, setIsVisible] = React.useState(false);
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
   const {
     register,
@@ -58,7 +57,6 @@ const Login = () => {
         };
         const response: any = await login(loginPayload);
         if (response?.status === true && response?.statusCode === 200) {
-          reset();
           toast.success(response?.message);
           navigation.replace("dashboard");
         } else {
