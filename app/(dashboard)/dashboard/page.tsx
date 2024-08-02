@@ -1,7 +1,7 @@
 
 import { getDictionary } from "@/app/dictionaries";
 import DatePickerWithRange from "@/components/date-picker-with-range";
-import { DashboardYearSelect, DashboardCounter, SalesAnalytics, SellerCitySales, SellerSalesReport, FinancierSalesReport, BuyerSalesReport } from "@/components/dashboard";
+import { Salutation, DashboardYearSelect, DashboardCounter, SalesAnalytics, SellerCitySales, SellerSalesReport, FinancierSalesReport, BuyerSalesReport } from "@/components/dashboard";
 
 
 interface DashboardProps {
@@ -12,17 +12,7 @@ const DashboardPage = async () => {
   return (
     <>
       <div className="flex justify-between items-center bg-primary text-primary-foreground rounded-2xl p-10 pb-24">
-        <div className=" space-y-2">
-          <div className=" font-light text-2xl">
-            {" "}
-            Welcome Back,{" "}
-            <span className="font-semibold">
-              {" "}
-              <span>Sohel Patel</span>!
-            </span>
-          </div>
-          <div className=" text-xs opacity-80"> Monday, 19 March 2024</div>
-        </div>
+        <Salutation />
         <div className="flex items-center gap-2">
           <div className="opacity-80 text-xs">Download Report:</div>
           <div>

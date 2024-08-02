@@ -1,3 +1,4 @@
+import Salutation from "./salutation";
 import DashboardUserSelect from "./dasboard-user-select";
 import DashboardStateSelect from "./dasboard-state-select";
 import DashboardYearSelect from "./dasboard-year-select";
@@ -9,6 +10,7 @@ import FinancierSalesReport from "./statistics/reports/financier/sales/sales-rep
 import BuyerSalesReport from "./statistics/reports/buyer/sales/sales-report";
 
 export {
+    Salutation,
     DashboardYearSelect,
     DashboardStateSelect,
     DashboardUserSelect,
