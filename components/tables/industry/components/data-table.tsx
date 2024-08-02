@@ -58,10 +58,10 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
-  
+
   return (
     <div className="space-y-4">
-      <Toolbar table={table} />
+      {/* <Toolbar table={table} /> */}
       {!isLoading ? (
         <>
           <div className="rounded-md border">
@@ -105,7 +105,7 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
                   <TableRow>
                     <TableCell
                       colSpan={columns.length}
-                      className="h-24 text-center"
+                      className="!text-center"
                     >
                       No results.
                     </TableCell>
@@ -116,7 +116,7 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
           </div>
           <DataTablePagination table={table} />
         </>
-      ) : (<Skeleton/>)}
+      ) : (<Skeleton />)}
     </div>
   );
 }

@@ -59,7 +59,10 @@ const IndustryList: React.FunctionComponent<IIndustryProps> = ({
             <div className="grid grid-cols-1 gap-6">
                 <Card key={String(refreshComponent)}>
                     <CardContent className="pt-6">
-                        <IndustryTable trans={trans} />
+                        <IndustryTable
+                            trans={trans}
+                            setRefreshComponent={setRefreshComponent}
+                        />
                     </CardContent>
                 </Card>
             </div>
