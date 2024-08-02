@@ -1,3 +1,4 @@
+import { getCookie } from "@/utils/cookie";
 import axios, { AxiosInstance } from "axios";
 
 const PILOT_BASE_URL: string = process.env.PILOT_BASE_URL as string;
@@ -35,7 +36,7 @@ publicClient.interceptors.request.use(
 );
 
 const privateClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -45,7 +46,7 @@ const privateClient = axios.create({
 
 privateClient.interceptors.request.use(
   (config) => {
-    const token = "demo-token-from-cookie";
+    const token = getCookie('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
