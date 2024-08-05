@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createIndustryThunk, deleteIndustryThunk, industryListThunk } from "../thunk/industry.thunk";
+import { createIndustryThunk, deleteIndustryThunk, fetchIndustryByIdThunk, industryListThunk, updateIndustryThunk } from "../thunk/industry.thunk";
 
 
 const initialState = {
@@ -39,6 +39,29 @@ export const industry = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(createIndustryThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(fetchIndustryByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchIndustryByIdThunk.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.error = action?.payload;
+      })
+      .addCase(fetchIndustryByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(updateIndustryThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(updateIndustryThunk.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.error = action?.payload;
+        state.refresh = !state.refresh;
+      })
+      .addCase(updateIndustryThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
     builder
