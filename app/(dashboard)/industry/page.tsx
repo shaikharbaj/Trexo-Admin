@@ -8,8 +8,7 @@ interface IPageProps {
 }
 
 const Page: React.FunctionComponent<IPageProps> = async () => {
-  const trans = {};
-  return <IndustryList trans={trans} />;
+  return <IndustryList />;
 };
 
 export default Page;

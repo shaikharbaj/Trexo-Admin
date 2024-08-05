@@ -15,5 +15,11 @@
     "back": "Back",
     "dashboard": "dashboard",
     "analytics": "analytics"
+  },
+  "IndustryPage": {
+    "Dashboard": "Dashboard",
+    "Master": "Master",
+    "Industry": "Industry",
+    "Add New": "Add New"
   }
 }
