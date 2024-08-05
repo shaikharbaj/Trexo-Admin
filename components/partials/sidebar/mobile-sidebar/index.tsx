@@ -122,7 +122,7 @@ const MobileSidebar = ({ className }: { className?: string }) => {
                         activeMultiMenu={activeMultiMenu}
                         activeSubmenu={activeSubmenu}
                         item={item}
-                        index={i} title={""} trans={undefined} />
+                        index={i} title={""} trans={t} />
                     )}
                   </>
                 )}

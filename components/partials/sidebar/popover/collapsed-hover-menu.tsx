@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 
 const CollapsedHoverMenu = ({ item, menuTitle, trans }: {
   item: any;
-
   menuTitle?: string
   trans: any
 }) => {
