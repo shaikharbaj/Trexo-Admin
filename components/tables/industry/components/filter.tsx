@@ -1,7 +1,6 @@
-import * as React from "react";
+import React, {useState, useEffect} from "react";
 import { Check } from "lucide-react";
 import { PlusCircle } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,32 +8,55 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { Column } from "@tanstack/react-table";
+import { filterStatus } from "@/service/datatable.service";
+
 interface Option {
   value: any;
   label: string;
   icon?: React.ComponentType<{ className?: string }>;
 }
+
 interface FilterProps {
-  column: Column<any, any>;
   title: string;
   options: Option[];
 }
-export function Filter({ column, title, options }: FilterProps) {
-  const facets = column?.getFacetedUniqueValues();
-  const selectedValues = new Set(column?.getFilterValue() as string[]);
+
+export function Filter({ title, options }: FilterProps) {
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
+  useEffect(() => {
+    handelFilter();
+  },[selectedValues]);
+
+  //Function to handel filter
+  const handelFilter = async () => {
+    await filterStatus(selectedValues);
+  };
+
+  //Function to handel value selection
+  const handelSelect = (valueToAdd: any) => {
+    setSelectedValues((prevValues) => [...prevValues, valueToAdd]);
+  };
+
+  //Function to handel value un selection
+  const handelUnSelect = (valueToRemove: Boolean | String) => {
+    setSelectedValues((prevValues) => prevValues.filter(value => value !== valueToRemove));
+  }
+
+  //Function to clear filter
+  const handelClear = () => {
+    setSelectedValues([]);
+  }
 
   return (
     <Popover>
@@ -42,26 +64,26 @@ export function Filter({ column, title, options }: FilterProps) {
         <Button variant="outline" size="sm" className="h-8">
           <PlusCircle className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
           {title}
-          {selectedValues?.size > 0 && (
+          {selectedValues.length > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
                 color="secondary"
                 className="rounded-sm px-1 font-normal lg:hidden"
               >
-                {selectedValues.size}
+                {selectedValues.length}
               </Badge>
               <div className="hidden space-x-1 rtl:space-x-reverse lg:flex">
-                {selectedValues.size > 2 ? (
+                {selectedValues.length > 2 ? (
                   <Badge
                     color="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+                    {selectedValues.length} selected
                   </Badge>
                 ) : (
                   options
-                    .filter((option: Option) => selectedValues.has(option.value))
+                    .filter((option: Option) => selectedValues.includes(option.value))
                     .map((option) => (
                       <Badge
                         color="secondary"
@@ -79,25 +101,21 @@ export function Filter({ column, title, options }: FilterProps) {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
-          <CommandInput placeholder={title} />
+          {/* <CommandInput placeholder={title} /> */}
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options.map((option: Option) => {
-                const isSelected = selectedValues.has(option.value);
+                const isSelected = selectedValues.find((val: any) => val === option.value);
                 return (
                   <CommandItem
                     key={option.value}
                     onSelect={() => {
                       if (isSelected) {
-                        selectedValues.delete(option.value);
+                        handelUnSelect(option.value);
                       } else {
-                        selectedValues.add(option.value);
+                        handelSelect(option.value);
                       }
-                      const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
-                      );
                     }}
                   >
                     <div
@@ -114,21 +132,16 @@ export function Filter({ column, title, options }: FilterProps) {
                       <option.icon className="ltr:mr-2 rtl:ml-2 h-4 w-4 text-muted-foreground" />
                     )}
                     <span>{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ltr:ml-auto rtl:mr-auto flex h-4 w-4 items-center justify-center text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
                   </CommandItem>
                 );
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
+            {selectedValues.length > 0 && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={handelClear}
                     className="justify-center text-center"
                   >
                     Clear filters

@@ -31,10 +31,17 @@ interface DataTableProps<TData> {
   data: TData[];
   isLoading: boolean;
 }
-export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TData>) {
+export function DataTable<TData>({
+  columns,
+  data,
+  isLoading,
+}: DataTableProps<TData>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -52,7 +59,8 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    //getFilteredRowModel: getFilteredRowModel(),
+    manualFiltering: true,
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
@@ -61,7 +69,7 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
 
   return (
     <div className="space-y-4">
-      {/* <Toolbar table={table} /> */}
+      <Toolbar table={table} />
       {!isLoading ? (
         <>
           <div className="rounded-md border">
@@ -75,9 +83,9 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       );
                     })}
@@ -116,7 +124,9 @@ export function DataTable<TData>({ columns, data, isLoading }: DataTableProps<TD
           </div>
           <DataTablePagination table={table} />
         </>
-      ) : (<Skeleton />)}
+      ) : (
+        <Skeleton />
+      )}
     </div>
   );
 }

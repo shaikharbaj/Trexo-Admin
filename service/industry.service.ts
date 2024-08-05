@@ -1,3 +1,4 @@
+import { refreshData } from "@/redux/slice/datatable.slice";
 import { setPagination } from "@/redux/slice/paginate.slice";
 import { store } from "@/redux/store";
 import { createIndustryThunk, deleteIndustryThunk, fetchIndustryByIdThunk, industryListThunk, updateIndustryThunk } from "@/redux/thunk/industry.thunk";
@@ -26,6 +27,7 @@ export const createIndustry = async (createPayload: any) => {
     if (payload?.status !== true) {
       return { status: payload?.status, statusCode: payload?.statusCode, message: payload?.message };
     }
+    store.dispatch(refreshData());
     return { status: payload?.status, statusCode: payload?.statusCode, message: payload?.message };
   } catch (error: any) {
     throw new Error(
@@ -71,6 +73,7 @@ export const deleteIndustry = async (deletePayload: any) => {
     if (payload?.status !== true) {
       return { status: payload?.status, statusCode: payload?.statusCode, message: payload?.message };
     }
+    store.dispatch(refreshData());
     return { status: payload?.status, statusCode: payload?.statusCode, message: payload?.message };
   } catch (error: any) {
     throw new Error(

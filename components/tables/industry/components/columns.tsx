@@ -51,6 +51,14 @@ export const columns: ColumnDef<Industry>[] = [
         </div>
       );
     },
+    filterFn: (row, id, value) => {      
+      // console.log('in header filetr function ');
+      // console.log('row ', row);
+      // console.log('id ', id);
+      // console.log('value ', value);
+      // return true;
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "is_active",
@@ -70,12 +78,19 @@ export const columns: ColumnDef<Industry>[] = [
         </div>
       );
     },
-    filterFn: (row, id, value) => {      
+    filterFn: (row, id, value) => {     
+      // console.log('in status filetr function ');
+      // console.log('row ', row);
+      // console.log('id ', id);
+      // console.log('value ', value);
+      // return true; 
       return value.includes(row.getValue(id));
     },
   },
   {
-    id: "actions",
+    id: "action",
     cell: ({ row }) => <RowActions row={row} />,
+    enableSorting: false,
+    enableHiding: false,
   },
 ];

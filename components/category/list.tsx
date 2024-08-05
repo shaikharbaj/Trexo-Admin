@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,14 +9,10 @@ import { CreateUpdateCategoryModal } from "@/components/modals";
 import { CategoryTable } from "@/components/tables";
 
 interface ICategoryProps {
-    trans: {
-        [key: string]: string;
-    };
 }
 
-const CategoryList: React.FunctionComponent<ICategoryProps> = ({
-    trans,
-}) => {
+const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
+    const t = useTranslations("IndustryPage");
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     return (
         <div className="space-y-6">
@@ -46,7 +43,7 @@ const CategoryList: React.FunctionComponent<ICategoryProps> = ({
             <div className="grid grid-cols-1 gap-6">
                 <Card>
                     <CardContent className="pt-6">
-                        <CategoryTable trans={trans} />
+                        <CategoryTable trans={t} />
                     </CardContent>
                 </Card>
             </div>

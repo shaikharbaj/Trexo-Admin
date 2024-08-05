@@ -1,10 +1,12 @@
+import { Table } from "@tanstack/react-table";
 import {
   ChevronsLeft,
   ChevronRight,
   ChevronLeft,
   ChevronsRight,
 } from "lucide-react";
-
+import { RootState } from "@/redux/store";
+import { useAppSelector } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,17 +15,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Table } from "@tanstack/react-table";
-import { RootState } from "@/redux/store";
-import { useAppSelector } from "@/hooks";
-import { navigatePage, setPage } from "@/service/pagination.service";
+import { navigatePage, setPage } from "@/service/datatable.service";
 
 interface DataTablePaginationProps {
   table: Table<any>;
 }
 
 export function DataTablePagination({ table }: DataTablePaginationProps) {
-  const { meta } = useAppSelector((state: RootState) => state.paginate);
+  const { pagination } = useAppSelector(
+    (state: RootState) => state.datatable
+  );
 
   // Helper functions to handle pagination
   const handlePageSizeChange = async (value: string) => {
@@ -34,6 +35,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
     }
   };
 
+  // Function to handle pagination
   const goToPage = async (pageIndex: number) => {
     try {
       await navigatePage(pageIndex);
@@ -52,11 +54,11 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">Rows per page</p>
           <Select
-            value={meta.perPage.toString()}
+            value={pagination.perPage.toString()}
             onValueChange={handlePageSizeChange}
           >
             <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue placeholder={meta.perPage.toString()} />
+              <SelectValue placeholder={pagination.perPage.toString()} />
             </SelectTrigger>
             <SelectContent side="top">
               {[10, 20, 30, 40, 50].map((pageSize) => (
@@ -68,14 +70,14 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium text-muted-foreground">
-          Page {meta.currentPage} of {meta.lastPage}
+          Page {pagination.currentPage} of {pagination.lastPage}
         </div>
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={() => goToPage(1)}
-            disabled={meta.currentPage === 1}
+            disabled={pagination.currentPage === 1}
           >
             <span className="sr-only">Go to first page</span>
             <ChevronsLeft className="h-4 w-4 rtl:rotate-180" />
@@ -83,8 +85,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => goToPage(meta.currentPage - 1)}
-            disabled={meta.currentPage === 1}
+            onClick={() => goToPage(pagination.currentPage - 1)}
+            disabled={pagination.currentPage === 1}
           >
             <span className="sr-only">Go to previous page</span>
             <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
@@ -92,8 +94,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => goToPage(meta.currentPage + 1)}
-            disabled={meta.currentPage === meta.lastPage}
+            onClick={() => goToPage(pagination.currentPage + 1)}
+            disabled={pagination.currentPage === pagination.lastPage}
           >
             <span className="sr-only">Go to next page</span>
             <ChevronRight className="h-4 w-4 rtl:rotate-180" />
@@ -101,8 +103,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => goToPage(meta.lastPage)}
-            disabled={meta.currentPage === meta.lastPage}
+            onClick={() => goToPage(pagination.lastPage)}
+            disabled={pagination.currentPage === pagination.lastPage}
           >
             <span className="sr-only">Go to last page</span>
             <ChevronsRight className="h-4 w-4 rtl:rotate-180" />

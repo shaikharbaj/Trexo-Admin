@@ -1,6 +1,6 @@
+import queryString from "query-string";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { privateClient } from "@/http/http-client";
-import queryString from "query-string";
 
 //Thunk to fetch industry list
 interface IListPayload {
@@ -34,7 +34,7 @@ export const createIndustryThunk = createAsyncThunk(
   "industry/create",
   async (payload: ICreateIndustryPayload) => {
     try {
-      const res = await privateClient.post('/industry', payload);
+      const res = await privateClient.post("/industry", payload);
       return res.data;
     } catch (error: any) {
       if (error?.response?.data) {
