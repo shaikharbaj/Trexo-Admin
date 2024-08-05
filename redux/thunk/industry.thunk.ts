@@ -45,7 +45,52 @@ export const createIndustryThunk = createAsyncThunk(
   }
 );
 
-//Thunk to create industry
+//Thunk to fetch industry by id
+interface IFetchIndustryByIdPayload {
+  industry_name: string;
+}
+
+export const fetchIndustryByIdThunk = createAsyncThunk(
+  "industry/fetchById",
+  async (payload: IFetchIndustryByIdPayload) => {
+    try {
+      const res = await privateClient.get(`/industry/${payload}`);
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+//Thunk to update industry
+interface IUpdateIndustryPayload {
+  industry_name: string;
+}
+
+interface IUpdateIndustryParams {
+  uuid: string;
+  payload: IUpdateIndustryPayload;
+}
+
+export const updateIndustryThunk = createAsyncThunk(
+  "industry/update",
+  async ({ uuid, payload }: IUpdateIndustryParams) => {
+    try {
+      const res = await privateClient.patch(`/industry/${uuid}`, payload);
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+//Thunk to delete industry
 interface IDeleteIndustryPayload {
   uuid: string;
 }
