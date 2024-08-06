@@ -16,6 +16,7 @@ const initialState = {
   isLoading: false,
   refresh: false,
   data: [],
+  isFilterEnable: false,
   filters: {
     searchText: "",
     is_active: "",
@@ -47,6 +48,7 @@ export const datatable = createSlice({
         searchText: action.payload
       }
       state.pagination.currentPage = 1;
+      state.isFilterEnable = true;
     },
     setStatus: (state, action: PayloadAction<any>) => {
       state.filters = {
@@ -54,6 +56,9 @@ export const datatable = createSlice({
         is_active: action.payload
       }
       state.pagination.currentPage = 1;
+      if(action.payload) {
+        state.isFilterEnable = true;
+      }
     },
     setSorting: (state, action: PayloadAction<any>) => {
       state.filters = {
@@ -62,10 +67,13 @@ export const datatable = createSlice({
         sortColumn: action.payload?.sortColumn
       }
       state.pagination.currentPage = 1;
+      state.isFilterEnable = true;
     },
     resetFilter: (state) => {
+      state.refresh = !state.refresh;
       state.filters = initialState.filters;
       state.pagination = initialState.pagination;
+      state.isFilterEnable = initialState.isFilterEnable;
     },
     refreshData: (state) => {
       state.refresh = !state.refresh;

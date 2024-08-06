@@ -77,7 +77,7 @@ export const columns: ColumnDef<Industry>[] = [
       return value.includes(row.getValue(id));
     },
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
   {
     id: "action",

@@ -6,11 +6,12 @@ import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter } from "./filter";
-import { filterSearchText } from "@/service/datatable.service";
+import { clearFilter, filterSearchText } from "@/service/datatable.service";
 import { DataTableViewOptions } from "@/components/data-table/components/data-table-view-options";
 
 interface ToolbarProps {
   table: Table<any>;
+  isFilterEnable: boolean;
 }
 
 const statusOptions = [
@@ -29,13 +30,21 @@ const viewOptionLabel = {
   is_active: "Status"
 }
 
-export function Toolbar({ table }: ToolbarProps) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
 
   //Function to handel global filter
   const handleFilterChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       await filterSearchText(event.target.value);
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
+  };
+
+  //Function to handel reset filter
+  const handelResetFilter = async () => {
+    try {
+      await clearFilter();
     } catch (error: any) {
       toast.error(error?.message);
     }
@@ -55,10 +64,10 @@ export function Toolbar({ table }: ToolbarProps) {
           options={statusOptions}
         />
       )}
-      {isFiltered && (
+      {isFilterEnable && (
         <Button
           variant="outline"
-          onClick={() => table.resetColumnFilters()}
+          onClick={handelResetFilter}
           className="h-8 px-2 lg:px-3"
         >
           Reset
