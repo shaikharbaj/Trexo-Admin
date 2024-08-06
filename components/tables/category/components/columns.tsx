@@ -1,7 +1,7 @@
 "use client";
+import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 
@@ -37,56 +37,64 @@ export const columns: ColumnDef<Industry>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "category_name",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Category" />
+    ),
+    cell: ({ row }) => {
+      if(row.getValue("category_name")) {
+        return (
+          <div className="flex gap-2">
+            <span className="max-w-[500px] truncate font-medium">
+              {row.getValue("category_name")}
+            </span>
+          </div>
+        );
+      }
+      return "N/A";
+    },
+  },
+  {
     accessorKey: "industry",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Industry" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex gap-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("industry")}
-          </span>
-        </div>
-      );
+      let industryObj: any = row.getValue('industry');
+      if(industryObj?.industry_name) {
+        return (
+          <div className="flex gap-2">
+            <span className="max-w-[500px] truncate font-medium">
+              {industryObj.industry_name}
+            </span>
+          </div>
+        );
+      }
+      return 'N/A'
     },
   },
   {
-    accessorKey: "category",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Category" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("category")}
-          </span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "status",
+    accessorKey: "is_active",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
+      let isActiveValue = row.getValue('is_active');
       return (
         <div className="flex items-center">
           <Badge
             color={
-              (row.getValue('status') === "active" && "success") ||
-              (row.getValue('status') === "inactive" && "destructive") || "default"
+              (isActiveValue === true && "success") ||
+              (isActiveValue === false && "destructive") || "default"
             }>
-            {row.getValue('status')}
+            {isActiveValue === true ? 'Active' : "Inactive"}
           </Badge>
         </div>
       );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
+    }
+    // filterFn: (row, id, value) => {
+    //   return value.includes(row.getValue(id));
+    // },
   },
   {
     id: "actions",
