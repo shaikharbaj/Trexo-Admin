@@ -70,9 +70,9 @@ export const filterStatus = async (value: String[]) => {
 };
 
 //Function to sort column
-export const sortColumn = async (column: string, order: string) => {
+export const sortColumn = async (sortColumn: string, sortBy: string) => {
   try {
-    store.dispatch(setSorting({column, order}));
+    store.dispatch(setSorting({sortColumn, sortBy}));
   } catch (error: any) {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
