@@ -1,11 +1,11 @@
 "use client";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import { RootState } from "@/redux/store";
 import { useAppSelector } from "@/hooks";
-import { useMounted } from "@/hooks/use-mounted";
 import { logout } from "@/service/auth.service";
 import { fetchProfile } from "@/service/profile.service";
 import {
@@ -25,14 +25,13 @@ import avatar5 from "@/public/images/avatar/avatar-5.jpg";
 
 const ProfileInfo = () => {
   const navigation = useRouter();
-  const mounted = useMounted();
   const {isProfileLoading, profile} = useAppSelector((state: RootState) => state.profile);
 
-  if(mounted) {
+  useEffect(() => {
     if(Object.keys(profile).length === 0 || profile?.uuid === undefined) {
       fetchProfile();
     }
-  } 
+  },[]);
 
   //Function to handel logout
   const handelLogout = () => {
