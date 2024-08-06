@@ -29,10 +29,10 @@ export function ColumnHeader({ column, title, className, slug }: ColumnHeaderPro
     return <div className={cn(className)}>{title}</div>;
   }
 
-  const handleSorting = async (name: string, order: string) => {
+  const handleSorting = async (sortColumnBy: string, sortBy: string) => {
     try {
-      await sortColumn(name,order);
-    } catch (error:any) {
+      await sortColumn(sortColumnBy, sortBy);
+    } catch (error: any) {
       toast.error(error?.message);
     }
   }
