@@ -91,7 +91,9 @@ export const columns: ColumnDef<Industry>[] = [
           </Badge>
         </div>
       );
-    }
+    },
+    enableSorting: false,
+    enableHiding: false,
     // filterFn: (row, id, value) => {
     //   return value.includes(row.getValue(id));
     // },

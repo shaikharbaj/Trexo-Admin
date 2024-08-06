@@ -19,8 +19,8 @@ const initialState = {
   filters: {
     searchText: "",
     is_active: "",
+    sortColumn: "id",
     sortBy: "desc",
-    sortColumn: "id"
   },
   pagination: {
     currentPage: tableConfig.currentPage,

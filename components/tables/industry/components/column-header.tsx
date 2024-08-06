@@ -1,9 +1,4 @@
-import {
-  ChevronDown,
-  ChevronUp,
-  XCircle,
-  Eye,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, XCircle, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,19 +19,26 @@ interface ColumnHeaderProps {
   className?: string;
 }
 
-export function ColumnHeader({ column, title, className, slug }: ColumnHeaderProps) {
+export function ColumnHeader({
+  column,
+  title,
+  className,
+  slug,
+}: ColumnHeaderProps) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
 
+  //Function to handel sorting
   const handleSorting = async (sortColumnBy: string, sortBy: string) => {
     try {
       await sortColumn(sortColumnBy, sortBy);
+      column.toggleSorting(sortBy === 'asc');
     } catch (error: any) {
       toast.error(error?.message);
     }
-  }
-
+  };
+  
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
@@ -56,18 +58,16 @@ export function ColumnHeader({ column, title, className, slug }: ColumnHeaderPro
             )}
           </Button>
         </DropdownMenuTrigger>
-        {slug && (
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem onClick={() => handleSorting(slug, 'asc')}>
-              <ChevronUp className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Asc
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSorting(slug, 'desc')}>
-              <ChevronDown className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Desc
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        )}
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem onClick={() => handleSorting(column.id, "asc")}>
+            <ChevronUp className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            Asc
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleSorting(column.id, "desc")}>
+            <ChevronDown className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            Desc
+          </DropdownMenuItem>
+        </DropdownMenuContent>
       </DropdownMenu>
     </div>
   );

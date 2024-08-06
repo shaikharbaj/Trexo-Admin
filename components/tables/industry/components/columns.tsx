@@ -52,11 +52,6 @@ export const columns: ColumnDef<Industry>[] = [
       );
     },
     filterFn: (row, id, value) => {      
-      // console.log('in header filetr function ');
-      // console.log('row ', row);
-      // console.log('id ', id);
-      // console.log('value ', value);
-      // return true;
       return value.includes(row.getValue(id));
     },
   },
@@ -79,13 +74,10 @@ export const columns: ColumnDef<Industry>[] = [
       );
     },
     filterFn: (row, id, value) => {     
-      // console.log('in status filetr function ');
-      // console.log('row ', row);
-      // console.log('id ', id);
-      // console.log('value ', value);
-      // return true; 
       return value.includes(row.getValue(id));
     },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     id: "action",
