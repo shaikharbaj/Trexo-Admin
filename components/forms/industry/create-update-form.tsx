@@ -16,14 +16,14 @@ const IndustryForm: React.FC<IFormProps> = ({
     reset,
     onSubmit,
     isPending,
-}) => {    
+}) => {
     return (
-        <div className=" space-y-3">
-            <form id="industry-form" onSubmit={onSubmit}>
+        <form id="industry-form" onSubmit={onSubmit}>
+            <div className=" space-y-3">
                 <div className="flex flex-col gap-2">
                     <Label>Industry Name</Label>
                     <Input
-                    disabled={isPending}
+                        disabled={isPending}
                         type="text"
                         size="lg"
                         placeholder="Enter industry name"
@@ -35,8 +35,8 @@ const IndustryForm: React.FC<IFormProps> = ({
                         </div>
                     )}
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 
