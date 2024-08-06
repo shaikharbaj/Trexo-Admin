@@ -24,6 +24,12 @@ const statusOptions = [
   },
 ];
 
+const viewOptionLabel = {
+  category_name: "Category",
+  industry: "Industry",
+  is_active: "Status"
+}
+
 export function Toolbar({ table }: ToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -47,10 +53,7 @@ export function Toolbar({ table }: ToolbarProps) {
       />
 
       {statusOptions.length && (
-        <Filter
-          title="Status"
-          options={statusOptions}
-        />
+        <Filter title="Status" options={statusOptions} />
       )}
       {isFiltered && (
         <Button
@@ -62,7 +65,7 @@ export function Toolbar({ table }: ToolbarProps) {
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions table={table} />
+      <DataTableViewOptions table={table} optionLabel={viewOptionLabel} />
     </div>
   );
 }
