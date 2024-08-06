@@ -24,6 +24,11 @@ const statusOptions = [
   }
 ];
 
+const viewOptionLabel = {
+  industry_name: "Industry",
+  is_active: "Status"
+}
+
 export function Toolbar({ table }: ToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -60,7 +65,7 @@ export function Toolbar({ table }: ToolbarProps) {
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions table={table} />
+      <DataTableViewOptions table={table} optionLabel={viewOptionLabel} />
     </div>
 
   );
