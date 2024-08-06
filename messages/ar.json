@@ -15,5 +15,17 @@
     "back": "خلف",
     "dashboard": "لوحة القيادة",
     "analytics": "تحليلات"
+  },
+  "IndustryPage": {
+    "Dashboard": "Dashboard",
+    "Master": "Master",
+    "Industry": "Industry",
+    "Add New": "Add New"
+  },
+  "CategoryPage": {
+    "Dashboard": "Dashboard",
+    "Master": "Master",
+    "Catyegory": "Catyegory",
+    "Add New": "Add New"
   }
 }

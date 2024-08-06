@@ -40,7 +40,7 @@ export const columns: ColumnDef<Industry>[] = [
   {
     accessorKey: "industry_name",
     header: ({ column }) => (
-      <ColumnHeader column={column} title="Industry Name" />
+      <ColumnHeader column={column} slug="industry_name" title="Industry Name" />
     ),
     cell: ({ row }) => {
       return (
@@ -52,11 +52,6 @@ export const columns: ColumnDef<Industry>[] = [
       );
     },
     filterFn: (row, id, value) => {      
-      // console.log('in header filetr function ');
-      // console.log('row ', row);
-      // console.log('id ', id);
-      // console.log('value ', value);
-      // return true;
       return value.includes(row.getValue(id));
     },
   },
@@ -79,13 +74,10 @@ export const columns: ColumnDef<Industry>[] = [
       );
     },
     filterFn: (row, id, value) => {     
-      // console.log('in status filetr function ');
-      // console.log('row ', row);
-      // console.log('id ', id);
-      // console.log('value ', value);
-      // return true; 
       return value.includes(row.getValue(id));
     },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     id: "action",

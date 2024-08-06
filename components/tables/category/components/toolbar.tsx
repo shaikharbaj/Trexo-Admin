@@ -1,9 +1,12 @@
 "use client";
+import React from "react";
+import { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
+import toast from "react-hot-toast";
+import { filterSearchText } from "@/service/datatable.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "../../../dataTable/components/data-table-view-options";
-import { Table } from "@tanstack/react-table";
+import { DataTableViewOptions } from "@/components/data-table/components/data-table-view-options";
 import { Filter } from "./filter";
 
 interface ToolbarProps {
@@ -12,38 +15,45 @@ interface ToolbarProps {
 
 const statusOptions = [
   {
-    value:"active",
-    label:"Active"
+    value: "true",
+    label: "Active",
   },
   {
-    value:"inactive",
-    label:"Inactive"
-  }
-]
+    value: "false",
+    label: "Inactive",
+  },
+];
+
+const viewOptionLabel = {
+  category_name: "Category",
+  industry: "Industry",
+  is_active: "Status"
+}
 
 export function Toolbar({ table }: ToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0;
-  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    table.getColumn("category")?.setFilterValue(value);
+
+  //Function to handel global filter
+  const handleFilterChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    try {
+      await filterSearchText(event.target.value);
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
   };
-  const statusColumn = table.getColumn("status");
 
   return (
     <div className="flex flex-1 flex-wrap items-center gap-2">
       <Input
-        placeholder="Filter tasks..."
-        value={table.getColumn("category")?.getFilterValue() as string || ""}
+        placeholder="Search..."
         onChange={handleFilterChange}
         className="h-8 min-w-[200px] max-w-sm"
       />
 
-      {statusColumn && (
-        <Filter
-          column={statusColumn}
-          title="Status"
-          options={statusOptions}
-        />
+      {statusOptions.length && (
+        <Filter title="Status" options={statusOptions} />
       )}
       {isFiltered && (
         <Button
@@ -55,8 +65,7 @@ export function Toolbar({ table }: ToolbarProps) {
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions table={table} />
+      <DataTableViewOptions table={table} optionLabel={viewOptionLabel} />
     </div>
-
   );
 }

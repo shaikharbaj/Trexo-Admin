@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  createIndustryThunk,
-  deleteIndustryThunk,
-  industryListThunk,
-} from "../thunk/industry.thunk";
 import { fetchDataThunk } from "../thunk/datatable.thunk";
 import { tableConfig } from "@/config/table.config";
+import { sortColumn } from "@/service/datatable.service";
 
 interface Meta {
   currentPage: number;
@@ -22,7 +18,9 @@ const initialState = {
   data: [],
   filters: {
     searchText: "",
-    is_active: ""
+    is_active: "",
+    sortColumn: "id",
+    sortBy: "desc",
   },
   pagination: {
     currentPage: tableConfig.currentPage,
@@ -54,6 +52,14 @@ export const datatable = createSlice({
       state.filters = {
         ...state.filters,
         is_active: action.payload
+      }
+      state.pagination.currentPage = 1;
+    },
+    setSorting: (state, action: PayloadAction<any>) => {
+      state.filters = {
+        ...state.filters,
+        sortBy: action.payload?.sortBy,
+        sortColumn: action.payload?.sortColumn
       }
       state.pagination.currentPage = 1;
     },
@@ -110,6 +116,7 @@ export const {
   resetData,
   setSearchText,
   setStatus,
+  setSorting,
   resetFilter,
   refreshData,
   setPagination,

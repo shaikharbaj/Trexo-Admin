@@ -7,8 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { deleteIndustry } from "@/service/industry.service";
+import { deleteIndustry, fetchIndustryById } from "@/service/industry.service";
 import toast from "react-hot-toast";
+import { openPopup } from "@/service/modal.service";
 
 interface RowActionsProps {
   row: Row<any>;
@@ -29,6 +30,17 @@ export function RowActions({ row }: RowActionsProps) {
     }
   }
 
+  const handleOpenModal = async (uuid: string) => {
+    try {
+      const response: any = await fetchIndustryById(uuid);
+      if (response?.status === true && response?.statusCode === 200) {
+        await openPopup('industry', 'Edit Industry', 'edit', response.data);
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,7 +53,7 @@ export function RowActions({ row }: RowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleOpenModal(row.original.uuid)}>Edit</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleRecordDelete(row.original.uuid)}>Delete
         </DropdownMenuItem>

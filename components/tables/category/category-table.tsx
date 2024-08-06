@@ -1,33 +1,96 @@
-import React, { Fragment } from 'react';
-import { DataTable } from './components/data-table';
-import { columns } from './components/columns';
+import React, { useEffect } from "react";
+import {
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import toast from "react-hot-toast";
+import { fetchTableData } from "@/service/datatable.service";
+import { RootState } from "@/redux/store";
+import { useAppSelector } from "@/hooks";
+import { DataTable } from "@/components/data-table"
+import { Toolbar } from "./components/toolbar";
+import { columns } from "./components/columns";
+
 
 interface ITableProps {
-    trans: any;
+  trans: any;
 }
-
-const data = [
-    {
-        industry: "Solar",
-        category: "Solar Panels",
-        status: "active",
-    },
-    {
-        industry: "HealthCare",
-        category: "Medical Equipments",
-        status: "inactive",
-    }
-]
 
 const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
-    return (
-        <Fragment>
-            <DataTable
-                data={data}
-                columns={columns}
-            />
-        </Fragment>
-    )
-}
+  const { isLoading, refresh, data, filters, pagination } = useAppSelector(
+    (state: RootState) => state.datatable
+  );
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
+      columnVisibility,
+      rowSelection,
+      columnFilters,
+    },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    getCoreRowModel: getCoreRowModel(),
+    //getFilteredRowModel: getFilteredRowModel(),
+    manualFiltering: true,
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+  });
+
+  useEffect(() => {
+    handleFetchCategory();
+  }, [
+    filters.searchText,
+    filters.is_active,
+    pagination.currentPage,
+    pagination.perPage,
+  ]);
+
+  // Function to fetch industry data
+  const handleFetchCategory = async () => {
+    try {
+      const datatablePayload = {
+        url: "/category",
+        page_size: pagination.perPage,
+        page: pagination.currentPage,
+        searchText: filters.searchText,
+        is_active: filters.is_active,
+      };
+      const response = await fetchTableData(datatablePayload);
+      if (response?.status !== true && response?.statusCode !== 200) {
+        toast.error(response?.message);
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
+  };
+
+  return (
+    <div className="space-y-4" key={String(refresh)}>
+        <Toolbar table={table} />
+        <DataTable isLoading={isLoading} tableObj={table} />
+    </div>
+  );
+};
 
 export default CategoryTable;

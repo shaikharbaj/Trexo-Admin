@@ -1,9 +1,4 @@
-import {
-  ChevronDown,
-  ChevronUp,
-  XCircle,
-  Eye,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, XCircle, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,18 +9,36 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Column } from "@tanstack/react-table";
+import { sortColumn } from "@/service/datatable.service";
+import toast from "react-hot-toast";
 
 interface ColumnHeaderProps {
   column: Column<any, any>;
   title: string;
+  slug?: string;
   className?: string;
 }
 
-export function ColumnHeader({ column, title, className }:ColumnHeaderProps) {
+export function ColumnHeader({
+  column,
+  title,
+  className,
+  slug,
+}: ColumnHeaderProps) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
 
+  //Function to handel sorting
+  const handleSorting = async (sortColumnBy: string, sortBy: string) => {
+    try {
+      await sortColumn(sortColumnBy, sortBy);
+      column.toggleSorting(sortBy === 'asc');
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
+  };
+  
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
@@ -41,23 +54,18 @@ export function ColumnHeader({ column, title, className }:ColumnHeaderProps) {
             ) : column.getIsSorted() === "asc" ? (
               <ChevronUp className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
             ) : (
-              <XCircle className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
+              <></>
             )}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+          <DropdownMenuItem onClick={() => handleSorting(column.id, "asc")}>
             <ChevronUp className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Asc
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+          <DropdownMenuItem onClick={() => handleSorting(column.id, "desc")}>
             <ChevronDown className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Desc
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-            <Eye className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
-            Hide
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

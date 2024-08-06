@@ -1,5 +1,5 @@
 "use client";
-
+import { Table } from "@tanstack/react-table";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,13 +10,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Table } from "@tanstack/react-table";
 
 interface DataTableViewOptionsProps {
   table: Table<any>;
+  optionLabel: any;
 }
 
-export function DataTableViewOptions({ table }: DataTableViewOptionsProps) {  
+export function DataTableViewOptions({ table, optionLabel }: DataTableViewOptionsProps) {  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,15 +38,15 @@ export function DataTableViewOptions({ table }: DataTableViewOptionsProps) {
             (column) =>
               typeof column.accessorFn !== "undefined" && column.getCanHide()
           )
-          .map((column) => {            
+          .map((column) => {         
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
-                className="capitalize"
+                //className="capitalize"
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+               {(optionLabel[column.id]) ? optionLabel[column.id] : column.id}
               </DropdownMenuCheckboxItem>
             );
           })}

@@ -5,9 +5,9 @@ import toast from "react-hot-toast";
 import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "../../../dataTable/components/data-table-view-options";
 import { Filter } from "./filter";
 import { filterSearchText } from "@/service/datatable.service";
+import { DataTableViewOptions } from "@/components/data-table/components/data-table-view-options";
 
 interface ToolbarProps {
   table: Table<any>;
@@ -23,6 +23,11 @@ const statusOptions = [
     label: "Inactive"
   }
 ];
+
+const viewOptionLabel = {
+  industry_name: "Industry",
+  is_active: "Status"
+}
 
 export function Toolbar({ table }: ToolbarProps) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -60,7 +65,7 @@ export function Toolbar({ table }: ToolbarProps) {
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions table={table} />
+      <DataTableViewOptions table={table} optionLabel={viewOptionLabel} />
     </div>
 
   );
