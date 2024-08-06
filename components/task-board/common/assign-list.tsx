@@ -19,7 +19,7 @@ const list = [
     name: "Project Title",
   },
   {
-    name: "Dashtail Admin Template",
+    name: "Trexopro",
   },
   {
     name: "User Template",
