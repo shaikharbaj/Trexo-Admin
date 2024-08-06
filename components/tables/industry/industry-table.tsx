@@ -51,7 +51,7 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
-    filters.order,
+    filters.sortBy,
     pagination.currentPage,
     pagination.perPage,
   ]);
@@ -65,8 +65,8 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
         page: pagination.currentPage,
         searchText: filters.searchText,
         is_active: filters.is_active,
-        order: filters.order,
-        column: filters.column,
+        sortBy: filters.sortBy,
+        sortColumn: filters.sortColumn,
       };
       const response = await fetchTableData(datatablePayload);
       if (response?.status !== true && response?.statusCode !== 200) {
