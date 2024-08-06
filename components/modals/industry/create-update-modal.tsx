@@ -7,28 +7,23 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { createIndustry } from "@/service/industry.service";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
+import { createIndustry, updateIndustry } from "@/service/industry.service";
+import { closePopup } from "@/service/modal.service";
 import { industrySchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-interface IModalProps {
-    modalIsOpen: boolean;
-    setModalIsOpen: (isOpen: boolean) => void;
-    action: string;
-}
+interface IModalProps {}
 
-const CreateUpdateIndustryModal: React.FC<IModalProps> = ({
-    modalIsOpen,
-    setModalIsOpen,
-    action
-}) => {
-
+const CreateUpdateIndustryModal: React.FC<IModalProps> = () => {
+    const { isOpen, modalName, modalTitle, action, data } = useAppSelector((state: RootState) => state.modal);
     const [isPending, startTransition] = React.useTransition();
-    const { handleSubmit, register, formState: { errors }, reset } = useForm({
+    const { handleSubmit, register, formState: { errors }, reset, setValue } = useForm({
         mode: 'all',
         resolver: zodResolver(industrySchema),
         defaultValues: {
@@ -36,29 +31,50 @@ const CreateUpdateIndustryModal: React.FC<IModalProps> = ({
         },
     });
 
-    const onSubmit = (payload: any) => {
+    useEffect(() => {
+        if (data) {
+            setValue('industry_name', data?.industry_name);
+        }
+    }, [data]);
+    
+
+
+    const onSubmit = async (payload: any) => {
         startTransition(async () => {
             try {
-                const response: any = await createIndustry(payload);
+                let response: any;
+    
+                if (action === 'add') {
+                    response = await createIndustry(payload);
+                } else {
+                    response = await updateIndustry(data?.uuid, payload);
+                }
+    
                 if (response?.status === true && response?.statusCode === 200) {
                     reset();
                     toast.success(response?.message);
-                    setModalIsOpen(false);
+                    await closePopup();
                 } else {
-                    toast.error(response?.message);
+                    toast.error(response?.message || "An error occurred.");
                 }
             } catch (error: any) {
-                toast.error(error?.message);
+                toast.error(error?.message || "An error occurred.");
             }
         });
+    };
+    
+
+    const handleModalClose = async () => {
+        reset();
+        await closePopup();
     }
 
     return (
-        <Dialog open={modalIsOpen}>
+        <Dialog open={modalName === 'industry' && isOpen}>
             <DialogContent size="lg" hiddenCloseIcon={true}>
                 <DialogHeader className="p-0 mb-4">
                     <DialogTitle className="font-medium pb-2 text-default-700 relative after:absolute after:h-0.5 after:rounded-md after:w-11 after:bg-primary after:left-0 after:bottom-0">
-                        {action} Industry
+                        {modalTitle}
                     </DialogTitle>
                 </DialogHeader>
                 <div>
@@ -76,7 +92,7 @@ const CreateUpdateIndustryModal: React.FC<IModalProps> = ({
                             <Button
                                 type="button"
                                 variant="outline"
-                                onClick={() => setModalIsOpen(false)}
+                                onClick={handleModalClose}
                             >
                                 Cancel
                             </Button>
