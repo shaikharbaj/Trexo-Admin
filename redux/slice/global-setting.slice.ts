@@ -40,18 +40,6 @@ export const global_setting = createSlice({
             .addCase(createGlobalSettingThunk.rejected, (state: any) => {
                 state.isLoading = false;
             });
-
-        builder
-            .addCase(deleteGlobalSettingThunk.pending, (state: any) => {
-                state.isLoading = true;
-            })
-            .addCase(deleteGlobalSettingThunk.fulfilled, (state: any) => {
-                state.isLoading = false;
-                state.refresh = !state.refresh;
-            })
-            .addCase(deleteGlobalSettingThunk.rejected, (state: any) => {
-                state.isLoading = false;
-            });
     },
 });
 
