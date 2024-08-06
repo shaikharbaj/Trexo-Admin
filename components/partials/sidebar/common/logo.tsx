@@ -1,6 +1,8 @@
 import { SiteLogo } from "@/components/svg";
 import { useSidebar } from "@/store";
+import Image from "next/image";
 import React from "react";
+import FavIcon from "@/public/images/all-img/fav-icon.png";
 
 const SidebarLogo = ({ hovered }: { hovered?: boolean }) => {
   const { sidebarType, setCollapsed, collapsed } = useSidebar();
@@ -8,10 +10,11 @@ const SidebarLogo = ({ hovered }: { hovered?: boolean }) => {
     <div className="px-4 py-4 ">
       <div className=" flex items-center">
         <div className="flex flex-1 items-center gap-x-3  ">
-          <SiteLogo className="text-primary h-8 w-8" />
+          {/* <SiteLogo className="text-primary h-8 w-8" /> */}
+          <Image src={FavIcon} alt="Company Fav icon" className="w-[39px] object-cover" priority={true} />
           {(!collapsed || hovered) && (
-            <div className="flex-1  text-xl text-primary  font-semibold">
-              DashTail
+            <div className="flex-1  text-xl">
+              <span className="text-primary font-extrabold">Trexo</span> <span className="text-gray-700 font-light">Pro</span>
             </div>
           )}
         </div>
