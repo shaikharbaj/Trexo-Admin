@@ -18,8 +18,8 @@ const initialState = {
   filters: {
     searchText: "",
     is_active: "",
-    sorting: "desc",
-    sortingColumn: "id"
+    order: "desc",
+    column: "id"
   },
   pagination: {
     currentPage: tableConfig.currentPage,
@@ -57,8 +57,8 @@ export const datatable = createSlice({
     setSorting: (state, action: PayloadAction<any>) => {
       state.filters = {
         ...state.filters,
-        sorting: action.payload,
-        sortingColumn: action.payload
+        order: action.payload?.order,
+        column: action.payload?.column
       }
       state.pagination.currentPage = 1;
     },
