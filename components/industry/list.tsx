@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
 import { useAppSelector } from "@/hooks";
@@ -9,14 +9,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CreateUpdateIndustryModal } from "@/components/modals";
 import { IndustryTable } from "@/components/tables";
+import { openPopup } from "@/service/modal.service";
 
-interface IIndustryProps {}
+interface IIndustryProps { }
 
 const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
   const t = useTranslations("IndustryPage");
   const { refresh } = useAppSelector((state: RootState) => state.datatable);
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  
+
+  const handleOpenModal = async () => {
+    await openPopup('industry', 'Add Industry', 'add');
+  };
+
+
   return (
     <div className="space-y-6">
       <div className="flex items-center flex-wrap justify-between gap-4">
@@ -32,18 +37,14 @@ const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
             {t("Industry")}
           </div>
           <div className="flex-none flex items-center justify-end gap-4">
-            <Button onClick={() => setModalIsOpen(true)}>
+            <Button onClick={handleOpenModal}>
               <Icon
                 icon="heroicons:plus"
                 className="w-5 h-5 ltr:mr-2 rtl:ml-2"
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateIndustryModal
-              modalIsOpen={modalIsOpen}
-              setModalIsOpen={setModalIsOpen}
-              action="Add"
-            />
+            <CreateUpdateIndustryModal />
           </div>
         </div>
       </div>
