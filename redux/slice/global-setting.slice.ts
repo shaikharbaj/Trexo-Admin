@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createGlobalSettingThunk, deleteGlobalSettingThunk, globalSettingListThunk } from "../thunk/global-setting.thunk";
+import { createGlobalSettingThunk, globalSettingListThunk } from "../thunk/global-setting.thunk";
 
 const initialState = {
     isLoading: false,
