@@ -113,16 +113,32 @@ const selectVariants = cva(
   }
 );
 
-const Select = SelectPrimitive.Root;
+type SelectProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
+  name?: string;
+  onChange?: (event: { target: { name: string; value: string } }) => void;
+};
+
+const Select = React.forwardRef<any, SelectProps>(({ children, name, onChange, ...props }, ref) => (
+  <SelectPrimitive.Root
+    {...props}
+    onValueChange={(value: string) => {
+      if (onChange && name) {
+        onChange({ target: { name, value } });
+      }
+    }}
+  >
+    {children}
+  </SelectPrimitive.Root>
+));
+
+Select.displayName = "Select";
 
 const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
-
-interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>,
-  VariantProps<typeof selectVariants> {
-  icon?: React.ReactNode
-  color?: 'default' | 'primary' | 'info' | 'warning' | 'success' | 'destructive'
+interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, VariantProps<typeof selectVariants> {
+  icon?: React.ReactNode;
+  color?: 'default' | 'primary' | 'info' | 'warning' | 'success' | 'destructive';
 }
 
 const SelectTrigger = React.forwardRef<
@@ -155,7 +171,8 @@ const SelectTrigger = React.forwardRef<
     </SelectPrimitive.Trigger>
   )
 );
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+
+SelectTrigger.displayName = "SelectTrigger";
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,

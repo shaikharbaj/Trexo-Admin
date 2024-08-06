@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
@@ -18,56 +17,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { globalSettingSchema } from "@/validations";
+import { createGlobalSetting } from "@/service/global-setting.service";
 
-interface IGlobalSettingFormProps {}
+interface IGlobalSettingFormProps { }
 
 const GlobalSettingForm: React.FunctionComponent<
   IGlobalSettingFormProps
 > = () => {
   const [isPending, startTransition] = React.useTransition();
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({
-    //resolver: zodResolver({}),
+    resolver: zodResolver(globalSettingSchema),
     mode: "all",
     defaultValues: {
-      site_title: "",
+      site_name: "",
       site_email: "",
-      invoice_email: "",
       phone: "",
-      otp_expiration_time: "",
+      meta_title: "",
+      meta_keyword: "",
+      meta_description: "",
+      otp_explore_time: "",
       revenue_percentage: "",
-      cgst: "",
-      sgst: "",
       currency_symbol: "",
-      local_time_zone: "",
-      email_enabled: "",
+      time_zone: "",
       address: "",
+      footer_content: "",
     },
   });
 
   //Function to handel form submit
   const onSubmit = (data: any) => {
+    data.otp_explore_time = parseInt(data.otp_explore_time);
+    data.revenue_percentage = parseInt(data.revenue_percentage);
+    console.log(data)
     startTransition(async () => {
-      console.log("data ", data);
-      toast.success("Login Successful");
-      // let response = await signIn("credentials", {
-      //   email: data.email,
-      //   password: data.password,
-      //   redirect: false,
-      // });
-      // console.log('response ', response);
-      // if (response?.ok) {
-      //   toast.success("Login Successful");
-      //   window.location.assign("/dashboard");
-      //   reset();
-      // } else if (response?.error) {
-      //   toast.error(response?.error);
-      // }
+      startTransition(async () => {
+        try {
+          const response: any = await createGlobalSetting(data);
+          if (response?.status === true && response?.statusCode === 200) {
+            toast.success(response?.message);
+          } else {
+            toast.error(response?.message);
+          }
+        } catch (error: any) {
+          toast.error(error?.message);
+        }
+      })
     });
   };
   return (
@@ -75,25 +77,25 @@ const GlobalSettingForm: React.FunctionComponent<
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-6 mt-6">
         <div>
           <Label
-            htmlFor="site_title"
+            htmlFor="site_name"
             className="text-sm font-medium text-default-600 mb-1"
           >
-            Site Title:
+            Site Name:
           </Label>
           <Input
             disabled={isPending}
-            {...register("site_title")}
+            {...register("site_name")}
             type="text"
-            id="site_title"
+            id="site_name"
             placeholder="TrexoPro"
             className={cn("", {
-              "border-destructive": errors.site_title,
+              "border-destructive": errors.site_name,
             })}
             size={!isDesktop2xl ? "xl" : "lg"}
           />
-          {errors?.site_title && (
+          {errors?.site_name && (
             <div className=" text-destructive mt-2">
-              {errors?.site_title?.message}
+              {errors?.site_name?.message}
             </div>
           )}
         </div>
@@ -123,30 +125,6 @@ const GlobalSettingForm: React.FunctionComponent<
         </div>
         <div>
           <Label
-            htmlFor="invoice_email"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
-            Invoice Email:
-          </Label>
-          <Input
-            disabled={isPending}
-            {...register("invoice_email")}
-            type="email"
-            id="invoice_email"
-            placeholder="spatel1katalysttech.com"
-            className={cn("", {
-              "border-destructive": errors.invoice_email,
-            })}
-            size={!isDesktop2xl ? "xl" : "lg"}
-          />
-          {errors?.invoice_email && (
-            <div className=" text-destructive mt-2">
-              {errors?.invoice_email?.message}
-            </div>
-          )}
-        </div>
-        <div>
-          <Label
             htmlFor="phone"
             className="text-sm font-medium text-default-600 mb-1"
           >
@@ -171,6 +149,56 @@ const GlobalSettingForm: React.FunctionComponent<
         </div>
         <div>
           <Label
+            htmlFor="meta_title"
+            className="text-sm font-medium text-default-600 mb-1"
+          >
+            Meta title:
+          </Label>
+          <Input
+            disabled={isPending}
+            {...register("meta_title")}
+            type="text"
+            id="meta_title"
+            placeholder="trexopro"
+            className={cn("", {
+              "border-destructive": errors.meta_title,
+            })}
+            size={!isDesktop2xl ? "xl" : "lg"}
+          />
+          {errors?.meta_title && (
+            <div className=" text-destructive mt-2">
+              {errors?.meta_title?.message}
+            </div>
+          )}
+        </div>
+        <div>
+          <Label
+            htmlFor="meta_keyword"
+            className="text-sm font-medium text-default-600 mb-1"
+          >
+            Meta keyword:
+          </Label>
+          <Input
+            disabled={isPending}
+            {...register("meta_keyword")}
+            type="text"
+            id="meta_keyword"
+            placeholder="ecommerce"
+            className={cn("", {
+              "border-destructive": errors.meta_keyword,
+            })}
+            size={!isDesktop2xl ? "xl" : "lg"}
+          />
+          {errors?.meta_keyword && (
+            <div className=" text-destructive mt-2">
+              {errors?.meta_keyword?.message}
+            </div>
+          )}
+        </div>
+
+
+        <div>
+          <Label
             htmlFor="otp_expiration_time"
             className="text-sm font-medium text-default-600 mb-1"
           >
@@ -178,18 +206,18 @@ const GlobalSettingForm: React.FunctionComponent<
           </Label>
           <Input
             disabled={isPending}
-            {...register("otp_expiration_time")}
+            {...register("otp_explore_time")}
             type="text"
             id="otp_expiration_time"
             placeholder="3"
             className={cn("", {
-              "border-destructive": errors.otp_expiration_time,
+              "border-destructive": errors.otp_explore_time,
             })}
             size={!isDesktop2xl ? "xl" : "lg"}
           />
-          {errors?.otp_expiration_time && (
+          {errors?.otp_explore_time && (
             <div className=" text-destructive mt-2">
-              {errors?.otp_expiration_time?.message}
+              {errors?.otp_explore_time?.message}
             </div>
           )}
         </div>
@@ -217,54 +245,7 @@ const GlobalSettingForm: React.FunctionComponent<
             </div>
           )}
         </div>
-        <div>
-          <Label
-            htmlFor="cgst"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
-            CGST:
-          </Label>
-          <Input
-            disabled={isPending}
-            {...register("cgst")}
-            type="text"
-            id="cgst"
-            placeholder="9"
-            className={cn("", {
-              "border-destructive": errors.cgst,
-            })}
-            size={!isDesktop2xl ? "xl" : "lg"}
-          />
-          {errors?.cgst && (
-            <div className=" text-destructive mt-2">
-              {errors?.cgst?.message}
-            </div>
-          )}
-        </div>
-        <div>
-          <Label
-            htmlFor="sgst"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
-            SGST:
-          </Label>
-          <Input
-            disabled={isPending}
-            {...register("sgst")}
-            type="text"
-            id="sgst"
-            placeholder="9"
-            className={cn("", {
-              "border-destructive": errors.sgst,
-            })}
-            size={!isDesktop2xl ? "xl" : "lg"}
-          />
-          {errors?.sgst && (
-            <div className=" text-destructive mt-2">
-              {errors?.sgst?.message}
-            </div>
-          )}
-        </div>
+
         <div>
           <Label
             htmlFor="currency_symbol"
@@ -272,7 +253,7 @@ const GlobalSettingForm: React.FunctionComponent<
           >
             Currency Symbol:
           </Label>
-          <CurrencySelect />
+          <CurrencySelect register={register} />
           {errors?.currency_symbol && (
             <div className=" text-destructive mt-2">
               {errors?.currency_symbol?.message}
@@ -284,36 +265,26 @@ const GlobalSettingForm: React.FunctionComponent<
             htmlFor="timezone"
             className="text-sm font-medium text-default-600 mb-1"
           >
-            Local Time Zone:
+            Time Zone:
           </Label>
-          <Select>
+          <Select {...register("time_zone")}>
             <SelectTrigger>
               <SelectValue placeholder="Select One" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">1</SelectItem>
-              <SelectItem value="2">2</SelectItem>
-              <SelectItem value="3">3</SelectItem>
+              <SelectItem value="1">UCT</SelectItem>
+              <SelectItem value="2">IST</SelectItem>
+              <SelectItem value="3">BST</SelectItem>
+              <SelectItem value="4">CST</SelectItem>
             </SelectContent>
           </Select>
+          {errors?.time_zone && (
+            <div className=" text-destructive mt-2">
+              {errors?.time_zone?.message}
+            </div>
+          )}
         </div>
-        <div>
-          <Label
-            htmlFor="enabled"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
-            Email Enabled:
-          </Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Select One" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Yes">Yes</SelectItem>
-              <SelectItem value="No">No</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+
       </div>
       <div className=" mt-3 lg:mt-6">
         <Label
@@ -323,11 +294,56 @@ const GlobalSettingForm: React.FunctionComponent<
           Address:
         </Label>
         <Textarea
+          {...register("address")}
           id="address"
           className="rounded h-10"
           placeholder="Add Address"
         />
+        {errors?.address && (
+          <div className=" text-destructive mt-2">
+            {errors?.address?.message}
+          </div>
+        )}
       </div>
+      <div className=" mt-3 lg:mt-6">
+        <Label
+          htmlFor="meta description"
+          className="text-sm font-medium text-default-600 mb-1"
+        >
+          Meta Description:
+        </Label>
+        <Textarea
+          {...register("meta_description")}
+          id="meta_description"
+          className="rounded h-10"
+          placeholder="Add Footer Content"
+        />
+        {errors?.meta_description && (
+          <div className=" text-destructive mt-2">
+            {errors?.meta_description?.message}
+          </div>
+        )}
+      </div>
+      <div className=" mt-3 lg:mt-6">
+        <Label
+          htmlFor="footer content"
+          className="text-sm font-medium text-default-600 mb-1"
+        >
+          Footer Content:
+        </Label>
+        <Textarea
+          {...register("footer_content")}
+          id="footer_content"
+          className="rounded h-10"
+          placeholder="Add Footer Content"
+        />
+        {errors?.footer_content && (
+          <div className=" text-destructive mt-2">
+            {errors?.footer_content?.message}
+          </div>
+        )}
+      </div>
+
       <div className="flex-none flex items-center justify-end gap-4 mt-8">
         <Button variant="outline" className=" text-default-300">
           <Icon icon="heroicons:x-mark" className="w-5 h-5 ltr:mr-2 rtl:ml-2" />{" "}
