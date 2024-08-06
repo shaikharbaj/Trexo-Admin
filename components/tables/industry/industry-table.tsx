@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import toast from "react-hot-toast";
 import { columns } from "./components/columns";
-import { DataTable } from "./components/data-table";
 import { RootState } from "@/redux/store";
 import { useAppSelector } from "@/hooks";
 import { fetchTableData } from "@/service/datatable.service";
+import { ColumnFiltersState, getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable, VisibilityState } from "@tanstack/react-table";
+import { Toolbar } from "./components/toolbar";
+import { DataTable } from "@/components/data-table";
 
 interface ITableProps {
   trans: any;
@@ -14,6 +16,35 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   const { isLoading, refresh, data, filters, pagination } = useAppSelector(
     (state: RootState) => state.datatable
   );
+
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
+      columnVisibility,
+      rowSelection,
+      columnFilters,
+    },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    getCoreRowModel: getCoreRowModel(),
+    manualFiltering: true,
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+  });
 
   useEffect(() => {
     handleFetchIndustry();
@@ -46,7 +77,8 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   return (
     <Fragment>
       <div className="space-y-4">
-        <DataTable data={data} columns={columns} isLoading={isLoading} />
+        <Toolbar table={table} />
+        <DataTable isLoading={isLoading} tableObj={table} />
       </div>
     </Fragment>
   );
