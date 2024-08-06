@@ -7,19 +7,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-const CurrencySelect = () => {
+import { UseFormRegister } from "react-hook-form";
+
+interface CurrencySelectProps {
+  register: UseFormRegister<any>;
+}
+
+const CurrencySelect: React.FC<CurrencySelectProps> = ({ register }) => {
   return (
-    <Select>
+    <Select {...register("currency_symbol")}>
       <SelectTrigger>
         <SelectValue placeholder="Select One" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="rupee"><Icon icon="heroicons:currency-rupee" className="w-5 h-5 inline-block" /> Rupee</SelectItem>
-        <SelectItem value="dollar"><Icon icon="heroicons:currency-dollar" className="w-5 h-5 inline-block" /> Dollar</SelectItem>
-        <SelectItem value="euro"><Icon icon="heroicons:currency-euro" className="w-5 h-5 inline-block" /> Euro</SelectItem>
-        <SelectItem value="pound"><Icon icon="heroicons:currency-pound" className="w-5 h-5 inline-block" /> Pound</SelectItem>
-        <SelectItem value="yen"><Icon icon="heroicons:currency-yen" className="w-5 h-5 inline-block" /> Yen</SelectItem>
-        <SelectItem value="bangladeshi"><Icon icon="heroicons:currency-bangladeshi" className="w-5 h-5 inline-block" /> Bangladeshi</SelectItem>
+        <SelectItem value="RUPEE"><Icon icon="heroicons:currency-rupee" className="w-5 h-5 inline-block" /> Rupee</SelectItem>
+        <SelectItem value="DOLLAR"><Icon icon="heroicons:currency-dollar" className="w-5 h-5 inline-block" /> Dollar</SelectItem>
+        <SelectItem value="EURO"><Icon icon="heroicons:currency-euro" className="w-5 h-5 inline-block" /> Euro</SelectItem>
+        <SelectItem value="POUND"><Icon icon="heroicons:currency-pound" className="w-5 h-5 inline-block" /> Pound</SelectItem>
+        <SelectItem value="YEN"><Icon icon="heroicons:currency-yen" className="w-5 h-5 inline-block" /> Yen</SelectItem>
+        <SelectItem value="BANGLADESHI"><Icon icon="heroicons:currency-bangladeshi" className="w-5 h-5 inline-block" /> Bangladeshi</SelectItem>
       </SelectContent>
     </Select>
   );
