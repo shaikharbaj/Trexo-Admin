@@ -62,6 +62,7 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
+    filters.sortBy,
     pagination.currentPage,
     pagination.perPage,
   ]);

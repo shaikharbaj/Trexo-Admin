@@ -47,6 +47,7 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   });
 
   useEffect(() => {
+    console.log('fetching data');
     handleFetchIndustry();
   }, [
     filters.searchText,

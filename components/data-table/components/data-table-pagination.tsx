@@ -29,6 +29,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
   // Helper functions to handle pagination
   const handlePageSizeChange = async (value: string) => {
     try {
+      console.log('In page chnage ', value);
       await setPage(Number(value));
       table.setPageSize(Number(value));
     } catch (error) {

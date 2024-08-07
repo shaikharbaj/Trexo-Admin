@@ -40,7 +40,7 @@ export const columns: ColumnDef<Industry>[] = [
   {
     accessorKey: "industry_name",
     header: ({ column }) => (
-      <ColumnHeader column={column} slug="industry_name" title="Industry Name" />
+      <ColumnHeader column={column} title="Industry Name" />
     ),
     cell: ({ row }) => {
       return (

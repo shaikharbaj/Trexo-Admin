@@ -1,4 +1,6 @@
+import { Column } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, XCircle, Eye } from "lucide-react";
+import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,14 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Column } from "@tanstack/react-table";
 import { sortColumn } from "@/service/datatable.service";
-import toast from "react-hot-toast";
 
 interface ColumnHeaderProps {
   column: Column<any, any>;
   title: string;
-  slug?: string;
   className?: string;
 }
 
@@ -23,7 +22,6 @@ export function ColumnHeader({
   column,
   title,
   className,
-  slug,
 }: ColumnHeaderProps) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
