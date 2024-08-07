@@ -50,8 +50,10 @@ export function ColumnHeader({ column, title, className }:ColumnHeaderProps) {
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
               <ChevronDown className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
-            ) : (
+            ) : column.getIsSorted() === "asc" ? (
               <ChevronUp className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
+            ) : (
+              <></>
             )}
           </Button>
         </DropdownMenuTrigger>

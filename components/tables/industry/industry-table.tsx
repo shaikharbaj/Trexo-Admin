@@ -52,6 +52,7 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
+    filters.sortColumn,
     filters.sortBy,
     pagination.currentPage,
     pagination.perPage,

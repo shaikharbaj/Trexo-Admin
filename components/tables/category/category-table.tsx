@@ -24,7 +24,7 @@ interface ITableProps {
 }
 
 const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
-  const { isLoading, refresh, data, filters, pagination } = useAppSelector(
+  const { isLoading, refresh, data, isFilterEnable, filters, pagination } = useAppSelector(
     (state: RootState) => state.datatable
   );
   const [rowSelection, setRowSelection] = React.useState({});
@@ -62,6 +62,7 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
+    filters.sortColumn,
     filters.sortBy,
     pagination.currentPage,
     pagination.perPage,
@@ -88,7 +89,7 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
 
   return (
     <div className="space-y-4" key={String(refresh)}>
-        <Toolbar table={table} />
+        <Toolbar table={table} isFilterEnable={isFilterEnable} />
         <DataTable isLoading={isLoading} tableObj={table} />
     </div>
   );
