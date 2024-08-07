@@ -1,3 +1,6 @@
+import { format, toZonedTime } from 'date-fns-tz';
+import { enUS } from 'date-fns/locale';
+
 export const dateWithDayNameDayMonthNameAndYear = () => {
   const date = new Date();
 
@@ -37,4 +40,13 @@ export const dateWithDayNameDayMonthNameAndYear = () => {
   const year = date.getFullYear();
 
   return `${dayName}, ${day} ${monthName} ${year}`;
+};
+
+export const formatDate = (dateString: string, timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone, locale: any = navigator.language) => {
+  const date = new Date(dateString);
+  const zonedDate = toZonedTime(date, timeZone);
+  return format(zonedDate, 'dd MMM yyyy h:mm:ss a', {
+    timeZone: 'Europe/Paris',
+    locale: enUS,
+  });
 };

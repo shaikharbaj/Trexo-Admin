@@ -1,4 +1,5 @@
 import {
+  refreshData,
   resetFilter,
   setPageIndex,
   setPageSize,
@@ -79,6 +80,15 @@ export const sortColumn = async (sortColumn: string, sortBy: string) => {
 export const clearFilter = async () => {
   try {
     store.dispatch(resetFilter());
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+//Function to reset filter
+export const refresh = async () => {
+  try {
+    store.dispatch(refreshData());
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");
   }
