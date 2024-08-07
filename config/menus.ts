@@ -1,10 +1,6 @@
 import {
-  Application,
   DashBoard,
-  ClipBoard2,
-  Pointer,
   Settings,
-  UserSign,
 } from "@/components/svg";
 
 export interface MenuItemProps {
@@ -48,6 +44,11 @@ export const menusConfig = {
         {
           title: "Category",
           href: "/category",
+          icon: Settings,
+        },
+        {
+          title: "Brand",
+          href: "/brand",
           icon: Settings,
         },
         {
@@ -96,6 +97,11 @@ export const menusConfig = {
             icon: Settings,
           },
           {
+            title: "Brand",
+            href: "/brand",
+            icon: Settings,
+          },
+          {
             title: "Attribute",
             href: "/attribute",
             icon: Settings,
@@ -141,6 +147,11 @@ export const menusConfig = {
           {
             title: "Category",
             href: "/category",
+            icon: Settings,
+          },
+          {
+            title: "Brand",
+            href: "/brand",
             icon: Settings,
           },
           {
