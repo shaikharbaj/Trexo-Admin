@@ -44,15 +44,16 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
       columnFilters,
     },
     enableRowSelection: true,
+    manualFiltering: true,
+    manualSorting: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     //getFilteredRowModel: getFilteredRowModel(),
-    manualFiltering: true,
     getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    //getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
@@ -62,7 +63,7 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
-    filters.sortColumn,
+    //filters.sortColumn,
     filters.sortBy,
     pagination.currentPage,
     pagination.perPage,
@@ -77,6 +78,8 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
         page: pagination.currentPage,
         searchText: filters.searchText,
         is_active: filters.is_active,
+        sortBy: filters.sortBy,
+        sortColumn: filters.sortColumn,
       };
       const response = await fetchTableData(datatablePayload);
       if (response?.status !== true && response?.statusCode !== 200) {
