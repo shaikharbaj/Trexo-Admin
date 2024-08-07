@@ -7,9 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { deleteIndustry, fetchIndustryById } from "@/service/industry.service";
 import toast from "react-hot-toast";
 import { openPopup } from "@/service/modal.service";
+import { deleteBrand, fetchBrandById } from "@/service/brand.service";
 import { Icon } from "@iconify/react";
 
 interface RowActionsProps {
@@ -20,7 +20,7 @@ export function RowActions({ row }: RowActionsProps) {
 
   const handleRecordDelete = async (uuid: string) => {
     try {
-      const response: any = await deleteIndustry(uuid);
+      const response: any = await deleteBrand(uuid);
       if (response?.status === true && response?.statusCode === 200) {
         toast.success(response?.message);
       } else {
@@ -33,9 +33,9 @@ export function RowActions({ row }: RowActionsProps) {
 
   const handleOpenModal = async (uuid: string) => {
     try {
-      const response: any = await fetchIndustryById(uuid);
+      const response: any = await fetchBrandById(uuid);
       if (response?.status === true && response?.statusCode === 200) {
-        await openPopup('industry', 'Edit Industry', 'edit', response.data);
+        await openPopup('brand', 'Edit Brand', 'edit', response.data);
       }
     } catch (error: any) {
       toast.error(error?.message);

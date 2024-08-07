@@ -7,7 +7,7 @@ import { RowActions } from "./actions";
 
 interface Industry {
   uuid?: string;
-  industry_name?: string;
+  brand_name?: string;
   is_active?: string;
   slug?: string;
 }
@@ -38,15 +38,15 @@ export const columns: ColumnDef<Industry>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "industry_name",
+    accessorKey: "brand_name",
     header: ({ column }) => (
-      <ColumnHeader column={column} title="Industry Name" />
+      <ColumnHeader column={column} title="Brand Name" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("industry_name")}
+            {row.getValue("brand_name")}
           </span>
         </div>
       );

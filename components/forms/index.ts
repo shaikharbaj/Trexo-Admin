@@ -1,3 +1,4 @@
+import BrandForm from "./brand/create-update-form";
 import CategoryForm from "./category/create-update-form";
 import CurrencySelect from "./currency-select";
 import GlobalSettingForm from "./global-setting/global-setting-form";
@@ -7,5 +8,6 @@ export {
     CurrencySelect,
     GlobalSettingForm,
     IndustryForm,
-    CategoryForm
+    CategoryForm,
+    BrandForm
 };

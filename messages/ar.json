@@ -7,6 +7,7 @@
     "Masters": "سادة",
     "Industry": "صناعة",
     "Category": "فئة",
+    "Brand": "ماركة",
     "Attribute": "يصف",
     "Attribute Value": "قيمة السمة"
   },
@@ -17,15 +18,21 @@
     "analytics": "تحليلات"
   },
   "IndustryPage": {
-    "Dashboard": "Dashboard",
-    "Master": "Master",
-    "Industry": "Industry",
-    "Add New": "Add New"
+    "Dashboard": "لوحة القيادة",
+    "Master": "يتقن",
+    "Industry": "صناعة",
+    "Add New": "أضف جديد"
   },
   "CategoryPage": {
-    "Dashboard": "Dashboard",
-    "Master": "Master",
-    "Catyegory": "Catyegory",
-    "Add New": "Add New"
+    "Dashboard": "لوحة القيادة",
+    "Master": "يتقن",
+    "Catyegory": "فئة",
+    "Add New": "أضف جديد"
+  },
+  "BrandPage": {
+    "Dashboard": "لوحة القيادة",
+    "Master": "يتقن",
+    "Brand": "ماركة",
+    "Add New": "أضف جديد"
   }
 }
