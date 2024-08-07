@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
+import { formatDate } from "@/utils/date";
 
 interface Industry {
   uuid?: string;
@@ -89,7 +90,7 @@ export const columns: ColumnDef<Industry>[] = [
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("created_at")}
+          {formatDate(row.getValue("created_at"))}
           </span>
         </div>
       );
@@ -109,7 +110,7 @@ export const columns: ColumnDef<Industry>[] = [
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("updated_at")}
+          {formatDate(row.getValue("updated_at"))}
           </span>
         </div>
       );
