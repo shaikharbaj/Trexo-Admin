@@ -15,8 +15,6 @@ interface IIndustryProps { }
 
 const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
   const t = useTranslations("IndustryPage");
-  const { refresh } = useAppSelector((state: RootState) => state.datatable);
-
   const handleOpenModal = async () => {
     await openPopup('industry', 'Add Industry', 'add');
   };
@@ -49,7 +47,7 @@ const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6">
-        <Card key={String(refresh)}>
+        <Card>
           <CardContent className="pt-6">
             <IndustryTable trans={t} />
           </CardContent>

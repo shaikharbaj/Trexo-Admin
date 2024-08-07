@@ -47,7 +47,6 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   });
 
   useEffect(() => {
-    console.log('fetching data');
     handleFetchIndustry();
   }, [
     filters.searchText,
@@ -82,7 +81,7 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   return (
     <Fragment>
       <div className="space-y-4">
-        <Toolbar table={table} isFilterEnable={isFilterEnable} />
+        <Toolbar key={String(refresh)} table={table} isFilterEnable={isFilterEnable} />
         <DataTable isLoading={isLoading} tableObj={table} />
       </div>
     </Fragment>
