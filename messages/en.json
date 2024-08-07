@@ -9,7 +9,9 @@
     "Category": "Category",
     "Brand": "Brand",
     "Attribute": "Attribute",
-    "Attribute Value": "Attribute Value"
+    "Attribute Value": "Attribute Value",
+    "Country": "Country",
+    "State": "State"
   },
   "DashboardPage": {
     "welcome": "Welcome",
@@ -21,6 +23,18 @@
     "Dashboard": "Dashboard",
     "Master": "Master",
     "Industry": "Industry",
+    "Add New": "Add New"
+  },
+  "CountryPage": {
+    "Dashboard": "Dashboard",
+    "Master": "Master",
+    "Country": "Country",
+    "Add New": "Add New"
+  },
+  "StatePage": {
+    "Dashboard": "Dashboard",
+    "Master": "Master",
+    "State": "State",
     "Add New": "Add New"
   },
   "CategoryPage": {
