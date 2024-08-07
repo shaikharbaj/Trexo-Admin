@@ -4,11 +4,13 @@ import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
 import { RootState } from "@/redux/store";
 import { useAppSelector } from "@/hooks";
-import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
+import { openPopup } from "@/service/modal.service";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CreateUpdateCategoryModal } from "@/components/modals";
 import { CategoryTable } from "@/components/tables";
+import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
+import { CreateUpdateCategoryModal } from "@/components/modals";
+import { Button } from "@/components/ui/button";
+
 
 interface ICategoryProps {}
 
@@ -16,6 +18,11 @@ const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
   const t = useTranslations("CategoryPage");
   const { refresh } = useAppSelector((state: RootState) => state.datatable);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  //Function to opem modal
+  const handleOpenModal = async () => {
+    await openPopup('category', 'Add Category', 'add');
+  };
   return (
     <div className="space-y-6">
       <div className="flex items-center flex-wrap justify-between gap-4">
@@ -31,17 +38,14 @@ const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
             {t("Category")}
           </div>
           <div className="flex-none flex items-center justify-end gap-4">
-            <Button onClick={() => setModalIsOpen(true)}>
+            <Button onClick={handleOpenModal}>
               <Icon
                 icon="heroicons:plus"
                 className="w-5 h-5 ltr:mr-2 rtl:ml-2"
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateCategoryModal
-              modalIsOpen={modalIsOpen}
-              setModalIsOpen={setModalIsOpen}
-            />
+            <CreateUpdateCategoryModal/>
           </div>
         </div>
       </div>
