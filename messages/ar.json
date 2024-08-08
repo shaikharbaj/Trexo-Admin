@@ -9,13 +9,27 @@
     "Category": "فئة",
     "Brand": "ماركة",
     "Attribute": "يصف",
-    "Attribute Value": "قيمة السمة"
+    "Attribute Value": "قيمة السمة",
+    "Country": "دولة",
+    "State": "ولاية"
   },
   "DashboardPage": {
     "welcome": "مرحباً",
     "back": "خلف",
     "dashboard": "لوحة القيادة",
     "analytics": "تحليلات"
+  },
+  "CountryPage": {
+    "Dashboard": "لوحة القيادة",
+    "Master": "يتقن",
+    "Country": "دولة",
+    "Add New": "اضف جديد"
+  },
+  "StatePage": {
+    "Dashboard": "لوحة القيادة",
+    "Master": "يتقن",
+    "State": "ولاية",
+    "Add New": "اضف جديد"
   },
   "IndustryPage": {
     "Dashboard": "لوحة القيادة",

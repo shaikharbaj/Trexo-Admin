@@ -29,7 +29,7 @@ export const menusConfig = {
           title: "Global Setting",
           href: "/setting/global-setting",
           icon: Settings,
-        }
+        },
       ],
     },
     {
@@ -60,9 +60,19 @@ export const menusConfig = {
           title: "Attribute Value",
           href: "/attribute-value",
           icon: Settings,
-        }
+        },
+        {
+          title: "Country",
+          href: "/country",
+          icon: Settings,
+        },
+        {
+          title: "State",
+          href: "/state",
+          icon: Settings,
+        },
       ],
-    }
+    },
   ],
   sidebarNav: {
     modern: [
@@ -79,7 +89,7 @@ export const menusConfig = {
             title: "Global Setting",
             href: "/setting/global-setting",
             icon: Settings,
-          }
+          },
         ],
       },
       {
@@ -110,9 +120,19 @@ export const menusConfig = {
             title: "Attribute Value",
             href: "/attribute-value",
             icon: Settings,
-          }
+          },
+          {
+            title: "Country",
+            href: "/country",
+            icon: Settings,
+          },
+          {
+            title: "State",
+            href: "/state",
+            icon: Settings,
+          },
         ],
-      }
+      },
     ],
     classic: [
       {
@@ -132,7 +152,7 @@ export const menusConfig = {
             title: "Global Setting",
             href: "/setting/global-setting",
             icon: Settings,
-          }
+          },
         ],
       },
       {
@@ -163,9 +183,19 @@ export const menusConfig = {
             title: "Attribute Value",
             href: "/attribute-value",
             icon: Settings,
-          }
+          },
+          {
+            title: "Country",
+            href: "/country",
+            icon: Settings,
+          },
+          {
+            title: "State",
+            href: "/state",
+            icon: Settings,
+          },
         ],
-      }
+      },
     ],
   },
 };
