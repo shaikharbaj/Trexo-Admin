@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icon } from "@iconify/react";
@@ -11,32 +11,29 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import CurrencySelect from "../currency-select";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  FormSelect,
+  FormSelectContent,
+  FormSelectItem,
+  FormSelectTrigger,
+  FormSelectValue,
+} from "@/components/ui/select-react-hook-form";
 import { globalSettingSchema } from "@/validations";
-import { createGlobalSetting } from "@/service/global-setting.service";
+import { createGlobalSetting, fetchGlobalSetting } from "@/service/global-setting.service";
 
-interface IGlobalSettingFormProps { }
-
-const GlobalSettingForm: React.FunctionComponent<
-  IGlobalSettingFormProps
-> = () => {
+const GlobalSettingForm: React.FunctionComponent = () => {
   const [isPending, startTransition] = React.useTransition();
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(globalSettingSchema),
     mode: "all",
     defaultValues: {
+      uuid: "",
       site_name: "",
       site_email: "",
       phone: "",
@@ -51,35 +48,51 @@ const GlobalSettingForm: React.FunctionComponent<
       footer_content: "",
     },
   });
+  let [globalSettingData, setGlobalSettingData] = useState<any>({});
 
-  //Function to handel form submit
+  // Function to fetch & set global setting data
+  const fetchAndSetGlobalSettingData = async () => {
+    try {
+      const res = await fetchGlobalSetting();
+      const data = res.data[0];
+      setGlobalSettingData(data);
+      reset(data);
+    } catch (error) {
+      toast.error("Failed to fetch global settings.");
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSetGlobalSettingData();
+  }, [reset]);
+
+  // Function to handle form submit
   const onSubmit = (data: any) => {
+
+    data.uuid = globalSettingData?.uuid || "";
     data.otp_explore_time = parseInt(data.otp_explore_time);
     data.revenue_percentage = parseInt(data.revenue_percentage);
-    console.log(data)
     startTransition(async () => {
-      startTransition(async () => {
-        try {
-          const response: any = await createGlobalSetting(data);
-          if (response?.status === true && response?.statusCode === 200) {
-            toast.success(response?.message);
-          } else {
-            toast.error(response?.message);
-          }
-        } catch (error: any) {
-          toast.error(error?.message);
+      try {
+        const createResponse: any = await createGlobalSetting(data);
+        if (createResponse?.status === true && createResponse?.statusCode === 200) {
+          toast.success(createResponse?.message);
+          await fetchAndSetGlobalSettingData();
+
+        } else {
+          toast.error(createResponse?.message);
         }
-      })
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     });
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-6 mt-6">
         <div>
-          <Label
-            htmlFor="site_name"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="site_name" className="text-sm font-medium text-default-600 mb-1">
             Site Name:
           </Label>
           <Input
@@ -100,10 +113,7 @@ const GlobalSettingForm: React.FunctionComponent<
           )}
         </div>
         <div>
-          <Label
-            htmlFor="site_email"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="site_email" className="text-sm font-medium text-default-600 mb-1">
             Site Email:
           </Label>
           <Input
@@ -124,10 +134,7 @@ const GlobalSettingForm: React.FunctionComponent<
           )}
         </div>
         <div>
-          <Label
-            htmlFor="phone"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="phone" className="text-sm font-medium text-default-600 mb-1">
             Phone:
           </Label>
           <Input
@@ -148,10 +155,7 @@ const GlobalSettingForm: React.FunctionComponent<
           )}
         </div>
         <div>
-          <Label
-            htmlFor="meta_title"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="meta_title" className="text-sm font-medium text-default-600 mb-1">
             Meta title:
           </Label>
           <Input
@@ -172,10 +176,7 @@ const GlobalSettingForm: React.FunctionComponent<
           )}
         </div>
         <div>
-          <Label
-            htmlFor="meta_keyword"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="meta_keyword" className="text-sm font-medium text-default-600 mb-1">
             Meta keyword:
           </Label>
           <Input
@@ -195,13 +196,8 @@ const GlobalSettingForm: React.FunctionComponent<
             </div>
           )}
         </div>
-
-
         <div>
-          <Label
-            htmlFor="otp_expiration_time"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="otp_expiration_time" className="text-sm font-medium text-default-600 mb-1">
             OTP Explore Time (In Minutes):
           </Label>
           <Input
@@ -222,10 +218,7 @@ const GlobalSettingForm: React.FunctionComponent<
           )}
         </div>
         <div>
-          <Label
-            htmlFor="revenue_percentage"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="revenue_percentage" className="text-sm font-medium text-default-600 mb-1">
             Revenue Percentage:
           </Label>
           <Input
@@ -245,15 +238,11 @@ const GlobalSettingForm: React.FunctionComponent<
             </div>
           )}
         </div>
-
         <div>
-          <Label
-            htmlFor="currency_symbol"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="currency_symbol" className="text-sm font-medium text-default-600 mb-1">
             Currency Symbol:
           </Label>
-          <CurrencySelect register={register} />
+          <CurrencySelect register={register} currencyValue={globalSettingData?.currency_symbol} />
           {errors?.currency_symbol && (
             <div className=" text-destructive mt-2">
               {errors?.currency_symbol?.message}
@@ -261,36 +250,29 @@ const GlobalSettingForm: React.FunctionComponent<
           )}
         </div>
         <div>
-          <Label
-            htmlFor="timezone"
-            className="text-sm font-medium text-default-600 mb-1"
-          >
+          <Label htmlFor="timezone" className="text-sm font-medium text-default-600 mb-1">
             Time Zone:
           </Label>
-          <Select {...register("time_zone")}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select One" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="1">UCT</SelectItem>
-              <SelectItem value="2">IST</SelectItem>
-              <SelectItem value="3">BST</SelectItem>
-              <SelectItem value="4">CST</SelectItem>
-            </SelectContent>
-          </Select>
+          <FormSelect {...register("time_zone")} value={globalSettingData?.time_zone}>
+            <FormSelectTrigger>
+              <FormSelectValue placeholder="Select One" />
+            </FormSelectTrigger>
+            <FormSelectContent >
+              <FormSelectItem value="UCT">UCT</FormSelectItem>
+              <FormSelectItem value="IST">IST</FormSelectItem>
+              <FormSelectItem value="BST">BST</FormSelectItem>
+              <FormSelectItem value="CST">CST</FormSelectItem>
+            </FormSelectContent>
+          </FormSelect>
           {errors?.time_zone && (
             <div className=" text-destructive mt-2">
               {errors?.time_zone?.message}
             </div>
           )}
         </div>
-
       </div>
       <div className=" mt-3 lg:mt-6">
-        <Label
-          htmlFor="address"
-          className="text-sm font-medium text-default-600 mb-1"
-        >
+        <Label htmlFor="address" className="text-sm font-medium text-default-600 mb-1">
           Address:
         </Label>
         <Textarea
@@ -306,10 +288,7 @@ const GlobalSettingForm: React.FunctionComponent<
         )}
       </div>
       <div className=" mt-3 lg:mt-6">
-        <Label
-          htmlFor="meta description"
-          className="text-sm font-medium text-default-600 mb-1"
-        >
+        <Label htmlFor="meta description" className="text-sm font-medium text-default-600 mb-1">
           Meta Description:
         </Label>
         <Textarea
@@ -325,10 +304,7 @@ const GlobalSettingForm: React.FunctionComponent<
         )}
       </div>
       <div className=" mt-3 lg:mt-6">
-        <Label
-          htmlFor="footer content"
-          className="text-sm font-medium text-default-600 mb-1"
-        >
+        <Label htmlFor="footer content" className="text-sm font-medium text-default-600 mb-1">
           Footer Content:
         </Label>
         <Textarea
@@ -343,7 +319,6 @@ const GlobalSettingForm: React.FunctionComponent<
           </div>
         )}
       </div>
-
       <div className="flex-none flex items-center justify-end gap-4 mt-8">
         <Button variant="outline" className=" text-default-300">
           <Icon icon="heroicons:x-mark" className="w-5 h-5 ltr:mr-2 rtl:ml-2" />{" "}
