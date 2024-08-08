@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { privateClient } from "@/http/http-client";
 
+//Thunk to fetch global setting
 export const globalSettingListThunk = createAsyncThunk(
     "global_setting/fetch",
     async () => {
@@ -46,4 +47,5 @@ export const createGlobalSettingThunk = createAsyncThunk(
         }
     }
 );
+
 

@@ -91,31 +91,6 @@ export const columns: ColumnDef<State>[] = [
     },
   },
   {
-    accessorKey: "is_active",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center">
-          <Badge
-            variant="soft"
-            color={
-              (row.getValue("is_active") === true && "success") ||
-              (row.getValue("is_active") === false && "destructive") ||
-              "default"
-            }
-          >
-            {row.getValue("is_active") === true ? "Active" : "Inactive"}
-          </Badge>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-    enableSorting: false,
-    enableHiding: true,
-  },
-  {
     accessorKey: "created_at",
     header: ({ column }) => <ColumnHeader column={column} title="Created At" />,
     cell: ({ row }) => {
@@ -149,6 +124,31 @@ export const columns: ColumnDef<State>[] = [
       return value.includes(row.getValue(id));
     },
     enableSorting: true,
+    enableHiding: true,
+  },
+  {
+    accessorKey: "is_active",
+    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <Badge
+            variant="soft"
+            color={
+              (row.getValue("is_active") === true && "success") ||
+              (row.getValue("is_active") === false && "destructive") ||
+              "default"
+            }
+          >
+            {row.getValue("is_active") === true ? "Active" : "Inactive"}
+          </Badge>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+    enableSorting: false,
     enableHiding: true,
   },
   {

@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 const stateSchema = z.object({
+  country_uuid:z.string()
+  .min(1, { message: "Please select country" }),
   state_name: z
     .string()
     .min(1, { message: "Please enter state name" })

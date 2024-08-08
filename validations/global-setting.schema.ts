@@ -8,15 +8,11 @@ const globalSettingSchema = z.object({
     meta_keyword: z.string().min(1, { message: "Meta keyword cannot be empty." }),
     meta_description: z.string().min(1, { message: "Meta description cannot be empty." }),
     otp_explore_time: z.string()
-        .min(1, { message: "OTP expiration time cannot be empty." })
-        .refine((value) => !isNaN(parseFloat(value)), {
-            message: "OTP expiration time must be a number.",
-        }),
+        .regex(/^\d+$/, { message: "OTP explore time must be a number" })
+        .min(1, { message: "OTP explore time cannot be empty." }),
     revenue_percentage: z.string()
-        .min(1, { message: "Revenue percentage cannot be empty." })
-        .refine((value) => !isNaN(parseFloat(value)), {
-            message: "Revenue percentage must be a number.",
-        }),
+        .regex(/^\d+$/, { message: "OTP explore time must be a number" })
+        .min(1, { message: "Revenue percentage cannot be empty." }),
     currency_symbol: z.string().min(1, { message: "Currency symbol cannot be empty." }),
     time_zone: z.string().min(1, { message: "Time zone cannot be empty." }),
     address: z.string().min(1, { message: "Address cannot be empty." }),
