@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/table";
 import Skeleton from "../tables/skeleton";
 import { DataTablePagination } from "./components/data-table-pagination";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 interface DataTableProps<TData> {
   isLoading: boolean;
@@ -20,11 +22,11 @@ export function DataTable<TData>({
   isLoading,
   tableObj,
 }: DataTableProps<TData>) {
+  const { refresh } = useAppSelector(
+    (state: RootState) => state.datatable
+  );
   const headerGroups = tableObj.getHeaderGroups();
-
-  if (isLoading) {
-    return <Skeleton />;
-  }
+  
   return (
     <>
       <div className="rounded-md border">
@@ -47,12 +49,18 @@ export function DataTable<TData>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {tableObj.getRowModel().rows?.length ? (
+          <TableBody key={String(refresh)}>
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={headerGroups[0]?.headers.length} className=" !p-0 w-full">
+                  <Skeleton />
+                </TableCell>
+              </TableRow>
+            ) : tableObj.getRowModel().rows?.length ? (
               tableObj.getRowModel().rows.map((row: any) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() ? "selected" : undefined}
                 >
                   {row.getVisibleCells().map((cell: any) => (
                     <TableCell key={cell.id}>
@@ -67,7 +75,7 @@ export function DataTable<TData>({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={headerGroups.length}
+                  colSpan={headerGroups[0]?.headers.length}
                   className="!text-center"
                 >
                   No results.
@@ -80,4 +88,5 @@ export function DataTable<TData>({
       <DataTablePagination table={tableObj} />
     </>
   );
+  
 }
