@@ -7,7 +7,6 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import toast from "react-hot-toast";
@@ -51,9 +50,7 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    //getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    //getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
@@ -63,7 +60,6 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
-    //filters.sortColumn,
     filters.sortBy,
     pagination.currentPage,
     pagination.perPage,
@@ -92,8 +88,8 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
 
   return (
     <div className="space-y-4" key={String(refresh)}>
-        <Toolbar table={table} isFilterEnable={isFilterEnable} />
-        <DataTable isLoading={isLoading} tableObj={table} />
+        <Toolbar key={String(refresh)} trans={trans} table={table} isFilterEnable={isFilterEnable} />
+        <DataTable trans={trans} isLoading={isLoading} tableObj={table} />
     </div>
   );
 };
