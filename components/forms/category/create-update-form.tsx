@@ -30,26 +30,39 @@ const CategoryForm: React.FC<IFormProps> = ({
       <div className="space-y-5 mb-2">
         <div className="flex flex-col gap-2">
           <Label>Industry</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue
-                placeholder="Select Industry"
-                className="whitespace-nowrap"
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Health Care">Health Care</SelectItem>
-              <SelectItem value="Solar">Solar</SelectItem>
-            </SelectContent>
-          </Select>
+          <Controller
+            control={control}
+            name="industry_name"
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Select onValueChange={onChange} value={value}>
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder="Select Industry"
+                    className="whitespace-nowrap"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Health Care">
+                    Health Care
+                  </SelectItem>
+                  <SelectItem value="Solar">Solar</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+          />
+          {errors.industry_name && (
+            <div className=" text-destructive">
+              {errors.industry_name.message}
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>Category Type</Label>
           <Controller
             control={control}
             name="category_type"
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} {...field}>
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Select onValueChange={onChange} value={value}>
                 <SelectTrigger>
                   <SelectValue
                     placeholder="Select Category Type"
@@ -57,12 +70,19 @@ const CategoryForm: React.FC<IFormProps> = ({
                   />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Health Care">Health Care</SelectItem>
+                  <SelectItem value="Health Care">
+                    Health Care
+                  </SelectItem>
                   <SelectItem value="Solar">Solar</SelectItem>
                 </SelectContent>
               </Select>
             )}
           />
+          {errors.category_type && (
+            <div className=" text-destructive">
+              {errors.category_type.message}
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>Category Name</Label>
@@ -103,7 +123,9 @@ const CategoryForm: React.FC<IFormProps> = ({
             {...register("meta_title")}
           />
           {errors.meta_title && (
-            <div className=" text-destructive">{errors.meta_title.message}</div>
+            <div className=" text-destructive">
+              {errors.meta_title.message}
+            </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
