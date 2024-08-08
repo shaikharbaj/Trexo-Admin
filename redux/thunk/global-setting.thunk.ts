@@ -18,7 +18,7 @@ export const globalSettingListThunk = createAsyncThunk(
 );
 
 //Thunk to create global setting
-interface ICreateGlobalSettingPayload {
+interface IUpdateGlobalSettingPayload {
     site_name: string;
     site_email: string;
     phone: string;
@@ -33,11 +33,11 @@ interface ICreateGlobalSettingPayload {
     time_zone: string;
 }
 
-export const createGlobalSettingThunk = createAsyncThunk(
-    "global_setting/create",
-    async (payload: ICreateGlobalSettingPayload) => {
+export const updateGlobalSettingThunk = createAsyncThunk(
+    "global_setting/update",
+    async (payload: IUpdateGlobalSettingPayload) => {
         try {
-            const res = await privateClient.post("/global-setting", payload);
+            const res = await privateClient.patch("/global-setting", payload);
             return res.data;
         } catch (error: any) {
             if (error?.response?.data) {

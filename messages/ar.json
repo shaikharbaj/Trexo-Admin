@@ -48,5 +48,12 @@
     "Master": "يتقن",
     "Brand": "ماركة",
     "Add New": "أضف جديد"
+  },
+  "GlobalSettingPage": {
+    "Dashboard": "لوحة القيادة",
+    "Setting": "إعداد",
+    "Global Setting": "إعدادات عامة",
+    "Save": "حفظ",
+    "Cancel": "إلغاء"
   }
 }

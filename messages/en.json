@@ -48,5 +48,12 @@
     "Master": "Master",
     "Brand": "Brand",
     "Add New": "Add New"
+  },
+  "GlobalSettingPage": {
+    "Dashboard": "Dashboard",
+    "Setting": "Setting",
+    "Global Setting": "Global Setting",
+    "Save": "Save",
+    "Cancel": "Cancel"
   }
 }

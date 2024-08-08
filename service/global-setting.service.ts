@@ -1,12 +1,12 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createGlobalSettingThunk, globalSettingListThunk } from "@/redux/thunk/global-setting.thunk";
+import { updateGlobalSettingThunk, globalSettingListThunk } from "@/redux/thunk/global-setting.thunk";
 
 
-//Function to create global setting
-export const createGlobalSetting = async (createPayload: any) => {
+//Function to update global setting
+export const updateGlobalSetting = async (updatePayload: any) => {
     try {
-        const { payload } = await store.dispatch(createGlobalSettingThunk(createPayload));
+        const { payload } = await store.dispatch(updateGlobalSettingThunk(updatePayload));
         if (payload?.status !== true) {
             return { status: payload?.status, statusCode: payload?.statusCode, message: payload?.message };
         }

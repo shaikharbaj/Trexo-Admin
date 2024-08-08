@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createGlobalSettingThunk, globalSettingListThunk } from "../thunk/global-setting.thunk";
+import { updateGlobalSettingThunk, globalSettingListThunk } from "../thunk/global-setting.thunk";
 
 const initialState = {
     isLoading: false,
@@ -29,15 +29,15 @@ export const global_setting = createSlice({
                 state.isLoading = false;
             });
         builder
-            .addCase(createGlobalSettingThunk.pending, (state: any) => {
+            .addCase(updateGlobalSettingThunk.pending, (state: any) => {
                 state.isLoading = true;
             })
-            .addCase(createGlobalSettingThunk.fulfilled, (state: any, action: any) => {
+            .addCase(updateGlobalSettingThunk.fulfilled, (state: any, action: any) => {
                 state.isLoading = false;
                 state.error = action?.payload;
                 state.refresh = !state.refresh;
             })
-            .addCase(createGlobalSettingThunk.rejected, (state: any) => {
+            .addCase(updateGlobalSettingThunk.rejected, (state: any) => {
                 state.isLoading = false;
             });
     },
