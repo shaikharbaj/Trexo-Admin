@@ -1,22 +1,32 @@
 import { z } from "zod";
 
 const globalSettingSchema = z.object({
-    site_name: z.string().min(1, { message: "Site name cannot be empty." }),
-    site_email: z.string().email({ message: "Invalid site email address." }),
-    phone: z.string().min(1, { message: "Phone cannot be empty." }),
-    meta_title: z.string().min(1, { message: "Meta title cannot be empty." }),
-    meta_keyword: z.string().min(1, { message: "Meta keyword cannot be empty." }),
-    meta_description: z.string().min(1, { message: "Meta description cannot be empty." }),
-    otp_explore_time: z.string()
-        .regex(/^\d+$/, { message: "OTP explore time must be a number" })
-        .min(1, { message: "OTP explore time cannot be empty." }),
-    revenue_percentage: z.string()
-        .regex(/^\d+$/, { message: "OTP explore time must be a number" })
-        .min(1, { message: "Revenue percentage cannot be empty." }),
-    currency_symbol: z.string().min(1, { message: "Currency symbol cannot be empty." }),
-    time_zone: z.string().min(1, { message: "Time zone cannot be empty." }),
-    address: z.string().min(1, { message: "Address cannot be empty." }),
-    footer_content: z.string().min(1, { message: "Footer content can be empty." }),
+    site_name: z.string()
+        .min(1, { message: "Please enter site name" })
+        .regex(/^[A-Za-z\s]+$/, {
+            message: "Site name must contain only alphabetic characters",
+        }),
+    site_email: z.string().email({ message: "Please enter site email address" }),
+    phone: z.string()
+        .min(1, { message: "Please enter Phone Number" })
+        .regex(/^\d+$/, {
+            message: "Phone must contain only numbers",
+        }),
+    otp_explore_time: z.coerce.number()
+        .int()
+        .positive({ message: "Please enter positive number" })
+        .min(1, { message: "Please enter OTP explore time" }),
+    revenue_percentage: z.coerce.number()
+        .int()
+        .positive({ message: "Please enter positive number" })
+        .min(1, { message: "Please enter revenue percentage" }),
+    currency_symbol: z.string().min(1, { message: "Please select currency symbol" }),
+    time_zone: z.string().min(1, { message: "Please select time zone" }),
+    footer_content: z.string().min(1, { message: "Footer content can be empty" }),
+    address: z.string().optional(),
+    meta_title: z.string().optional(),
+    meta_keyword: z.string().optional(),
+    meta_description: z.string().optional(),
 });
 
 export default globalSettingSchema;
