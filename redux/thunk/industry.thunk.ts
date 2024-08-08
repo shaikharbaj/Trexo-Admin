@@ -109,3 +109,18 @@ export const deleteIndustryThunk = createAsyncThunk(
     }
   }
 );
+
+export const fetchIndustryDropdownThunk = createAsyncThunk(
+  "industry/dropdown",
+  async () => {
+    try {
+      const res = await privateClient.get('/industry/dropdown');
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
