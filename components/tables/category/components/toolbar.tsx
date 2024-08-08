@@ -12,27 +12,26 @@ import { Filter } from "./filter";
 interface ToolbarProps {
   table: Table<any>;
   isFilterEnable: boolean;
+  trans: any;
 }
 
-const statusOptions = [
-  {
-    value: "true",
-    label: "Active",
-  },
-  {
-    value: "false",
-    label: "Inactive",
-  },
-];
-
-const viewOptionLabel = {
-  category_name: "Category",
-  industry: "Industry",
-  is_active: "Status"
-}
-
-export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+export function Toolbar({ table, isFilterEnable, trans }: ToolbarProps) {
+  const statusOptions = [
+    {
+      value: "true",
+      label: trans("Active"),
+    },
+    {
+      value: "false",
+      label: trans("Inactive"),
+    },
+  ];
+  
+  const viewOptionLabel = {
+    category_name: trans("Category"),
+    industry: trans("Industry"),
+    is_active: trans("Status")
+  }
 
   //Function to handel global filter
   const handleFilterChange = async (
@@ -57,13 +56,13 @@ export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
   return (
     <div className="flex flex-1 flex-wrap items-center gap-2">
       <Input
-        placeholder="Search..."
+        placeholder={trans("Search") + '...'}
         onChange={handleFilterChange}
         className="h-8 min-w-[200px] max-w-sm"
       />
 
       {statusOptions.length && (
-        <Filter title="Status" options={statusOptions} />
+        <Filter title={trans("Status")} options={statusOptions} />
       )}
       {isFilterEnable && (
         <Button
@@ -71,11 +70,11 @@ export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
           onClick={handelResetFilter}
           className="h-8 px-2 lg:px-3"
         >
-          Reset
+          {trans('Reset')}
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions table={table} optionLabel={viewOptionLabel} />
+      <DataTableViewOptions trans={trans} table={table} optionLabel={viewOptionLabel} />
     </div>
   );
 }

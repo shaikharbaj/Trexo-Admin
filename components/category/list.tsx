@@ -1,9 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
-import { RootState } from "@/redux/store";
-import { useAppSelector } from "@/hooks";
 import { openPopup } from "@/service/modal.service";
 import { Card, CardContent } from "@/components/ui/card";
 import { CategoryTable } from "@/components/tables";
@@ -16,12 +14,8 @@ interface ICategoryProps {}
 
 const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
   const t = useTranslations("CategoryPage");
-  const { refresh } = useAppSelector((state: RootState) => state.datatable);
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-
-  //Function to opem modal
   const handleOpenModal = async () => {
-    await openPopup('category', 'Add Category', 'add');
+    await openPopup('category', `${t('Add')} ${t('Category')}`, 'add');
   };
   return (
     <div className="space-y-6">
@@ -45,12 +39,12 @@ const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateCategoryModal/>
+            <CreateUpdateCategoryModal trans={t}/>
           </div>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6">
-        <Card key={String(refresh)}>
+        <Card>
           <CardContent className="pt-6">
             <CategoryTable trans={t} />
           </CardContent>

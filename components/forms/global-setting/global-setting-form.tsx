@@ -195,8 +195,8 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             control={control}
             name="currency_symbol"
             render={({ field: { onChange, value, } }) => (
-              <Select onValueChange={onChange} value={value}>
-                <SelectTrigger>
+              <Select onValueChange={onChange} value={(value) ? value : undefined}>
+                <SelectTrigger color={errors?.currency_symbol && "destructive"}>
                   <SelectValue placeholder={t("Select currency symbol")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -225,8 +225,8 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             control={control}
             name="time_zone"
             render={({ field: { onChange, value, } }) => (
-              <Select onValueChange={onChange} value={value}>
-                <SelectTrigger>
+              <Select onValueChange={onChange} value={(value) ? value : undefined}>
+                <SelectTrigger color={errors?.time_zone && "destructive"}>
                   <SelectValue placeholder={t("Select time zone")} />
                 </SelectTrigger>
                 <SelectContent >
@@ -267,7 +267,9 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           <Textarea
             {...register("footer_content")}
             id="footer_content"
-            className="rounded h-10"
+            className={cn("rounded h-10", {
+              "border-destructive": errors.revenue_percentage,
+            })}
             placeholder={t("Please enter footer content")}
           />
           {errors?.footer_content && (
@@ -277,13 +279,8 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           )}
         </div>
       </div>
-
-
-
       <hr className="mt-3 lg:mt-6" />
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-6 mt-6">
-
         <div>
           <Label htmlFor="meta_title" className="text-sm font-medium text-default-600 mb-1">
             {t("Meta title")}:

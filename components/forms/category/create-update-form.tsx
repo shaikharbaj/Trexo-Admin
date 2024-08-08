@@ -16,6 +16,7 @@ import { fetchIndustryDropdown } from "@/service/industry.service";
 import toast from "react-hot-toast";
 
 interface IFormProps {
+  trans: any;
   isPending: boolean;
   register?: any;
   control?: any;
@@ -28,6 +29,7 @@ interface Industry {
 }
 
 const CategoryForm: React.FC<IFormProps> = ({
+  trans,
   isPending,
   register,
   control,
@@ -56,7 +58,7 @@ const CategoryForm: React.FC<IFormProps> = ({
       <div className="space-y-5 mb-2">
         <div className="flex flex-col gap-2">
           <Label>
-            Industry <span className=" text-destructive">*</span>
+            {trans('Industry')} <span className=" text-destructive">*</span>
           </Label>
           <Controller
             control={control}

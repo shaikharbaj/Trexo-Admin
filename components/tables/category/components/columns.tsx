@@ -140,7 +140,9 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     id: "actions",
-    header: "Action",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Action" />
+    ),
     cell: ({ row }) => <RowActions row={row} />,
   },
 ];

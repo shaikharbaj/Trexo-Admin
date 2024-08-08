@@ -1,5 +1,5 @@
 import { Column } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp, XCircle, Eye } from "lucide-react";
+import { ChevronDown, ChevronUp} from "lucide-react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortColumn } from "@/service/datatable.service";
