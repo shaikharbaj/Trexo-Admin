@@ -123,7 +123,10 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     id: "action",
-    header: "Action",
+    // header: "Action",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Action" />
+    ),
     cell: ({ row }) => <RowActions row={row} />,
     enableSorting: false,
     enableHiding: false,

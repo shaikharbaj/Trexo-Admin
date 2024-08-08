@@ -17,16 +17,18 @@ import { RootState } from "@/redux/store";
 interface DataTableProps<TData> {
   isLoading: boolean;
   tableObj: any;
+  trans: any;
 }
 export function DataTable<TData>({
   isLoading,
   tableObj,
+  trans
 }: DataTableProps<TData>) {
   const { refresh } = useAppSelector(
     (state: RootState) => state.datatable
   );
   const headerGroups = tableObj.getHeaderGroups();
-  
+
   return (
     <>
       <div className="rounded-md border">
@@ -40,9 +42,9 @@ export function DataTable<TData>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -78,15 +80,15 @@ export function DataTable<TData>({
                   colSpan={headerGroups[0]?.headers.length}
                   className="!text-center"
                 >
-                  No results.
+                  {trans('No results')}
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={tableObj} />
+      <DataTablePagination trans={trans} table={tableObj} />
     </>
   );
-  
+
 }

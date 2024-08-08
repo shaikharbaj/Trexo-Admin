@@ -16,12 +16,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { navigatePage, setPage } from "@/service/datatable.service";
+import toast from "react-hot-toast";
 
 interface DataTablePaginationProps {
   table: Table<any>;
+  trans: any;
 }
 
-export function DataTablePagination({ table }: DataTablePaginationProps) {
+export function DataTablePagination({ table, trans }: DataTablePaginationProps) {
   const { pagination } = useAppSelector(
     (state: RootState) => state.datatable
   );
@@ -29,11 +31,10 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
   // Helper functions to handle pagination
   const handlePageSizeChange = async (value: string) => {
     try {
-      console.log('In page chnage ', value);
       await setPage(Number(value));
       table.setPageSize(Number(value));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error?.message);
     }
   };
 
@@ -41,8 +42,8 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
   const goToPage = async (pageIndex: number) => {
     try {
       await navigatePage(pageIndex);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error?.message);
     }
   };
 
@@ -50,11 +51,11 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
     <div className="flex items-center flex-wrap gap-2 justify-between px-2">
       <div className="flex-1 text-sm text-muted-foreground whitespace-nowrap">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
+        {table.getFilteredRowModel().rows.length} {trans('row(s) selected')}.
       </div>
       <div className="flex flex-wrap items-center gap-6 lg:gap-8">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">Rows per page</p>
+          <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">{trans('Rows per page')}</p>
           <Select
             value={pagination.perPage.toString()}
             onValueChange={handlePageSizeChange}
@@ -72,7 +73,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium text-muted-foreground">
-          Page {pagination.currentPage} of {pagination.lastPage}
+          {trans('Page')} {pagination.currentPage} of {pagination.lastPage}
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -81,7 +82,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
             onClick={() => goToPage(1)}
             disabled={pagination.currentPage === 1}
           >
-            <span className="sr-only">Go to first page</span>
+            <span className="sr-only">{trans('Go to first page')}</span>
             <ChevronsLeft className="h-4 w-4 rtl:rotate-180" />
           </Button>
           <Button
@@ -90,7 +91,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
             onClick={() => goToPage(pagination.currentPage - 1)}
             disabled={pagination.currentPage === 1}
           >
-            <span className="sr-only">Go to previous page</span>
+            <span className="sr-only">{trans('Go to previous page')}</span>
             <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
           </Button>
           <Button
@@ -99,7 +100,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
             onClick={() => goToPage(pagination.currentPage + 1)}
             disabled={pagination.currentPage === pagination.lastPage}
           >
-            <span className="sr-only">Go to next page</span>
+            <span className="sr-only">{trans('Go to next page')}</span>
             <ChevronRight className="h-4 w-4 rtl:rotate-180" />
           </Button>
           <Button
@@ -108,7 +109,7 @@ export function DataTablePagination({ table }: DataTablePaginationProps) {
             onClick={() => goToPage(pagination.lastPage)}
             disabled={pagination.currentPage === pagination.lastPage}
           >
-            <span className="sr-only">Go to last page</span>
+            <span className="sr-only">{trans('Go to last page')}</span>
             <ChevronsRight className="h-4 w-4 rtl:rotate-180" />
           </Button>
         </div>

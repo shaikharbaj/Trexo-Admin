@@ -1,22 +1,17 @@
-import { MoreHorizontal } from "lucide-react";
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { deleteIndustry, fetchIndustryById } from "@/service/industry.service";
 import toast from "react-hot-toast";
 import { openPopup } from "@/service/modal.service";
 import { Icon } from "@iconify/react";
+import { useTranslations } from "next-intl";
 
 interface RowActionsProps {
   row: Row<any>;
 }
 
 export function RowActions({ row }: RowActionsProps) {
+  const t = useTranslations("IndustryPage");
 
   const handleRecordDelete = async (uuid: string) => {
     try {
@@ -35,7 +30,7 @@ export function RowActions({ row }: RowActionsProps) {
     try {
       const response: any = await fetchIndustryById(uuid);
       if (response?.status === true && response?.statusCode === 200) {
-        await openPopup('industry', 'Edit Industry', 'edit', response.data);
+        await openPopup('industry', `${t('Edit')} ${t('Industry')}`, 'edit', response.data);
       }
     } catch (error: any) {
       toast.error(error?.message);
