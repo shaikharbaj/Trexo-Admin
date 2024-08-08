@@ -17,11 +17,13 @@ import {
 interface DataTableViewOptionsProps {
   table: Table<any>;
   optionLabel: any;
+  trans: any;
 }
 
 export function DataTableViewOptions({
   table,
   optionLabel,
+  trans
 }: DataTableViewOptionsProps) {
 
   //Function to handel refresh
@@ -43,11 +45,11 @@ export function DataTableViewOptions({
             className="ltr:ml-2 rtl:mr-2  h-8 "
           >
             <SlidersHorizontal className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
-            View
+            {trans('View')}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[150px]">
-          <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+          <DropdownMenuLabel>{trans('Toggle columns')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {table
             .getAllColumns()

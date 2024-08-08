@@ -2,8 +2,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/redux/store";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,7 +14,7 @@ interface IIndustryProps { }
 const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
   const t = useTranslations("IndustryPage");
   const handleOpenModal = async () => {
-    await openPopup('industry', 'Add Industry', 'add');
+    await openPopup('industry', `${t('Add')} ${t('Industry')}`, 'add');
   };
 
 
@@ -42,7 +40,7 @@ const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateIndustryModal />
+            <CreateUpdateIndustryModal trans={t} />
           </div>
         </div>
       </div>

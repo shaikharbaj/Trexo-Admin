@@ -18,9 +18,11 @@ import { createIndustry, updateIndustry } from "@/service/industry.service";
 import { closePopup } from "@/service/modal.service";
 import { industrySchema } from "@/validations";
 
-interface IModalProps {}
+interface IModalProps {
+  trans: any;
+}
 
-const CreateUpdateIndustryModal: React.FC<IModalProps> = () => {
+const CreateUpdateIndustryModal: React.FC<IModalProps> = ({ trans }) => {
   const { isOpen, modalName, modalTitle, action, data } = useAppSelector(
     (state: RootState) => state.modal
   );
@@ -61,10 +63,10 @@ const CreateUpdateIndustryModal: React.FC<IModalProps> = () => {
           toast.success(response?.message);
           await closePopup();
         } else {
-          toast.error(response?.message || "An error occurred.");
+          toast.error(response?.message || trans("An error occurred"));
         }
       } catch (error: any) {
-        toast.error(error?.message || "An error occurred.");
+        toast.error(error?.message || trans("An error occurred"));
       }
     });
   };
@@ -86,6 +88,7 @@ const CreateUpdateIndustryModal: React.FC<IModalProps> = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="h-[100px]">
               <IndustryForm
+                trans={trans}
                 isPending={isPending}
                 register={register}
                 errors={errors}
@@ -98,12 +101,12 @@ const CreateUpdateIndustryModal: React.FC<IModalProps> = () => {
                   variant="outline"
                   onClick={handleModalClose}
                 >
-                  Cancel
+                  {trans('Cancel')}
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isPending ? "Loading..." : "Save"}
+                {isPending ? trans("Loading") + '...' : action === 'add' ? trans('Save') : trans('Update')}
               </Button>
             </div>
           </form>
