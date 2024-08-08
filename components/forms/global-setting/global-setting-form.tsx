@@ -18,8 +18,10 @@ import {
 } from "@/components/ui/select";
 import { globalSettingSchema } from "@/validations";
 import { updateGlobalSetting, fetchGlobalSetting } from "@/service/global-setting.service";
+import { useTranslations } from "next-intl";
 
 const GlobalSettingForm: React.FunctionComponent = () => {
+  const t = useTranslations('GlobalSettingPage')
   const [isPending, startTransition] = React.useTransition();
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
 
@@ -82,7 +84,7 @@ const GlobalSettingForm: React.FunctionComponent = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-6 mt-6">
         <div>
           <Label htmlFor="site_name" className="text-sm font-medium text-default-600 mb-1">
-            Site Name:<span className="text-destructive">*</span>
+            {t("Site Name")}:<span className="text-destructive">*</span>
           </Label>
           <Input
             disabled={isPending}
@@ -97,13 +99,13 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.site_name && (
             <div className=" text-destructive mt-2">
-              {errors?.site_name?.message}
+              {t(`${errors?.site_name?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="site_email" className="text-sm font-medium text-default-600 mb-1">
-            Site Email:<span className="text-destructive">*</span>
+            {t("Site Email")}:<span className="text-destructive">*</span>
           </Label>
           <Input
             disabled={isPending}
@@ -118,18 +120,18 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.site_email && (
             <div className=" text-destructive mt-2">
-              {errors?.site_email?.message}
+              {t(`${errors?.site_email?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="phone" className="text-sm font-medium text-default-600 mb-1">
-            Phone:<span className="text-destructive">*</span>
+            {t("Phone")}:<span className="text-destructive">*</span>
           </Label>
           <Input
             disabled={isPending}
             {...register("phone")}
-            type="text"
+            type="tel"
             id="phone"
             placeholder="8806886201"
             className={cn("", {
@@ -139,13 +141,13 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.phone && (
             <div className=" text-destructive mt-2">
-              {errors?.phone?.message}
+              {t(`${errors?.phone?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="otp_expiration_time" className="text-sm font-medium text-default-600 mb-1">
-            OTP Explore Time (In Minutes):<span className="text-destructive">*</span>
+            {t("OTP Explore Time (In Minutes)")}:<span className="text-destructive">*</span>
           </Label>
           <Input
             disabled={isPending}
@@ -160,18 +162,18 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.otp_explore_time && (
             <div className=" text-destructive mt-2">
-              {errors?.otp_explore_time?.message}
+              {t(`${errors?.otp_explore_time?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="revenue_percentage" className="text-sm font-medium text-default-600 mb-1">
-            Revenue Percentage:<span className="text-destructive">*</span>
+            {t("Revenue Percentage")}:<span className="text-destructive">*</span>
           </Label>
           <Input
             disabled={isPending}
             {...register("revenue_percentage")}
-            type="text"
+            type="number"
             id="revenue_percentage"
             placeholder="75"
             className={cn("", {
@@ -181,13 +183,13 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.revenue_percentage && (
             <div className=" text-destructive mt-2">
-              {errors?.revenue_percentage?.message}
+              {t(`${errors?.revenue_percentage?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="currency_symbol" className="text-sm font-medium text-default-600 mb-1">
-            Currency Symbol:<span className="text-destructive">*</span>
+            {t("Currency Symbol")}:<span className="text-destructive">*</span>
           </Label>
           <Controller
             control={control}
@@ -195,7 +197,7 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             render={({ field: { onChange, value, } }) => (
               <Select onValueChange={onChange} value={value}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select currency symbol" />
+                  <SelectValue placeholder={t("Select currency symbol")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="RUPEE"><Icon icon="heroicons:currency-rupee" className="w-5 h-5 inline-block" /> Rupee</SelectItem>
@@ -210,22 +212,22 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.currency_symbol && (
             <div className=" text-destructive mt-2">
-              {errors?.currency_symbol?.message}
+              {t(`${errors?.currency_symbol?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="timezone" className="text-sm font-medium text-default-600 mb-1">
-            Time Zone:<span className="text-destructive">*</span>
+            {t("Time Zone")} :<span className="text-destructive">*</span>
           </Label>
 
           <Controller
             control={control}
             name="time_zone"
-            render={({ field: { onChange, onBlur, value, ref } }) => (
+            render={({ field: { onChange, value, } }) => (
               <Select onValueChange={onChange} value={value}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select time zone" />
+                  <SelectValue placeholder={t("Select time zone")} />
                 </SelectTrigger>
                 <SelectContent >
                   <SelectItem value="UCT">UCT</SelectItem>
@@ -238,39 +240,39 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.time_zone && (
             <div className=" text-destructive mt-2">
-              {errors?.time_zone?.message}
+              {t(`${errors?.time_zone?.message}`)}
             </div>
           )}
         </div>
         <div >
           <Label htmlFor="address" className="text-sm font-medium text-default-600 mb-1">
-            Address:
+            {t("Address")} :
           </Label>
           <Textarea
             {...register("address")}
             id="address"
             className="rounded h-10"
-            placeholder="Please enter address."
+            placeholder={t("Please enter address")}
           />
           {errors?.address && (
             <div className=" text-destructive mt-2">
-              {errors?.address?.message}
+              {t(`${errors?.address?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="footer content" className="text-sm font-medium text-default-600 mb-1">
-            Footer Content:<span className="text-destructive">*</span>
+            {t("Footer Content")}:<span className="text-destructive">*</span>
           </Label>
           <Textarea
             {...register("footer_content")}
             id="footer_content"
             className="rounded h-10"
-            placeholder="Please enter footer content."
+            placeholder={t("Please enter footer content")}
           />
           {errors?.footer_content && (
             <div className=" text-destructive mt-2">
-              {errors?.footer_content?.message}
+              {t(`${errors?.footer_content?.message}`)}
             </div>
           )}
         </div>
@@ -284,7 +286,7 @@ const GlobalSettingForm: React.FunctionComponent = () => {
 
         <div>
           <Label htmlFor="meta_title" className="text-sm font-medium text-default-600 mb-1">
-            Meta title:
+            {t("Meta title")}:
           </Label>
           <Input
             disabled={isPending}
@@ -299,13 +301,13 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.meta_title && (
             <div className=" text-destructive mt-2">
-              {errors?.meta_title?.message}
+              {t(`${errors?.meta_title?.message}`)}
             </div>
           )}
         </div>
         <div>
           <Label htmlFor="meta_keyword" className="text-sm font-medium text-default-600 mb-1">
-            Meta keyword:
+            {t("Meta keyword")}:
           </Label>
           <Input
             disabled={isPending}
@@ -320,24 +322,24 @@ const GlobalSettingForm: React.FunctionComponent = () => {
           />
           {errors?.meta_keyword && (
             <div className=" text-destructive mt-2">
-              {errors?.meta_keyword?.message}
+              {t(`${errors?.meta_keyword?.message}`)}
             </div>
           )}
         </div>
 
         <div>
           <Label htmlFor="meta description" className="text-sm font-medium text-default-600 mb-1">
-            Meta Description:
+            {t("Meta Description")} :
           </Label>
           <Textarea
             {...register("meta_description")}
             id="meta_description"
             className="rounded h-10"
-            placeholder="Please enter meta description."
+            placeholder={t("Please enter meta description")}
           />
           {errors?.meta_description && (
             <div className=" text-destructive mt-2">
-              {errors?.meta_description?.message}
+              {t(`${errors?.meta_description?.message}`)}
             </div>
           )}
         </div>
@@ -345,11 +347,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
       <div className="flex-none flex items-center justify-end gap-4 mt-8">
         <Button variant="outline" className=" text-default-300">
           <Icon icon="heroicons:x-mark" className="w-5 h-5 ltr:mr-2 rtl:ml-2" />{" "}
-          Cancel{" "}
+          {t("Cancel")} {" "}
         </Button>
         <Button>
           <Icon icon="heroicons:check" className="w-5 h-5 ltr:mr-2 rtl:ml-2" />{" "}
-          Save
+          {t("Save")}
         </Button>
       </div>
     </form >
