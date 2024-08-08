@@ -30,11 +30,12 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = () => {
     reset,
     setValue,
     control,
+    getValues
   } = useForm({
     mode: "all",
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      industry_name: "",
+      industry_id: "",
       category_type: "",
       category_name: "",
       category_description: "",

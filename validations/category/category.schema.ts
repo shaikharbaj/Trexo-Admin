@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const categorySchema = z.object({
-    industry_name: z.string().min(1, { message: "Please select industry." }),
+    industry_id: z.string().min(1, { message: "Please select industry." }),
     category_type: z.string().min(1, { message: "Please select category type." }),
     category_name: z.string().min(1, { message: "Please enter category name." }),
     category_description: z.string().min(1, { message: "Please enter category description." }).max(100, {message: "Category description must be less than 100 characters"}),
