@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icon } from "@iconify/react";
@@ -19,18 +19,18 @@ import {
 import { globalSettingSchema } from "@/validations";
 import { updateGlobalSetting, fetchGlobalSetting } from "@/service/global-setting.service";
 import { useTranslations } from "next-intl";
+import { Loader2 } from "lucide-react";
 
 const GlobalSettingForm: React.FunctionComponent = () => {
   const t = useTranslations('GlobalSettingPage')
   const [isPending, startTransition] = React.useTransition();
   const isDesktop2xl = useMediaQuery("(max-width: 1530px)");
-
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-    reset,
+    setValue,
   } = useForm({
     resolver: zodResolver(globalSettingSchema),
     mode: "all",
@@ -50,16 +50,29 @@ const GlobalSettingForm: React.FunctionComponent = () => {
     },
   });
 
+  const fetchGlobalSettingData: any = async () => {
+    const res = await fetchGlobalSetting();
+    const data = res?.data;
+    if (data) {
+      setValue("site_name", data?.site_name);
+      setValue("site_email", data?.site_email);
+      setValue("phone", data?.phone);
+      setValue("meta_title", data?.meta_title);
+      setValue("meta_keyword", data?.meta_keyword);
+      setValue("meta_description", data?.meta_description);
+      setValue("otp_explore_time", data?.otp_explore_time);
+      setValue("revenue_percentage", data?.revenue_percentage);
+      setValue("currency_symbol", data?.currency_symbol);
+      setValue("time_zone", data?.time_zone);
+      setValue("address", data?.address);
+      setValue("footer_content", data?.footer_content);
+    }
+  }
+
   //UseEffect to fetch global setting data
   useEffect(() => {
-    const fetchGlobalSettingData: any = async () => {
-      const res = await fetchGlobalSetting();
-      const data = res?.data[0];
-      reset(data);
-    }
-
     fetchGlobalSettingData()
-  }, [reset]);
+  }, []);
 
   // Function to handle form submit
   const onSubmit = (data: any) => {
@@ -80,18 +93,18 @@ const GlobalSettingForm: React.FunctionComponent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-6 mt-6">
         <div>
           <Label htmlFor="site_name" className="text-sm font-medium text-default-600 mb-1">
             {t("Site Name")}:<span className="text-destructive">*</span>
           </Label>
           <Input
+            id="site_name"
+            type="text"
+            placeholder="TrexoPro"
             disabled={isPending}
             {...register("site_name")}
-            type="text"
-            id="site_name"
-            placeholder="TrexoPro"
             className={cn("", {
               "border-destructive": errors.site_name,
             })}
@@ -108,11 +121,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Site Email")}:<span className="text-destructive">*</span>
           </Label>
           <Input
+            id="site_email"
+            type="email"
+            placeholder="spatel1katalysttech.com"
             disabled={isPending}
             {...register("site_email")}
-            type="email"
-            id="site_email"
-            placeholder="spatel1katalysttech.com"
             className={cn("", {
               "border-destructive": errors.site_email,
             })}
@@ -129,11 +142,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Phone")}:<span className="text-destructive">*</span>
           </Label>
           <Input
+            id="phone"
+            type="text"
+            placeholder="8806886201"
             disabled={isPending}
             {...register("phone")}
-            type="tel"
-            id="phone"
-            placeholder="8806886201"
             className={cn("", {
               "border-destructive": errors.phone,
             })}
@@ -150,11 +163,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("OTP Explore Time (In Minutes)")}:<span className="text-destructive">*</span>
           </Label>
           <Input
+            id="otp_expiration_time"
+            type="text"
+            placeholder="3"
             disabled={isPending}
             {...register("otp_explore_time")}
-            type="number"
-            id="otp_expiration_time"
-            placeholder="3"
             className={cn("", {
               "border-destructive": errors.otp_explore_time,
             })}
@@ -171,11 +184,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Revenue Percentage")}:<span className="text-destructive">*</span>
           </Label>
           <Input
+            id="revenue_percentage"
+            type="string"
+            placeholder="75"
             disabled={isPending}
             {...register("revenue_percentage")}
-            type="number"
-            id="revenue_percentage"
-            placeholder="75"
             className={cn("", {
               "border-destructive": errors.revenue_percentage,
             })}
@@ -249,10 +262,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Address")} :
           </Label>
           <Textarea
-            {...register("address")}
             id="address"
-            className="rounded h-10"
             placeholder={t("Please enter address")}
+            disabled={isPending}
+            {...register("address")}
+            className="rounded h-10"
           />
           {errors?.address && (
             <div className=" text-destructive mt-2">
@@ -265,12 +279,13 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Footer Content")}:<span className="text-destructive">*</span>
           </Label>
           <Textarea
-            {...register("footer_content")}
             id="footer_content"
+            placeholder={t("Please enter footer content")}
+            disabled={isPending}
+            {...register("footer_content")}
             className={cn("rounded h-10", {
               "border-destructive": errors.revenue_percentage,
             })}
-            placeholder={t("Please enter footer content")}
           />
           {errors?.footer_content && (
             <div className=" text-destructive mt-2">
@@ -286,11 +301,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Meta title")}:
           </Label>
           <Input
+            id="meta_title"
+            type="text"
+            placeholder="TrexoPro"
             disabled={isPending}
             {...register("meta_title")}
-            type="text"
-            id="meta_title"
-            placeholder="TrexoPro"
             className={cn("", {
               "border-destructive": errors.meta_title,
             })}
@@ -307,11 +322,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Meta keyword")}:
           </Label>
           <Input
+            id="meta_keyword"
+            type="text"
+            placeholder={t("Ecommerce")}
             disabled={isPending}
             {...register("meta_keyword")}
-            type="text"
-            id="meta_keyword"
-            placeholder="Ecommerce"
             className={cn("", {
               "border-destructive": errors.meta_keyword,
             })}
@@ -329,10 +344,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             {t("Meta Description")} :
           </Label>
           <Textarea
-            {...register("meta_description")}
             id="meta_description"
-            className="rounded h-10"
             placeholder={t("Please enter meta description")}
+            disabled={isPending}
+            {...register("meta_description")}
+            className="rounded h-10"
           />
           {errors?.meta_description && (
             <div className=" text-destructive mt-2">
@@ -343,12 +359,11 @@ const GlobalSettingForm: React.FunctionComponent = () => {
       </div>
       <div className="flex-none flex items-center justify-end gap-4 mt-8">
         <Button variant="outline" className=" text-default-300">
-          <Icon icon="heroicons:x-mark" className="w-5 h-5 ltr:mr-2 rtl:ml-2" />{" "}
           {t("Cancel")} {" "}
         </Button>
         <Button>
-          <Icon icon="heroicons:check" className="w-5 h-5 ltr:mr-2 rtl:ml-2" />{" "}
-          {t("Save")}
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {isPending ? t("Loading") + '...' : t("Save")}
         </Button>
       </div>
     </form >
