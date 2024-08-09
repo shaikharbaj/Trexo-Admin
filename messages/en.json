@@ -145,10 +145,12 @@
     "Meta Description": "Meta Description",
     "Please enter site name": "Please enter site name",
     "Please enter site email address": "Please enter site email address",
-    "Please enter Phone Number": "Please enter Phone Number",
-    "Please enter positive number": "Please enter positive number",
+    "Please enter Phone Number": "Please enter phone number",
     "Please enter OTP explore time": "Please enter OTP explore time",
+    "OTP explore time should only contain number": "OTP explore time should only contain number",
     "Please enter revenue percentage": "Please enter revenue percentage",
+    "Revenue percentage should only contain number": "Revenue percentage should only contain number",
+    "Revenue percentage should not be more than 100": "Revenue percentage should not be more than 100",
     "Please select currency symbol": "Please select currency symbol",
     "Please select time zone": "Please select time zone",
     "Footer content can be empty": "Footer content can be empty",
@@ -158,6 +160,8 @@
     "Select time zone": "Select time zone",
     "Please enter address": "Please enter address",
     "Please enter footer content": "Please enter footer content",
-    "Please enter meta description": "Please enter meta description"
+    "Please enter meta description": "Please enter meta description",
+    "Ecommerce": "Ecommerce",
+    "Loading": "Loading"
   }
 }

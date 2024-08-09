@@ -131,6 +131,7 @@
     "Global Setting": "الإعدادات العامة",
     "Save": "حفظ",
     "Cancel": "إلغاء",
+    "Loading": "تحميل",
     "Site Name": "اسم الموقع",
     "Site Email": "بريد الموقع الإلكتروني",
     "Phone": "الهاتف",
@@ -146,9 +147,11 @@
     "Please enter site name": "يرجى إدخال اسم الموقع",
     "Please enter site email address": "يرجى إدخال عنوان البريد الإلكتروني للموقع",
     "Please enter Phone Number": "يرجى إدخال رقم الهاتف",
-    "Please enter positive number": "يرجى إدخال رقم موجب",
-    "Please enter OTP explore time": "يرجى إدخال وقت صلاحية OTP",
-    "Please enter revenue percentage": "يرجى إدخال نسبة الإيرادات",
+    "Please enter OTP explore time": "الرجاء إدخال وقت استكشاف OTP",
+    "OTP explore time should only contain number": "يجب أن يحتوي وقت استكشاف OTP على أرقام فقط",
+    "Please enter revenue percentage": "الرجاء إدخال نسبة الإيرادات",
+    "Revenue percentage should only contain number": "يجب أن تحتوي نسبة الإيرادات على أرقام فقط",
+    "Revenue percentage should not be more than 100": "نسبة الإيرادات لا يجب أن تزيد عن 100",
     "Please select currency symbol": "يرجى اختيار رمز العملة",
     "Please select time zone": "يرجى اختيار المنطقة الزمنية",
     "Footer content can be empty": "يمكن أن يكون محتوى التذييل فارغًا",
@@ -158,6 +161,7 @@
     "Select time zone": "اختر المنطقة الزمنية",
     "Please enter address": "يرجى إدخال العنوان",
     "Please enter footer content": "يرجى إدخال محتوى التذييل",
-    "Please enter meta description": "يرجى إدخال وصف الميتا"
+    "Please enter meta description": "يرجى إدخال وصف الميتا",
+    "Ecommerce": "التجارة الإلكترونية"
   }
 }
