@@ -41,7 +41,9 @@ export const columns: ColumnDef<State>[] = [
   },
   {
     accessorKey: "state_name",
-    header: ({ column }) => <ColumnHeader column={column} title="State Name" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="State Name" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
@@ -51,7 +53,7 @@ export const columns: ColumnDef<State>[] = [
         </div>
       );
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, id, value) => {      
       return value.includes(row.getValue(id));
     },
   },
@@ -73,10 +75,11 @@ export const columns: ColumnDef<State>[] = [
       }
       return "N/A";
     },
-  },
-  {
+  },  {
     accessorKey: "short_code",
-    header: ({ column }) => <ColumnHeader column={column} title="Short Code" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Short Code" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
@@ -86,23 +89,25 @@ export const columns: ColumnDef<State>[] = [
         </div>
       );
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, id, value) => {      
       return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "created_at",
-    header: ({ column }) => <ColumnHeader column={column} title="Created At" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Created At" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {formatDate(row.getValue("created_at"))}
+          {formatDate(row.getValue("created_at"))}
           </span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, id, value) => {     
       return value.includes(row.getValue(id));
     },
     enableSorting: true,
@@ -110,17 +115,19 @@ export const columns: ColumnDef<State>[] = [
   },
   {
     accessorKey: "updated_at",
-    header: ({ column }) => <ColumnHeader column={column} title="Updated At" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Updated At" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {formatDate(row.getValue("updated_at"))}
+          {formatDate(row.getValue("updated_at"))}
           </span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, id, value) => {     
       return value.includes(row.getValue(id));
     },
     enableSorting: true,
@@ -128,24 +135,24 @@ export const columns: ColumnDef<State>[] = [
   },
   {
     accessorKey: "is_active",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
           <Badge
-            variant="soft"
+          variant="soft"
             color={
-              (row.getValue("is_active") === true && "success") ||
-              (row.getValue("is_active") === false && "destructive") ||
-              "default"
-            }
-          >
-            {row.getValue("is_active") === true ? "Active" : "Inactive"}
+              (row.getValue('is_active') === true && "success") ||
+              (row.getValue('is_active') === false && "destructive") || "default"
+            }>
+            {row.getValue('is_active') === true ? 'Active' : "Inactive"}
           </Badge>
         </div>
       );
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, id, value) => {     
       return value.includes(row.getValue(id));
     },
     enableSorting: false,
@@ -153,7 +160,10 @@ export const columns: ColumnDef<State>[] = [
   },
   {
     id: "action",
-    header: "Action",
+    // header: "Action",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Action" />
+    ),
     cell: ({ row }) => <RowActions row={row} />,
     enableSorting: false,
     enableHiding: false,

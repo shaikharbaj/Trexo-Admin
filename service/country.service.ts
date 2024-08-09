@@ -8,7 +8,7 @@ import {
   updateCountryThunk,
 } from "@/redux/thunk/country.thunk";
 
-//Function to create industry
+//Function to create country
 export const createCountry = async (createPayload: any) => {
   try {
     const { payload } = await store.dispatch(createCountryThunk(createPayload));

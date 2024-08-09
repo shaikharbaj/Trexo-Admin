@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { filterStatus } from "@/service/datatable.service";
+import { useTranslations } from "next-intl";
 
 interface Option {
   value: any;
@@ -32,8 +33,9 @@ interface FilterProps {
 }
 
 export function Filter({ title, options }: FilterProps) {
+  const t = useTranslations("CategoryPage");
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
+  
   useEffect(() => {
     handelFilter();
   },[selectedValues]);
@@ -103,7 +105,7 @@ export function Filter({ title, options }: FilterProps) {
         <Command>
           {/* <CommandInput placeholder={title} /> */}
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t("No results found")}</CommandEmpty>
             <CommandGroup>
               {options.map((option: Option) => {
                 const isSelected = selectedValues.find((val: any) => val === option.value);
@@ -144,7 +146,7 @@ export function Filter({ title, options }: FilterProps) {
                     onSelect={handelClear}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    {t("Clear filters")}
                   </CommandItem>
                 </CommandGroup>
               </>

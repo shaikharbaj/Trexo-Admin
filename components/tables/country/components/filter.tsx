@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { filterStatus } from "@/service/datatable.service";
+import { useTranslations } from "next-intl";
 
 interface Option {
   value: any;
@@ -33,10 +34,10 @@ interface FilterProps {
 
 export function Filter({ title, options }: FilterProps) {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
+  const t = useTranslations("CountryPage");
   useEffect(() => {
     handelFilter();
-  },[selectedValues]);
+  }, [selectedValues]);
 
   //Function to handel filter
   const handelFilter = async () => {
@@ -50,13 +51,15 @@ export function Filter({ title, options }: FilterProps) {
 
   //Function to handel value un selection
   const handelUnSelect = (valueToRemove: Boolean | String) => {
-    setSelectedValues((prevValues) => prevValues.filter(value => value !== valueToRemove));
-  }
+    setSelectedValues((prevValues) =>
+      prevValues.filter((value) => value !== valueToRemove)
+    );
+  };
 
   //Function to clear filter
   const handelClear = () => {
     setSelectedValues([]);
-  }
+  };
 
   return (
     <Popover>
@@ -83,7 +86,9 @@ export function Filter({ title, options }: FilterProps) {
                   </Badge>
                 ) : (
                   options
-                    .filter((option: Option) => selectedValues.includes(option.value))
+                    .filter((option: Option) =>
+                      selectedValues.includes(option.value)
+                    )
                     .map((option) => (
                       <Badge
                         color="secondary"
@@ -103,10 +108,12 @@ export function Filter({ title, options }: FilterProps) {
         <Command>
           {/* <CommandInput placeholder={title} /> */}
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t("No results found")}</CommandEmpty>
             <CommandGroup>
               {options.map((option: Option) => {
-                const isSelected = selectedValues.find((val: any) => val === option.value);
+                const isSelected = selectedValues.find(
+                  (val: any) => val === option.value
+                );
                 return (
                   <CommandItem
                     key={option.value}
@@ -144,7 +151,7 @@ export function Filter({ title, options }: FilterProps) {
                     onSelect={handelClear}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    {t("Clear filters")}
                   </CommandItem>
                 </CommandGroup>
               </>

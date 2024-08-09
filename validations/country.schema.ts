@@ -19,7 +19,7 @@ const countrySchema = z.object({
     .regex(/^\d+$/, { message: "Mobile code must be a number" }),
   currency_code: z
     .string()
-    .min(1, { message: "Please enter mobile code" })
+    .min(1, { message: "Please enter currency code" })
     .regex(/^[A-Za-z\s]+$/, {
       message: "Currency code must contain only alphabetic characters",
     }),

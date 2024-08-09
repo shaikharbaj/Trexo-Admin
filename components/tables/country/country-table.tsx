@@ -10,7 +10,6 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getPaginationRowModel,
-  getSortedRowModel,
   SortingState,
   useReactTable,
   VisibilityState,
@@ -60,6 +59,7 @@ const CountryTable: React.FC<ITableProps> = ({ trans }) => {
   }, [
     filters.searchText,
     filters.is_active,
+    filters.sortColumn,
     filters.sortBy,
     pagination.currentPage,
     pagination.perPage,
@@ -89,8 +89,13 @@ const CountryTable: React.FC<ITableProps> = ({ trans }) => {
   return (
     <Fragment>
       <div className="space-y-4">
-        <Toolbar table={table} isFilterEnable={isFilterEnable} />
-        <DataTable isLoading={isLoading} tableObj={table} />
+        <Toolbar
+          key={String(refresh)}
+          trans={trans}
+          table={table}
+          isFilterEnable={isFilterEnable}
+        />
+        <DataTable trans={trans} isLoading={isLoading} tableObj={table} />
       </div>
     </Fragment>
   );
