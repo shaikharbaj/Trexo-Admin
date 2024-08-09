@@ -284,7 +284,7 @@ const GlobalSettingForm: React.FunctionComponent = () => {
             disabled={isPending}
             {...register("footer_content")}
             className={cn("rounded h-10", {
-              "border-destructive": errors.revenue_percentage,
+              "border-destructive": errors.footer_content,
             })}
           />
           {errors?.footer_content && (
