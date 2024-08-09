@@ -8,10 +8,15 @@ import { Button } from "@/components/ui/button";
 import { CreateUpdateIndustryModal } from "@/components/modals";
 import { IndustryTable } from "@/components/tables";
 import { openPopup } from "@/service/modal.service";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 interface IIndustryProps { }
 
 const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
+  const { refresh } = useAppSelector(
+    (state: RootState) => state.datatable
+  );
   const t = useTranslations("IndustryPage");
   const handleOpenModal = async () => {
     await openPopup('industry', `${t('Add')} ${t('Industry')}`, 'add');
@@ -47,7 +52,7 @@ const IndustryList: React.FunctionComponent<IIndustryProps> = () => {
       <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardContent className="pt-6">
-            <IndustryTable trans={t} />
+            <IndustryTable key={String(refresh)} trans={t} />
           </CardContent>
         </Card>
       </div>

@@ -1,4 +1,4 @@
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,12 +15,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { categorySchema } from "@/validations";
+import { createCategory, updateCategory } from "@/service/category.service";
+import toast from "react-hot-toast";
 
 interface IModalProps {
-  trans:any;
+  trans: any;
 }
 
-const CreateUpdateCategoryModal: React.FC<IModalProps> = ({trans}) => {
+const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
   const { isOpen, modalName, modalTitle, action, data } = useAppSelector(
     (state: RootState) => state.modal
   );
@@ -41,13 +43,45 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({trans}) => {
       category_name: "",
       category_description: "",
       meta_title: "",
-      meta_keyword: "",
+      meta_keywords: "",
       meta_description: "",
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      setValue("industry_id", data?.industry?.uuid || "");
+      setValue("category_type", data?.category_type || "");
+      setValue("category_name", data?.category_name || "");
+      setValue("category_description", data?.category_description || "");
+      setValue("meta_title", data?.meta_title || "");
+      setValue("meta_keywords", data?.meta_keywords || "");
+      setValue("meta_description", data?.meta_description || "");
+    }
+  }, [data]);
+
   const onSubmit = async (payload: any) => {
-    console.log("payload ", payload);
+    startTransition(async () => {
+      try {
+        let response: any;
+
+        if (action === "add") {
+          response = await createCategory(payload);
+        } else {
+          response = await updateCategory(data?.uuid, payload);
+        }
+
+        if (response?.status === true && response?.statusCode === 200) {
+          reset();
+          toast.success(response?.message);
+          await closePopup();
+        } else {
+          toast.error(response?.message || trans("An error occurred"));
+        }
+      } catch (error: any) {
+        toast.error(error?.message || trans("An error occurred"));
+      }
+    });
   };
 
   //Function to close the model
@@ -65,10 +99,10 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({trans}) => {
           </DialogTitle>
         </DialogHeader>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <div className="h-[450px]">
               <CategoryForm
-              trans={trans}
+                trans={trans}
                 isPending={isPending}
                 register={register}
                 control={control}

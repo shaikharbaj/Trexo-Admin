@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { useTranslations } from "next-intl";
 import { openPopup } from "@/service/modal.service";
 import toast from "react-hot-toast";
+import { deleteCategory, fetchCategoryById } from "@/service/category.service";
 
 interface RowActionsProps {
   row: Row<any>;
@@ -13,27 +14,27 @@ export function RowActions({ row }: RowActionsProps) {
   const t = useTranslations("CategoryPage");
 
   const handleRecordDelete = async (uuid: string) => {
-    // try {
-    //   const response: any = await deleteIndustry(uuid);
-    //   if (response?.status === true && response?.statusCode === 200) {
-    //     toast.success(response?.message);
-    //   } else {
-    //     toast.error(response?.message);
-    //   }
-    // } catch (error: any) {
-    //   toast.error(error?.message);
-    // }
+    try {
+      const response: any = await deleteCategory(uuid);
+      if (response?.status === true && response?.statusCode === 200) {
+        toast.success(response?.message);
+      } else {
+        toast.error(response?.message);
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
   }
 
   const handleOpenModal = async (uuid: string) => {
-    // try {
-    //   const response: any = await fetchIndustryById(uuid);
-    //   if (response?.status === true && response?.statusCode === 200) {
-    //     await openPopup('industry', `${t('Edit')} ${t('Category')}`, 'edit', response.data);
-    //   }
-    // } catch (error: any) {
-    //   toast.error(error?.message);
-    // }
+    try {
+      const response: any = await fetchCategoryById(uuid);
+      if (response?.status === true && response?.statusCode === 200) {
+        await openPopup('category', `${t('Edit')} ${t('Category')}`, 'edit', response.data);
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
   };
 
   return (

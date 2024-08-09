@@ -22,7 +22,7 @@ interface ITableProps {
 }
 
 const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
-  const { isLoading, refresh, data, isFilterEnable, filters, pagination } = useAppSelector(
+  const { isLoading, data, isFilterEnable, filters, pagination } = useAppSelector(
     (state: RootState) => state.datatable
   );
 
@@ -90,7 +90,7 @@ const IndustryTable: React.FC<ITableProps> = ({ trans }) => {
   return (
     <Fragment>
       <div className="space-y-4">
-        <Toolbar key={String(refresh)} trans={trans} table={table} isFilterEnable={isFilterEnable} />
+        <Toolbar trans={trans} table={table} isFilterEnable={isFilterEnable} />
         <DataTable trans={trans} isLoading={isLoading} tableObj={table} />
       </div>
     </Fragment>

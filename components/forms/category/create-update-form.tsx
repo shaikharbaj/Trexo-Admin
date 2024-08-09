@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -35,10 +35,10 @@ const CategoryForm: React.FC<IFormProps> = ({
   control,
   errors,
 }) => {
-  const  [industries, setIndustries] = useState<Industry[]>([]);
+  const [industries, setIndustries] = useState<Industry[]>([]);
   useEffect(() => {
     fetchIndustry();
-  },[]);
+  }, []);
 
   //Function to fetch industries
   const fetchIndustry = async () => {
@@ -66,12 +66,12 @@ const CategoryForm: React.FC<IFormProps> = ({
             render={({ field: { onChange, onBlur, value, ref } }) => (
               <Select onValueChange={onChange} value={(value) ? value : undefined}>
                 <SelectTrigger color={errors?.industry_id && "destructive"}>
-                  <SelectValue placeholder="Select Industry" className="whitespace-nowrap" />
+                  <SelectValue placeholder={trans('Select industry')} className="whitespace-nowrap" />
                 </SelectTrigger>
                 <SelectContent>
                   {
                     industries.map((industry: any, industryIndex: number) => {
-                      return(
+                      return (
                         <SelectItem key={industryIndex} value={industry.uuid}>{industry.industry_name}</SelectItem>
                       )
                     })
@@ -82,13 +82,13 @@ const CategoryForm: React.FC<IFormProps> = ({
           />
           {errors.industry_id && (
             <div className=" text-destructive">
-              {errors.industry_id.message}
+              {trans(errors.industry_id.message)}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>
-            Category Type <span className=" text-destructive">*</span>
+            {trans('Category Type')} <span className=" text-destructive">*</span>
           </Label>
           <Controller
             control={control}
@@ -96,7 +96,7 @@ const CategoryForm: React.FC<IFormProps> = ({
             render={({ field: { onChange, onBlur, value, ref } }) => (
               <Select onValueChange={onChange} value={(value) ? value : undefined}>
                 <SelectTrigger color={errors?.category_type && "destructive"}>
-                  <SelectValue placeholder="Select Category Type" className="whitespace-nowrap" />
+                  <SelectValue placeholder={trans('Select category type')} className="whitespace-nowrap" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="PRODUCT">Product</SelectItem>
@@ -107,18 +107,18 @@ const CategoryForm: React.FC<IFormProps> = ({
           />
           {errors.category_type && (
             <div className=" text-destructive">
-              {errors.category_type.message}
+              {trans(errors.category_type.message)}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>
-            Category Name <span className=" text-destructive">*</span>
+            {trans('Category Name')} <span className=" text-destructive">*</span>
           </Label>
           <Input
             type="text"
             size="lg"
-            placeholder="Enter category name"
+            placeholder={trans('Enter category name')}
             disabled={isPending}
             {...register("category_name")}
             className={cn("", {
@@ -127,16 +127,16 @@ const CategoryForm: React.FC<IFormProps> = ({
           />
           {errors.category_name && (
             <div className=" text-destructive">
-              {errors.category_name.message}
+              {trans(errors.category_name.message)}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>
-            Category Description <span className=" text-destructive">*</span>
+            {trans('Category Description')} <span className=" text-destructive">*</span>
           </Label>
           <Textarea
-            placeholder="Enter category description"
+            placeholder={trans("Enter category description")}
             rows={4}
             disabled={isPending}
             {...register("category_description")}
@@ -146,18 +146,18 @@ const CategoryForm: React.FC<IFormProps> = ({
           />
           {errors.category_description && (
             <div className=" text-destructive">
-              {errors.category_description.message}
+              {trans(errors.category_description.message)}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>
-            Meta Title <span className=" text-destructive">*</span>
+            {trans('Meta Title')}
           </Label>
           <Input
             type="text"
             size="lg"
-            placeholder="Enter meta title"
+            placeholder={trans("Enter meta title")}
             disabled={isPending}
             {...register("meta_title")}
             className={cn("", {
@@ -165,35 +165,35 @@ const CategoryForm: React.FC<IFormProps> = ({
             })}
           />
           {errors.meta_title && (
-            <div className=" text-destructive">{errors.meta_title.message}</div>
+            <div className=" text-destructive">{trans(errors.meta_title.message)}</div>
           )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>
-            Meta Keyword <span className=" text-destructive">*</span>
+            {trans('Meta Keyword')}
           </Label>
           <Input
             type="text"
             size="lg"
-            placeholder="Enter meta keyword"
+            placeholder={trans("Enter meta keyword")}
             disabled={isPending}
-            {...register("meta_keyword")}
+            {...register("meta_keywords")}
             className={cn("", {
-              "border-destructive": errors?.meta_keyword,
+              "border-destructive": errors?.meta_keywords,
             })}
           />
-          {errors.meta_keyword && (
+          {errors.meta_keywords && (
             <div className=" text-destructive">
-              {errors.meta_keyword.message}
+              {trans(errors.meta_keywords.message)}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
           <Label>
-            Meta Description <span className=" text-destructive">*</span>
+            {trans('Meta Description')}
           </Label>
           <Textarea
-            placeholder="Enter meta description"
+            placeholder={trans("Enter meta description")}
             rows={4}
             disabled={isPending}
             {...register("meta_description")}
@@ -203,7 +203,7 @@ const CategoryForm: React.FC<IFormProps> = ({
           />
           {errors.meta_description && (
             <div className=" text-destructive">
-              {errors.meta_description.message}
+              {trans(errors.meta_description.message)}
             </div>
           )}
         </div>
