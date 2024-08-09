@@ -358,9 +358,6 @@ const GlobalSettingForm: React.FunctionComponent = () => {
         </div>
       </div>
       <div className="flex-none flex items-center justify-end gap-4 mt-8">
-        <Button variant="outline" className=" text-default-300">
-          {t("Cancel")} {" "}
-        </Button>
         <Button>
           {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isPending ? t("Loading") + '...' : t("Save")}
