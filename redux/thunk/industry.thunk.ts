@@ -7,6 +7,9 @@ interface IListPayload {
   pageSize: number;
   currentPage: number;
   seachFilter: string;
+  is_active: string,
+  sortBy: string,
+  sortColumn: string,
 }
 
 export const industryListThunk = createAsyncThunk(
@@ -47,7 +50,7 @@ export const createIndustryThunk = createAsyncThunk(
 
 //Thunk to fetch industry by id
 interface IFetchIndustryByIdPayload {
-  industry_name: string;
+  uuid: string;
 }
 
 export const fetchIndustryByIdThunk = createAsyncThunk(

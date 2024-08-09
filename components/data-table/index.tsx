@@ -11,8 +11,6 @@ import {
 } from "@/components/ui/table";
 import Skeleton from "../tables/skeleton";
 import { DataTablePagination } from "./components/data-table-pagination";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/redux/store";
 
 interface DataTableProps<TData> {
   isLoading: boolean;
@@ -24,11 +22,7 @@ export function DataTable<TData>({
   tableObj,
   trans
 }: DataTableProps<TData>) {
-  const { refresh } = useAppSelector(
-    (state: RootState) => state.datatable
-  );
-  const headerGroups = tableObj.getHeaderGroups();
-
+  const headerGroups = tableObj.getHeaderGroups(); 
   return (
     <>
       <div className="rounded-md border">
@@ -51,7 +45,7 @@ export function DataTable<TData>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody key={String(refresh)}>
+          <TableBody>
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={headerGroups[0]?.headers.length} className=" !p-0 w-full">

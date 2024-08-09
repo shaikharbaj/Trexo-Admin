@@ -8,11 +8,16 @@ import { CategoryTable } from "@/components/tables";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
 import { CreateUpdateCategoryModal } from "@/components/modals";
 import { Button } from "@/components/ui/button";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 
 interface ICategoryProps {}
 
 const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
+  const { refresh } = useAppSelector(
+    (state: RootState) => state.datatable
+  );
   const t = useTranslations("CategoryPage");
   const handleOpenModal = async () => {
     await openPopup('category', `${t('Add')} ${t('Category')}`, 'add');
@@ -46,7 +51,7 @@ const CategoryList: React.FunctionComponent<ICategoryProps> = () => {
       <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardContent className="pt-6">
-            <CategoryTable trans={t} />
+            <CategoryTable key={String(refresh)} trans={t} />
           </CardContent>
         </Card>
       </div>

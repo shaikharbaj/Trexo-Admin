@@ -87,8 +87,8 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
   };
 
   return (
-    <div className="space-y-4" key={String(refresh)}>
-        <Toolbar key={String(refresh)} trans={trans} table={table} isFilterEnable={isFilterEnable} />
+    <div className="space-y-4">
+        <Toolbar trans={trans} table={table} isFilterEnable={isFilterEnable} />
         <DataTable trans={trans} isLoading={isLoading} tableObj={table} />
     </div>
   );
