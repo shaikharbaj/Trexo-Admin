@@ -4,7 +4,16 @@ import { columns } from "./components/columns";
 import { RootState } from "@/redux/store";
 import { useAppSelector } from "@/hooks";
 import { fetchTableData } from "@/service/datatable.service";
-import { ColumnFiltersState, getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable, VisibilityState } from "@tanstack/react-table";
+import {
+  ColumnFiltersState,
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getPaginationRowModel,
+  SortingState,
+  useReactTable,
+  VisibilityState
+} from "@tanstack/react-table";
 import { Toolbar } from "./components/toolbar";
 import { DataTable } from "@/components/data-table";
 
@@ -80,8 +89,8 @@ const BrandTable: React.FC<ITableProps> = ({ trans }) => {
   return (
     <Fragment>
       <div className="space-y-4">
-        <Toolbar table={table} isFilterEnable={isFilterEnable} />
-        <DataTable isLoading={isLoading} tableObj={table} />
+        <Toolbar trans={trans} table={table} isFilterEnable={isFilterEnable} />
+        <DataTable trans={trans} isLoading={isLoading} tableObj={table} />
       </div>
     </Fragment>
   );

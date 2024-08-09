@@ -1,5 +1,5 @@
 import { Column } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp, XCircle, Eye } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,10 +7,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortColumn } from "@/service/datatable.service";
+import { useTranslations } from "next-intl";
 
 interface ColumnHeaderProps {
   column: Column<any, any>;
@@ -23,8 +23,9 @@ export function ColumnHeader({
   title,
   className,
 }: ColumnHeaderProps) {
+  const t = useTranslations("BrandPage");
   if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>;
+    return <div className={cn(className)}>{t(title)}</div>;
   }
 
   //Function to handel sorting
@@ -46,7 +47,7 @@ export function ColumnHeader({
             size="sm"
             className="-ml-3 h-8 data-[state=open]:bg-accent"
           >
-            <span>{title}</span>
+            <span>{t(title)}</span>
             {column.getIsSorted() === "desc" ? (
               <ChevronUp className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
             ) : column.getIsSorted() === "asc" ? (
@@ -59,11 +60,11 @@ export function ColumnHeader({
         <DropdownMenuContent align="start">
           <DropdownMenuItem onClick={() => handleSorting(column.id, "asc")}>
             <ChevronUp className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
-            Asc
+            {t('Asc')}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => handleSorting(column.id, "desc")}>
             <ChevronDown className="ltr:mr-2 rtl:ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
-            Desc
+            {t('Desc')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

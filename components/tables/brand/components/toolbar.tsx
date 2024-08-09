@@ -12,26 +12,27 @@ import { DataTableViewOptions } from "@/components/data-table/components/data-ta
 interface ToolbarProps {
   table: Table<any>;
   isFilterEnable: boolean;
+  trans: any;
 }
 
-const statusOptions = [
-  {
-    value: "true",
-    label: "Active"
-  },
-  {
-    value: "false",
-    label: "Inactive"
+export function Toolbar({ table, isFilterEnable, trans }: ToolbarProps) {
+  const statusOptions = [
+    {
+      value: "true",
+      label: trans("Active"),
+    },
+    {
+      value: "false",
+      label: trans("Inactive"),
+    },
+  ];
+  
+  const viewOptionLabel = {
+    brand_name: trans("Brand Name"),
+    is_active: trans("Status"),
+    created_at: trans("Created At"),
+    updated_at: trans("Updated At")
   }
-];
-
-const viewOptionLabel = {
-  brand_name: "Brand Name",
-  is_active: "Status"
-}
-
-export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
-
   //Function to handel global filter
   const handleFilterChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -53,14 +54,14 @@ export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
   return (
     <div className="flex flex-1 flex-wrap items-center gap-2">
       <Input
-        placeholder="Search..."
+        placeholder={trans("Search") + '...'}
         onChange={handleFilterChange}
         className="h-8 min-w-[200px] max-w-sm"
       />
 
       {statusOptions.length && (
         <Filter
-          title="Status"
+          title={trans("Status")}
           options={statusOptions}
         />
       )}
@@ -70,11 +71,11 @@ export function Toolbar({ table, isFilterEnable }: ToolbarProps) {
           onClick={handelResetFilter}
           className="h-8 px-2 lg:px-3"
         >
-          Reset
+          {trans('Reset')}
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions table={table} optionLabel={viewOptionLabel} />
+      <DataTableViewOptions trans={trans} table={table} optionLabel={viewOptionLabel} />
     </div>
 
   );

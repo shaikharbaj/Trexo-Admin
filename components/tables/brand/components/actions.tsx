@@ -1,23 +1,17 @@
-import { MoreHorizontal } from "lucide-react";
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import toast from "react-hot-toast";
 import { openPopup } from "@/service/modal.service";
 import { deleteBrand, fetchBrandById } from "@/service/brand.service";
 import { Icon } from "@iconify/react";
+import { useTranslations } from "next-intl";
 
 interface RowActionsProps {
   row: Row<any>;
 }
 
 export function RowActions({ row }: RowActionsProps) {
-
+  const t = useTranslations("BrandPage");
   const handleRecordDelete = async (uuid: string) => {
     try {
       const response: any = await deleteBrand(uuid);
@@ -35,7 +29,7 @@ export function RowActions({ row }: RowActionsProps) {
     try {
       const response: any = await fetchBrandById(uuid);
       if (response?.status === true && response?.statusCode === 200) {
-        await openPopup('brand', 'Edit Brand', 'edit', response.data);
+        await openPopup('brand', `${t('Edit')} ${t('Brand')}`, 'edit', response.data);
       }
     } catch (error: any) {
       toast.error(error?.message);

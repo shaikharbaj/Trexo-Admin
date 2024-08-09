@@ -18,9 +18,8 @@ const BrandList: React.FunctionComponent<IBrandProps> = () => {
   const { refresh } = useAppSelector((state: RootState) => state.datatable);
 
   const handleOpenModal = async () => {
-    await openPopup('brand', 'Add Brand', 'add');
+    await openPopup('brand', `${t('Add')} ${t('Brand')}`, 'add');
   };
-
 
   return (
     <div className="space-y-6">
@@ -44,14 +43,14 @@ const BrandList: React.FunctionComponent<IBrandProps> = () => {
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateBrandModal />
+            <CreateUpdateBrandModal trans={t} />
           </div>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6">
-        <Card key={String(refresh)}>
+        <Card>
           <CardContent className="pt-6">
-            <BrandTable trans={t} />
+            <BrandTable key={String(refresh)} trans={t} />
           </CardContent>
         </Card>
       </div>
