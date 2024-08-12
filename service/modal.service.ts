@@ -3,7 +3,7 @@ import { store } from "@/redux/store";
 
 
 // Function to open popup
-export const openPopup = async (modalName: string, modalTitle: string, action: string, data?:any) => {
+export const openPopup = async (modalName: string, modalTitle: string, action: string, data?: any) => {
     try {
         store.dispatch(openModal({ modalName, modalTitle, action, data }));
     } catch (error: any) {

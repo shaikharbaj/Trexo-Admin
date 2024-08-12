@@ -4,10 +4,12 @@ import CategoryTable from "./category/category-table";
 import IndustryTable from "./industry/industry-table";
 import CountryTable from "./country/country-table";
 import StateTable from "./state/state-table";
+import UomTable from "./uom/uom-table";
 export {
     IndustryTable,
     CategoryTable,
     CountryTable,
     StateTable,
-    BrandTable
+    BrandTable,
+    UomTable
 }
