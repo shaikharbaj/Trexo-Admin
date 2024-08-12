@@ -35,7 +35,7 @@ interface FilterProps {
 export function Filter({ title, options }: FilterProps) {
   const t = useTranslations("CategoryPage");
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
+  
   useEffect(() => {
     handelFilter();
   },[selectedValues]);

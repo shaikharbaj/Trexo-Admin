@@ -54,7 +54,7 @@ const StateTable: React.FC<ITableProps> = ({ trans }) => {
     filters.sortColumn,
     filters.sortBy,
     pagination.currentPage,
-    pagination.perPage,
+    pagination.perPage
   ]);
 
   // Function to fetch state data
@@ -81,8 +81,8 @@ const StateTable: React.FC<ITableProps> = ({ trans }) => {
   return (
     <Fragment>
       <div className="space-y-4">
-        <Toolbar table={table} isFilterEnable={isFilterEnable} />
-        <DataTable isLoading={isLoading} tableObj={table} />
+        <Toolbar key={String(refresh)} trans={trans} table={table} isFilterEnable={isFilterEnable} />
+        <DataTable trans={trans} isLoading={isLoading} tableObj={table} />
       </div>
     </Fragment>
   );

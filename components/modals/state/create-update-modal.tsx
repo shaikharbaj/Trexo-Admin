@@ -29,13 +29,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { FetchCountryForDropdown } from "@/service/country.service";
 
-interface IModalProps {}
+interface IModalProps {
+  trans: any;
+}
 
-const CreateUpdateStateModal: React.FC<IModalProps> = () => {
+const CreateUpdateStateModal: React.FC<IModalProps> = ({ trans }) => {
   const { isOpen, modalName, modalTitle, action, data } = useAppSelector(
     (state: RootState) => state.modal
   );
-  const [options, setOptions] = useState<any[]>([]);
   const [isPending, startTransition] = React.useTransition();
   const {
     handleSubmit,
@@ -43,6 +44,7 @@ const CreateUpdateStateModal: React.FC<IModalProps> = () => {
     formState: { errors },
     reset,
     setValue,
+    clearErrors,
     control,
   } = useForm({
     mode: "all",
@@ -51,59 +53,45 @@ const CreateUpdateStateModal: React.FC<IModalProps> = () => {
       country_uuid: "",
       state_name: "",
       short_code: "",
+      is_active: ""
     },
   });
 
   useEffect(() => {
     if (data) {
-      handleFetchCountryForDropDown();
       setValue("state_name", data?.state_name);
       setValue("country_uuid", data?.country?.uuid);
       setValue("short_code", data?.short_code);
     }
   }, [data]);
 
-  useEffect(() => {
-    // handleFetchCountryForDropDown();
-  }, []);
-
-  // Function to fetch country for dropdown
-  const handleFetchCountryForDropDown = async () => {
-    try {
-      const response = await FetchCountryForDropdown();
-      setOptions(response.data);
-      if (response?.status !== true && response?.statusCode !== 200) {
-        toast.error(response?.message);
-      }
-    } catch (error: any) {
-      toast.error(error?.message);
-    }
-  };
-  console.log(errors);
   const onSubmit = async (payload: any) => {
     startTransition(async () => {
       try {
         let response: any;
-        console.log(payload);
-        // if (action === "add") {
-        //   response = await createState(payload);
-        // } else {
-        //   response = await updateState(data?.uuid, payload);
-        // }
+        if (action === "add") {
+          response = await createState(payload);
+        } else {
+          response = await updateState(data?.uuid, payload);
+        }
 
-        // if (response?.status === true && response?.statusCode === 200) {
-        //   reset();
-        //   toast.success(response?.message);
-        //   await closePopup();
-        // } else {
-        //   toast.error(response?.message || "An error occurred.");
-        // }
+        if (response?.status === true && response?.statusCode === 200) {
+          reset();
+          toast.success(response?.message);
+          await closePopup();
+        } else {
+          toast.error(response?.message || "An error occurred.");
+        }
       } catch (error: any) {
         toast.error(error?.message || "An error occurred.");
       }
     });
   };
-
+  useEffect(() => {
+    if (modalName === "state" && isOpen) {      
+        clearErrors();
+    }
+}, [isOpen, modalName]);
   //Function to close the model
   const handleModalClose = async () => {
     reset();
@@ -121,75 +109,13 @@ const CreateUpdateStateModal: React.FC<IModalProps> = () => {
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="h-[300px]">
-              <ScrollArea className="h-full">
-                <div className="space-y-5 mb-2">
-                  <div className="flex flex-col gap-2">
-                    <Label>Country</Label>
-                    <Controller
-                      control={control}
-                      name="country_uuid"
-                      render={({ field: { onChange, onBlur, value, ref } }) => (
-                        <Select onValueChange={onChange} value={value}>
-                          <SelectTrigger>
-                            <SelectValue
-                              placeholder="Select State"
-                              className="whitespace-nowrap"
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {options?.map((country: any) => {
-                              return (
-                                <SelectItem
-                                  value={country?.uuid}
-                                  key={country?.country_uuid}
-                                >
-                                  {country?.country_name}
-                                </SelectItem>
-                              );
-                            })}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    {errors.country_uuid && (
-                      <div className=" text-destructive">
-                        {errors.country_uuid.message}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Label>State Name</Label>
-                    <Input
-                      disabled={isPending}
-                      type="text"
-                      size="lg"
-                      placeholder="Enter state name"
-                      {...register("state_name")}
-                    />
-                    {errors.state_name && (
-                      <div className=" text-destructive">
-                        {errors.state_name.message}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <Label>Short Code</Label>
-                    <Input
-                      disabled={isPending}
-                      type="text"
-                      size="lg"
-                      placeholder="Enter short code"
-                      {...register("short_code")}
-                    />
-                    {errors.short_code && (
-                      <div className=" text-destructive">
-                        {errors.short_code.message}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </ScrollArea>
+              <StateForm
+                trans={trans}
+                isPending={isPending}
+                register={register}
+                control={control}
+                errors={errors}
+              />
             </div>
             <div className=" flex justify-end gap-3 mt-6">
               <DialogClose asChild>
@@ -198,12 +124,12 @@ const CreateUpdateStateModal: React.FC<IModalProps> = () => {
                   variant="outline"
                   onClick={handleModalClose}
                 >
-                  Cancel
+                  {trans("Cancel")}
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isPending ? "Loading..." : "Save"}
+                {isPending ? `${trans("Loading")}...` : trans("Save")}
               </Button>
             </div>
           </form>

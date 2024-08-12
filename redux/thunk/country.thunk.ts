@@ -103,7 +103,7 @@ interface IFetchCountryByIdPayload {
 }
 
 export const fetchCountryByIdThunk = createAsyncThunk(
-  "industry/fetchById",
+  "country/fetchById",
   async (payload: IFetchCountryByIdPayload) => {
     try {
       const res = await privateClient.get(`/country/${payload}`);

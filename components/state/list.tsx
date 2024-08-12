@@ -2,23 +2,22 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/redux/store";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CreateUpdateStateModal } from "@/components/modals";
-import { StateTable } from "@/components/tables";
+import { IndustryTable, StateTable } from "@/components/tables";
 import { openPopup } from "@/service/modal.service";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 interface IStateProps {}
 
 const StateList: React.FunctionComponent<IStateProps> = () => {
   const t = useTranslations("StatePage");
   const { refresh } = useAppSelector((state: RootState) => state.datatable);
-
   const handleOpenModal = async () => {
-    await openPopup("state", "Add State", "add");
+    await openPopup("state", `${t("Add")} ${t("State")}`, "add");
   };
 
   return (
@@ -43,14 +42,14 @@ const StateList: React.FunctionComponent<IStateProps> = () => {
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateStateModal />
+            <CreateUpdateStateModal trans={t} />
           </div>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6">
-        <Card key={String(refresh)}>
+        <Card>
           <CardContent className="pt-6">
-            <StateTable trans={t} />
+            <StateTable key={String(refresh)} trans={t} />
           </CardContent>
         </Card>
       </div>

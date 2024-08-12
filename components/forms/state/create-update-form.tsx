@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
@@ -12,16 +13,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FetchCountryForDropdown } from "@/service/country.service";
+import { transcode } from "buffer";
 import React, { useEffect, useState } from "react";
+import { Controller } from "react-hook-form";
 import toast from "react-hot-toast";
 
 interface IFormProps {
+  trans: any;
   isPending: boolean;
   register?: any;
+  control?: any;
   errors?: any;
 }
 
-const StateForm: React.FC<IFormProps> = ({ isPending, register, errors }) => {
+const StateForm: React.FC<IFormProps> = ({
+  trans,
+  isPending,
+  register,
+  control,
+  errors,
+}) => {
   const [options, setOptions] = useState<any[]>([]);
 
   useEffect(() => {
@@ -43,63 +54,81 @@ const StateForm: React.FC<IFormProps> = ({ isPending, register, errors }) => {
   return (
     <>
       <ScrollArea className="h-full">
-        <div className=" space-y-3">
+        <div className="space-y-5 mb-2">
           <div className="flex flex-col gap-2">
-            <Label>Country Name</Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue
-                  placeholder="Select"
-                  className="whitespace-nowrap"
-                />
-              </SelectTrigger>
-              <SelectContent>
-                {options?.map((country: any) => {
-                  return (
-                    <SelectItem
-                      value={country?.uuid}
-                      key={country?.country_uuid}
-                    >
-                      {country?.country_name}
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
+            <Label>
+              {trans("Country")}
+              <span className="text-destructive">*</span>
+            </Label>
+            <Controller
+              control={control}
+              name="country_uuid"
+              render={({ field: { onChange, onBlur, value, ref } }) => (
+                <Select onValueChange={onChange} value={(value) ? value : undefined}>
+                  <SelectTrigger  color={errors?.country_uuid && "destructive"}>
+                    <SelectValue
+                      placeholder={trans("Select country")}
+                      className="whitespace-nowrap"
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options?.map((country: any) => {
+                      return (
+                        <SelectItem
+                          value={country?.uuid}
+                          key={country?.country_uuid}
+                        >
+                          {country?.country_name}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              )}
+            />
             {errors.country_uuid && (
               <div className=" text-destructive">
-                {errors.country_uuid.message}
+                {trans(errors.country_uuid.message)}
               </div>
             )}
           </div>
           <div className="flex flex-col gap-2">
-            <Label>State Name</Label>
+            <Label>
+              {trans("State Name")}
+              <span className="text-destructive">*</span>
+            </Label>
             <Input
               disabled={isPending}
               type="text"
               size="lg"
-              placeholder="Enter state name"
+              className={cn("", {
+                "border-destructive": errors.state_name,
+              })}
+              placeholder={trans("Enter state name")}
               {...register("state_name")}
             />
             {errors.state_name && (
               <div className=" text-destructive">
-                {errors.state_name.message}
+                {trans(errors.state_name.message)}
               </div>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label>Short Code</Label>
+            <Label>
+              {trans("Short Code")}
+              <span className="text-destructive">*</span>
+            </Label>
             <Input
               disabled={isPending}
               type="text"
               size="lg"
-              placeholder="Enter short code"
+              placeholder={trans("Enter short code")}
               {...register("short_code")}
             />
             {errors.short_code && (
               <div className=" text-destructive">
-                {errors.short_code.message}
+                {trans(errors.short_code.message)}
               </div>
             )}
           </div>

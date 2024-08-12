@@ -1,15 +1,9 @@
-import { MoreHorizontal } from "lucide-react";
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import toast from "react-hot-toast";
 import { openPopup } from "@/service/modal.service";
 import { Icon } from "@iconify/react";
+import { useTranslations } from "next-intl";
 import { deleteCountry, fetchCountryById } from "@/service/country.service";
 
 interface RowActionsProps {
@@ -17,6 +11,7 @@ interface RowActionsProps {
 }
 
 export function RowActions({ row }: RowActionsProps) {
+  const t = useTranslations("CountryPage");
 
   const handleRecordDelete = async (uuid: string) => {
     try {
@@ -35,7 +30,7 @@ export function RowActions({ row }: RowActionsProps) {
     try {
       const response: any = await fetchCountryById(uuid);
       if (response?.status === true && response?.statusCode === 200) {
-        await openPopup('country', 'Edit Country', 'edit', response.data);
+        await openPopup('country', `${t('Edit')} ${t('Country')}`, 'edit', response.data);
       }
     } catch (error: any) {
       toast.error(error?.message);

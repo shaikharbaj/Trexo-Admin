@@ -2,25 +2,24 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@iconify/react";
-import { useAppSelector } from "@/hooks";
-import { RootState } from "@/redux/store";
 import { Breadcrumbs, BreadcrumbItem } from "@/components/ui/breadcrumbs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  CreateUpdateCountryModal,
-} from "@/components/modals";
+import { CreateUpdateCountryModal } from "@/components/modals";
 import { CountryTable } from "@/components/tables";
 import { openPopup } from "@/service/modal.service";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 interface ICountryProps {}
 
 const CountryList: React.FunctionComponent<ICountryProps> = () => {
   const t = useTranslations("CountryPage");
-  const { refresh } = useAppSelector((state: RootState) => state.datatable);
-
+  const { refresh } = useAppSelector(
+    (state: RootState) => state.datatable
+  );
   const handleOpenModal = async () => {
-    await openPopup("country", "Add Country", "add");
+    await openPopup("country", `${t("Add")} ${t("Country")}`, "add");
   };
 
   return (
@@ -45,14 +44,14 @@ const CountryList: React.FunctionComponent<ICountryProps> = () => {
               />
               {t("Add New")}
             </Button>
-            <CreateUpdateCountryModal />
+            <CreateUpdateCountryModal trans={t} />
           </div>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-6">
-        <Card key={String(refresh)}>
+        <Card>
           <CardContent className="pt-6">
-            <CountryTable trans={t} />
+            <CountryTable key={String(refresh)} trans={t} />
           </CardContent>
         </Card>
       </div>

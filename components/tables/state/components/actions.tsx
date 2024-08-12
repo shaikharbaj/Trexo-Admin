@@ -1,22 +1,18 @@
-import { MoreHorizontal } from "lucide-react";
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { deleteState, fetchStateById } from "@/service/state.service";
 import toast from "react-hot-toast";
 import { openPopup } from "@/service/modal.service";
 import { Icon } from "@iconify/react";
-import { deleteState, fetchStateById } from "@/service/state.service";
+import { useTranslations } from "next-intl";
 
 interface RowActionsProps {
   row: Row<any>;
 }
 
 export function RowActions({ row }: RowActionsProps) {
+  const t = useTranslations("StatePage");
+
   const handleRecordDelete = async (uuid: string) => {
     try {
       const response: any = await deleteState(uuid);
@@ -33,8 +29,17 @@ export function RowActions({ row }: RowActionsProps) {
   const handleOpenModal = async (uuid: string) => {
     try {
       const response: any = await fetchStateById(uuid);
+      if (!response.data.country.is_active) {
+        toast.error("Please active the related country to edit the state");
+        return;
+      }
       if (response?.status === true && response?.statusCode === 200) {
-        await openPopup("state", "Edit State", "edit", response.data);
+        await openPopup(
+          "state",
+          `${t("Edit")} ${t("State")}`,
+          "edit",
+          response.data
+        );
       }
     } catch (error: any) {
       toast.error(error?.message);
