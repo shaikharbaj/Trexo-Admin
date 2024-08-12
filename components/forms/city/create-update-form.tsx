@@ -45,12 +45,12 @@ const CityForm: React.FC<IFormProps> = ({
   watch,
   setValue,
   errors,
-  resetField,
   action,
 }) => {
   const [countries, setCountries] = useState<ICountry[]>([]);
   const [states, setStates] = useState<IState[]>([]);
   const country_uuid: any = watch("country_uuid");
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     FetchCountryForDropdown();
@@ -72,7 +72,7 @@ const CityForm: React.FC<IFormProps> = ({
   useEffect(() => {
     if (country_uuid) {
       if (action === "add") {
-        setValue("state_uuid", undefined);
+        setValue("state_uuid", "");
       }
       setStates([]);
       FetchStateForDropdown(country_uuid);
@@ -82,6 +82,7 @@ const CityForm: React.FC<IFormProps> = ({
   //Function to fetch states for dropdown.........................
   const FetchStateForDropdown = async (country_uuid: string) => {
     try {
+      setRefresh(prev => !prev);
       const response = await fetchStateDropdown({ uuid: country_uuid });
       if (response?.status !== true && response?.statusCode !== 200) {
         toast.error(response?.message);
@@ -136,7 +137,7 @@ const CityForm: React.FC<IFormProps> = ({
           <Label>
             {trans("State")} <span className=" text-destructive">*</span>
           </Label>
-          <Controller
+          <Controller key={String(refresh)}
             control={control}
             name="state_uuid"
             render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -151,17 +152,19 @@ const CityForm: React.FC<IFormProps> = ({
                   />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.length > 0 &&
-                    states.map((state: IState) => {
-                      return (
-                        <SelectItem key={state.uuid} value={state.uuid}>
-                          {state.state_name}
-                        </SelectItem>
-                      );
-                    })}
+                  {states.length > 0 ? (
+                    states.map((state) => (
+                      <SelectItem key={state.uuid} value={state.uuid}>
+                        {state.state_name}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem value="" disabled>{trans("No states available")}</SelectItem>
+                  )}
                 </SelectContent>
               </Select>
-            )}
+            )
+            }
           />
           {errors.state_uuid && (
             <div className=" text-destructive">
