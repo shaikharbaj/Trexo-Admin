@@ -71,6 +71,11 @@ export const menusConfig = {
           href: "/state",
           icon: Settings,
         },
+        {
+          title: "UOM",
+          href: "/uom",
+          icon: Settings,
+        }
       ],
     },
   ],
@@ -131,6 +136,12 @@ export const menusConfig = {
             href: "/state",
             icon: Settings,
           },
+          {
+            title: "UOM",
+            href: "/uom",
+            icon: Settings,
+          }
+
         ],
       },
     ],
@@ -194,6 +205,11 @@ export const menusConfig = {
             href: "/state",
             icon: Settings,
           },
+          {
+            title: "UOM",
+            href: "/uom",
+            icon: Settings,
+          }
         ],
       },
     ],

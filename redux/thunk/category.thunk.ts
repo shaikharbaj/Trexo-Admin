@@ -4,12 +4,12 @@ import { privateClient } from "@/http/http-client";
 
 //Thunk to fetch category list
 interface IListPayload {
-    pageSize: number;
-    currentPage: number;
-    seachFilter: string;
-    is_active: string,
-    sortBy: string,
-    sortColumn: string,
+  pageSize: number;
+  currentPage: number;
+  seachFilter: string;
+  is_active: string,
+  sortBy: string,
+  sortColumn: string,
 }
 
 export const categoryListThunk = createAsyncThunk(
@@ -28,15 +28,33 @@ export const categoryListThunk = createAsyncThunk(
   }
 );
 
+
+//Thunk to fetch category dropdown
+export const fetchCategoryDropdownThunk = createAsyncThunk(
+  "category/dropdown",
+  async () => {
+    try {
+      const res = await privateClient.get('/category/dropdown');
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+
 //Thunk to create category
 interface ICreateCategoryPayload {
-    industry_id: string;
-    category_type: string;
-    category_name: string;
-    category_description: string;
-    meta_title: string;
-    meta_keywords: string;
-    meta_description: string;
+  industry_id: string;
+  category_type: string;
+  category_name: string;
+  category_description: string;
+  meta_title: string;
+  meta_keywords: string;
+  meta_description: string;
 }
 
 export const createCategoryThunk = createAsyncThunk(
@@ -76,13 +94,13 @@ export const fetchCategoryByIdThunk = createAsyncThunk(
 
 //Thunk to update category
 interface IUpdateCategoryPayload {
-    industry_id: string;
-    category_type: string;
-    category_name: string;
-    category_description: string;
-    meta_title: string;
-    meta_keyword: string;
-    meta_description: string;
+  industry_id: string;
+  category_type: string;
+  category_name: string;
+  category_description: string;
+  meta_title: string;
+  meta_keyword: string;
+  meta_description: string;
 }
 
 interface IUpdateCategoryParams {

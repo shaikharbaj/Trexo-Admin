@@ -6,15 +6,17 @@ import profileSlice from "./profile.slice";
 import countrySlice from "./country.slice"
 import globalSettingSlice from "./global-setting.slice";
 import modalSlice from "./modal.slice";
+import uomSlice from "./uom.slice";
 
 const rootReducer = combineReducers({
     auth: authSlice,
     datatable: datatableSlice,
     industry: industrySlice,
     profile: profileSlice,
-    country:countrySlice,
+    country: countrySlice,
     globalSetting: globalSettingSlice,
-    modal:modalSlice
+    modal: modalSlice,
+    uom: uomSlice
 });
 
 export default rootReducer;
