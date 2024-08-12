@@ -6,6 +6,7 @@ import CountryForm from "./country/create-update-form";
 import StateForm from "./state/create-update-form";
 import CityForm from "./city/create-update-form";
 import UomForm from "./uom/create-update-form";
+import CmsForm from "./cms/create-update-form";
 export {
     GlobalSettingForm,
     IndustryForm,
@@ -14,5 +15,6 @@ export {
     StateForm,
     BrandForm,
     CityForm,
-    UomForm
+    UomForm,
+    CmsForm
 };

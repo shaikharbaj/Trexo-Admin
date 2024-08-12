@@ -83,6 +83,17 @@ export const menusConfig = {
         }
       ],
     },
+    {
+      title: "CMS",
+      icon: Settings,
+      child: [
+        {
+          title: "CMS",
+          href: "/cms",
+          icon: Settings,
+        },
+      ],
+    },
   ],
   sidebarNav: {
     modern: [
@@ -152,6 +163,17 @@ export const menusConfig = {
             icon: Settings,
           }
 
+        ],
+      },
+      {
+        title: "CMS",
+        icon: Settings,
+        child: [
+          {
+            title: "CMS",
+            href: "/cms",
+            icon: Settings,
+          },
         ],
       },
     ],
@@ -225,6 +247,17 @@ export const menusConfig = {
             href: "/uom",
             icon: Settings,
           }
+        ],
+      },
+      {
+        title: "CMS",
+        icon: Settings,
+        child: [
+          {
+            title: "CMS",
+            href: "/cms",
+            icon: Settings,
+          },
         ],
       },
     ],
