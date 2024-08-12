@@ -72,6 +72,11 @@ export const menusConfig = {
           icon: Settings,
         },
         {
+          title: "City",
+          href: "/city",
+          icon: Settings,
+        },
+        {
           title: "UOM",
           href: "/uom",
           icon: Settings,
@@ -134,6 +139,11 @@ export const menusConfig = {
           {
             title: "State",
             href: "/state",
+            icon: Settings,
+          },
+          {
+            title: "City",
+            href: "/city",
             icon: Settings,
           },
           {
@@ -203,6 +213,11 @@ export const menusConfig = {
           {
             title: "State",
             href: "/state",
+            icon: Settings,
+          },
+          {
+            title: "City",
+            href: "/city",
             icon: Settings,
           },
           {

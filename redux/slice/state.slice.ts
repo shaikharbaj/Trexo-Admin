@@ -3,6 +3,7 @@ import {
   createStateThunk,
   deleteStateThunk,
   fetchStateByIdThunk,
+  fetchStateDropdownThunk,
   stateListThunk,
   updateStateThunk,
 } from "../thunk/state.thunk";
@@ -43,6 +44,17 @@ export const state = createSlice({
         state.error = action?.payload;
       })
       .addCase(fetchStateByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+      builder
+      .addCase(fetchStateDropdownThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchStateDropdownThunk.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.error = action?.payload;
+      })
+      .addCase(fetchStateDropdownThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
     builder

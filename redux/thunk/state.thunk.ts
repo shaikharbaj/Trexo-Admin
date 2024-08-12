@@ -116,3 +116,25 @@ export const fetchStateByIdThunk = createAsyncThunk(
     }
   }
 );
+
+
+//Thunk to fetch state for dropdown
+interface IFetchStateForDropDownPayload {
+  uuid: string;
+}
+
+//Thunk to fetch state for dropdown
+export const fetchStateDropdownThunk = createAsyncThunk(
+  "country/fetchfordropdown",
+  async (payload: IFetchStateByIdPayload) => {
+    try {
+      const res = await privateClient.get(`/state/dropdown?uuid=${payload.uuid}`);
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);

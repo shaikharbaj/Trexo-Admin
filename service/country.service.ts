@@ -101,7 +101,7 @@ export const updateCountry = async (uuid: string, updatePayload: any) => {
 };
 
 //Function to fetch country for dropdown
-export const FetchCountryForDropdown = async (
+export const fetchCountryForDropdown = async (
 ) => {
   try {
     const { payload } = await store.dispatch(fetchCountryForDropDownThunk());

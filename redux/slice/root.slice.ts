@@ -6,7 +6,7 @@ import profileSlice from "./profile.slice";
 import countrySlice from "./country.slice"
 import globalSettingSlice from "./global-setting.slice";
 import modalSlice from "./modal.slice";
-import uomSlice from "./uom.slice";
+import citySlice from "./city.slice";import uomSlice from "./uom.slice";
 
 const rootReducer = combineReducers({
     auth: authSlice,
@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
     country: countrySlice,
     globalSetting: globalSettingSlice,
     modal: modalSlice,
+    city:citySlice,
     uom: uomSlice
 });
 

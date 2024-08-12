@@ -17,17 +17,6 @@ import { RootState } from "@/redux/store";
 import { createState, updateState } from "@/service/state.service";
 import { closePopup } from "@/service/modal.service";
 import { stateSchema } from "@/validations";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { FetchCountryForDropdown } from "@/service/country.service";
 
 interface IModalProps {
   trans: any;
@@ -53,7 +42,7 @@ const CreateUpdateStateModal: React.FC<IModalProps> = ({ trans }) => {
       country_uuid: "",
       state_name: "",
       short_code: "",
-      is_active: ""
+      is_active: "",
     },
   });
 
@@ -88,10 +77,10 @@ const CreateUpdateStateModal: React.FC<IModalProps> = ({ trans }) => {
     });
   };
   useEffect(() => {
-    if (modalName === "state" && isOpen) {      
-        clearErrors();
+    if (modalName === "state" && isOpen) {
+      clearErrors();
     }
-}, [isOpen, modalName]);
+  }, [isOpen, modalName]);
   //Function to close the model
   const handleModalClose = async () => {
     reset();
