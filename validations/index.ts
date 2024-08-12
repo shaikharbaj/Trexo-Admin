@@ -1,8 +1,8 @@
-import loginSchema from "./login.schema";
-import forgotPasswordSchema from "./forgot-password.schema";
-import industrySchema from "./industry.schema";
-import countrySchema from "./country.schema";import globalSettingSchema from "./global-setting.schema";
-import stateSchema from "./state.schema";import brandSchema from "./brand.schema";
+import loginSchema from "./auth/login.schema";
+import forgotPasswordSchema from "./auth/forgot-password.schema";
+import industrySchema from "./industry/industry.schema";
+import countrySchema from "./country/country.schema";import globalSettingSchema from "./global-settings/global-setting.schema";
+import stateSchema from "./state.schema";import brandSchema from "./brand/brand.schema";
 import categorySchema from "./category/category.schema";
 
 export {
