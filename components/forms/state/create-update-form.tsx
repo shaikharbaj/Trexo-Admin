@@ -12,8 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FetchCountryForDropdown } from "@/service/country.service";
-import { transcode } from "buffer";
+import { fetchCountryForDropdown } from "@/service/country.service";
 import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -42,7 +41,7 @@ const StateForm: React.FC<IFormProps> = ({
   // Function to fetch country for dropdown
   const handleFetchCountryForDropDown = async () => {
     try {
-      const response = await FetchCountryForDropdown();
+      const response = await fetchCountryForDropdown();
       setOptions(response.data);
       if (response?.status !== true && response?.statusCode !== 200) {
         toast.error(response?.message);
@@ -64,8 +63,11 @@ const StateForm: React.FC<IFormProps> = ({
               control={control}
               name="country_uuid"
               render={({ field: { onChange, onBlur, value, ref } }) => (
-                <Select onValueChange={onChange} value={(value) ? value : undefined}>
-                  <SelectTrigger  color={errors?.country_uuid && "destructive"}>
+                <Select
+                  onValueChange={onChange}
+                  value={value ? value : undefined}
+                >
+                  <SelectTrigger color={errors?.country_uuid && "destructive"}>
                     <SelectValue
                       placeholder={trans("Select country")}
                       className="whitespace-nowrap"

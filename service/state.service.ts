@@ -4,6 +4,7 @@ import {
   createStateThunk,
   deleteStateThunk,
   fetchStateByIdThunk,
+  fetchStateDropdownThunk,
   updateStateThunk,
 } from "@/redux/thunk/state.thunk";
 
@@ -96,5 +97,18 @@ export const fetchStateById = async (fetchByIdPayload: any) => {
     };
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+
+//Function to fetch state for dropdown
+export const fetchStateDropdown = async (fetchDropdownStatePayload:any) => {
+  try {
+    const { payload } = await store.dispatch(fetchStateDropdownThunk(fetchDropdownStatePayload));
+    return payload;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || "Something went wrong."
+    );
   }
 };
