@@ -28,6 +28,10 @@ export const brandListThunk = createAsyncThunk(
 //Thunk to create brand
 interface ICreateBrandPayload {
   brand_name: string;
+  brand_description: string;
+  meta_title: string;
+  meta_keywords: string;
+  meta_description: string;
 }
 
 export const createBrandThunk = createAsyncThunk(
@@ -47,7 +51,7 @@ export const createBrandThunk = createAsyncThunk(
 
 //Thunk to fetch brand by id
 interface IFetchBrandByIdPayload {
-  brand_name: string;
+  uuid: string;
 }
 
 export const fetchBrandByIdThunk = createAsyncThunk(
@@ -68,6 +72,10 @@ export const fetchBrandByIdThunk = createAsyncThunk(
 //Thunk to update brand
 interface IUpdateBrandPayload {
   brand_name: string;
+  brand_description: string;
+  meta_title: string;
+  meta_keywords: string;
+  meta_description: string;
 }
 
 interface IUpdateBrandParams {

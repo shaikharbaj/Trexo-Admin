@@ -92,7 +92,7 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
 
   return (
     <Dialog open={modalName === "category" && isOpen}>
-      <DialogContent size="2xl" handleModalClose={handleModalClose}>
+      <DialogContent size="lg" handleModalClose={handleModalClose}>
         <DialogHeader className="p-0 mb-4">
           <DialogTitle className="font-medium pb-2 text-default-700 relative after:absolute after:h-0.5 after:rounded-md after:w-11 after:bg-primary after:left-0 after:bottom-0">
             {modalTitle}

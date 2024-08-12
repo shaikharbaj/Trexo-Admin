@@ -81,7 +81,7 @@ export function Filter({ title, options }: FilterProps) {
                     color="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.length} selected
+                    {selectedValues.length} {t('selected')}
                   </Badge>
                 ) : (
                   options
@@ -105,7 +105,7 @@ export function Filter({ title, options }: FilterProps) {
         <Command>
           {/* <CommandInput placeholder={title} /> */}
           <CommandList>
-            <CommandEmpty>{t("No results found")}</CommandEmpty>
+            <CommandEmpty>{t('No results found')}</CommandEmpty>
             <CommandGroup>
               {options.map((option: Option) => {
                 const isSelected = selectedValues.find((val: any) => val === option.value);
@@ -146,7 +146,7 @@ export function Filter({ title, options }: FilterProps) {
                     onSelect={handelClear}
                     className="justify-center text-center"
                   >
-                    {t("Clear filters")}
+                    {t('Clear filters')}
                   </CommandItem>
                 </CommandGroup>
               </>

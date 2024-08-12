@@ -18,9 +18,11 @@ import { closePopup } from "@/service/modal.service";
 import { createBrand, updateBrand } from "@/service/brand.service";
 import { brandSchema } from "@/validations";
 
-interface IModalProps {}
+interface IModalProps {
+  trans: any;
+}
 
-const CreateUpdateBrandModal: React.FC<IModalProps> = () => {
+const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
   const { isOpen, modalName, modalTitle, action, data } = useAppSelector(
     (state: RootState) => state.modal
   );
@@ -36,12 +38,20 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = () => {
     resolver: zodResolver(brandSchema),
     defaultValues: {
       brand_name: "",
+      brand_description: "",
+      meta_title: "",
+      meta_keywords: "",
+      meta_description: "",
     },
   });
 
   useEffect(() => {
     if (data) {
       setValue("brand_name", data?.brand_name);
+      setValue("brand_description", data?.brand_description);
+      setValue("meta_title", data?.meta_title);
+      setValue("meta_keywords", data?.meta_keywords);
+      setValue("meta_description", data?.meta_description);
     }
   }, [data]);
 
@@ -61,10 +71,10 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = () => {
           toast.success(response?.message);
           await closePopup();
         } else {
-          toast.error(response?.message || "An error occurred.");
+          toast.error(response?.message || trans("An error occurred"));
         }
       } catch (error: any) {
-        toast.error(error?.message || "An error occurred.");
+        toast.error(error?.message || trans("An error occurred"));
       }
     });
   };
@@ -83,9 +93,10 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = () => {
           </DialogTitle>
         </DialogHeader>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="h-[100px]">
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+            <div className="h-[450px]">
               <BrandForm
+                trans={trans}
                 isPending={isPending}
                 register={register}
                 errors={errors}
@@ -98,12 +109,12 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = () => {
                   variant="outline"
                   onClick={handleModalClose}
                 >
-                  Cancel
+                  {trans('Cancel')}
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isPending ? "Loading..." : "Save"}
+                {isPending ? trans("Loading") + '...' : action === 'add' ? trans('Save') : trans('Update')}
               </Button>
             </div>
           </form>
