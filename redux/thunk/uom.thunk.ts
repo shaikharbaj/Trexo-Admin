@@ -33,7 +33,6 @@ interface IUomPayload {
     rounding_value: string,
     decimal_scale: null,
     description: string,
-    is_active?: boolean
 }
 
 export const createUomThunk = createAsyncThunk(
@@ -59,7 +58,6 @@ interface IUpdateUomPayload {
     rounding_value: string,
     decimal_scale: null,
     description: string,
-    is_active?: boolean
 }
 
 interface IUpdateUomParams {
