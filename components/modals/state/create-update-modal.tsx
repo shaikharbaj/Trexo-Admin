@@ -44,6 +44,7 @@ const CreateUpdateStateModal: React.FC<IModalProps> = ({ trans }) => {
     formState: { errors },
     reset,
     setValue,
+    clearErrors,
     control,
   } = useForm({
     mode: "all",
@@ -86,7 +87,11 @@ const CreateUpdateStateModal: React.FC<IModalProps> = ({ trans }) => {
       }
     });
   };
-
+  useEffect(() => {
+    if (modalName === "state" && isOpen) {      
+        clearErrors();
+    }
+}, [isOpen, modalName]);
   //Function to close the model
   const handleModalClose = async () => {
     reset();

@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
@@ -64,7 +65,7 @@ const StateForm: React.FC<IFormProps> = ({
               name="country_uuid"
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Select onValueChange={onChange} value={(value) ? value : undefined}>
-                  <SelectTrigger  color={errors?.industry_id && "destructive"}>
+                  <SelectTrigger  color={errors?.country_uuid && "destructive"}>
                     <SelectValue
                       placeholder={trans("Select country")}
                       className="whitespace-nowrap"
@@ -100,6 +101,9 @@ const StateForm: React.FC<IFormProps> = ({
               disabled={isPending}
               type="text"
               size="lg"
+              className={cn("", {
+                "border-destructive": errors.state_name,
+              })}
               placeholder={trans("Enter state name")}
               {...register("state_name")}
             />
