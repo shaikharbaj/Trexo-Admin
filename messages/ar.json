@@ -345,7 +345,8 @@
     "State": "ولاية",
     "Enter city name":"أدخل اسم المدينة",
     "Select state":"حدد الحالة",
-    "Select country":"حدد البلد"
+    "Select country":"حدد البلد",
+    "No states available":"لا توجد دول متاحة"
   },
   "UomPage": {
     "Dashboard": "لوحة القيادة",

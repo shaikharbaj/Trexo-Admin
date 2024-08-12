@@ -344,7 +344,8 @@
     "State": "State",
     "Enter city name":"Enter city name",
     "Select state":"Select state",
-    "Select country":"Select country"
+    "Select country":"Select country",
+    "No states available":"No states available"
   },
   "UomPage": {
     "Dashboard": "Dashboard",
