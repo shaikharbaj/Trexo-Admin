@@ -5,6 +5,7 @@ import CountryTable from "./country/country-table";
 import StateTable from "./state/state-table";
 import CityTable from "./city/city-table";
 import UomTable from "./uom/uom-table";
+import AttributeTable from "./attribute/attribute-table";
 export {
   IndustryTable,
   CategoryTable,
@@ -12,5 +13,6 @@ export {
   StateTable,
   BrandTable,
     UomTable,
+    AttributeTable,
   CityTable,
 };

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RootState } from "@/redux/store";
 import { useAppSelector } from "@/hooks";
 import { closePopup } from "@/service/modal.service";
-import { UomForm } from "@/components/forms";
+import { AttributeForm } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -15,19 +15,18 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import toast from "react-hot-toast";
-import { createUom, updateUom } from "@/service/uom.service";
-import { uomSchema } from "@/validations";
+import { createAttribute, updateAttribute } from "@/service/attribute.service";
+import { attributeSchema } from "@/validations";
 
 interface IModalProps {
     trans: any;
 }
 
-const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
+const CreateUpdateAttributeModal: React.FC<IModalProps> = ({ trans }) => {
     const { isOpen, modalName, modalTitle, action, data } = useAppSelector(
         (state: RootState) => state.modal
     );
     const [isPending, startTransition] = useTransition();
-    const [roundingRule, setRoundingRule] = useState<any>();
     const {
         handleSubmit,
         register,
@@ -38,14 +37,11 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
         clearErrors,
     } = useForm({
         mode: "all",
-        resolver: zodResolver(uomSchema),
+        resolver: zodResolver(attributeSchema),
         defaultValues: {
-            category_ids: "",
-            uom_code: "",
-            rounding_rule: "",
-            rounding_value: "",
-            decimal_scale: "",
-            description: "",
+            category_id: "",
+            attribute_name: "",
+            is_required: false,
         },
     });
 
@@ -53,17 +49,11 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
         if (isOpen) {
             clearErrors();
             if (action === "edit") {
+                console.log({ data })
                 if (data) {
-                    setValue(
-                        "category_ids",
-                        data?.uom_category.map((item: any) => item.Category.uuid) || []
-                    );
-                    setValue("uom_code", data?.uom_code || "");
-                    setValue("rounding_rule", data?.rounding_rule || "");
-                    setValue("rounding_value", data?.rounding_value || "");
-                    setValue("decimal_scale", data?.decimal_scale || "");
-                    setValue("description", data?.description);
-                    setRoundingRule(data?.rounding_rule || "");
+                    setValue("category_id", data?.category?.uuid || "");
+                    setValue("attribute_name", data?.attribute_name || "");
+                    setValue("is_required", data?.is_required || "");
                 }
             } else {
                 reset();
@@ -72,18 +62,14 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
     }, [isOpen, action, clearErrors, reset, data]);
 
     const onSubmit = async (payload: any) => {
+
         startTransition(async () => {
             try {
-                //Converting category ids in json
-                let categoryIds = payload.category_ids.split(",");
-                payload.category_ids = JSON.stringify(categoryIds);
-                //Converting decimal scale into number
-                payload.decimal_scale = parseInt(payload.decimal_scale);
                 let response: any;
                 if (action === "add") {
-                    response = await createUom(payload);
+                    response = await createAttribute(payload);
                 } else {
-                    response = await updateUom(data?.uuid, payload);
+                    response = await updateAttribute(data?.uuid, payload);
                 }
 
                 if (response?.status === true && response?.statusCode === 200) {
@@ -102,13 +88,12 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
     //Function to close the model
     const handleModalClose = async () => {
         reset();
-        setRoundingRule("");
         await closePopup();
     };
 
     return (
-        <Dialog open={modalName === "uom" && isOpen}>
-            <DialogContent size="2xl" handleModalClose={handleModalClose}>
+        <Dialog open={modalName === "attribute" && isOpen}>
+            <DialogContent size="lg" handleModalClose={handleModalClose}>
                 <DialogHeader className="p-0 mb-4">
                     <DialogTitle className="font-medium pb-2 text-default-700 relative after:absolute after:h-0.5 after:rounded-md after:w-11 after:bg-primary after:left-0 after:bottom-0">
                         {modalTitle}
@@ -116,14 +101,13 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
                 </DialogHeader>
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-                        <div className="h-[450px]">
-                            <UomForm
+                        <div className="h-[250px]">
+                            <AttributeForm
                                 trans={trans}
                                 isPending={isPending}
                                 register={register}
                                 control={control}
                                 errors={errors}
-                                roundingRule={roundingRule}
                             />
                         </div>
                         <div className=" flex justify-end gap-3 mt-6">
@@ -152,4 +136,4 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
     );
 };
 
-export default CreateUpdateUomModal;
+export default CreateUpdateAttributeModal;
