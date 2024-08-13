@@ -28,26 +28,7 @@ const CmsForm: React.FC<IFormProps> = ({
   control,
   errors,
 }) => {
-  const title = watch("title");
-  useEffect(() => {
-    generateCmsSlug(title);
-  }, [title]);
-
-  const generateCmsSlug = (title: string) => {
-    let slug = title
-      .toString() // Convert to string
-      .toLowerCase() // Convert to lowercase
-      .trim() // Trim whitespace from both ends
-      .replace(/\s+/g, "-") // Replace spaces with hyphens
-      .replace(/[^\w\-]+/g, "") // Remove all non-word characters except hyphens
-      .replace(/\-\-+/g, "-") // Replace multiple hyphens with a single hyphen
-      .replace(/^-+/, "") // Remove leading hyphens
-      .replace(/-+$/, ""); // Remove trailing hyphens
-    setValue("slug", slug);
-    if (title) {
-      trigger("slug");
-    }
-  };
+ 
   return (
     <>
       <ScrollArea className="h-full">
@@ -70,27 +51,6 @@ const CmsForm: React.FC<IFormProps> = ({
             {errors.title && (
               <div className=" text-destructive">
                 {trans(errors.title.message)}
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>
-              {trans("Slug")}
-              <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              disabled={isPending}
-              type="text"
-              size="lg"
-              placeholder={trans("Enter slug")}
-              {...register("slug")}
-              className={cn("", {
-                "border-destructive": errors.slug,
-              })}
-            />
-            {errors.slug && (
-              <div className=" text-destructive">
-                {trans(errors.slug.message)}
               </div>
             )}
           </div>

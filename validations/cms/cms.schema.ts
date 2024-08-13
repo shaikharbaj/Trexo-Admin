@@ -13,10 +13,6 @@ const cmsSchema = z.object({
     .refine((value) => !isContentEmpty(value), {
       message: "Please enter content",
     }),
-  slug: z
-    .string()
-    .min(1, { message: "Please enter slug" })
-    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, { message: "Please enter valid slug" }),
 });
 
 export default cmsSchema;

@@ -13,6 +13,10 @@ interface Cms {
   content: string;
   is_active?: string;
 }
+const stripHtmlTags = (html: any) => {
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  return doc.body.textContent || "";
+};
 
 export const columns: ColumnDef<Cms>[] = [
   {
@@ -78,7 +82,7 @@ export const columns: ColumnDef<Cms>[] = [
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("content")}
+            {stripHtmlTags(row.getValue("content"))}
           </span>
         </div>
       );

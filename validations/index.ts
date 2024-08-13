@@ -7,6 +7,8 @@ import stateSchema from "./state.schema";
 import brandSchema from "./brand/brand.schema";
 import categorySchema from "./category/category.schema";
 import citySchema from "./city/city.schema";
+import attributeSchema from "./attribute/attribute.schema";
+import uomSchema from "./uom/uom.schema";
 import cmsSchema from "./cms/cms.schema";
 export {
   loginSchema,
@@ -18,5 +20,7 @@ export {
   brandSchema,
   categorySchema,
   citySchema,
+  attributeSchema,
+  uomSchema,
   cmsSchema
 };

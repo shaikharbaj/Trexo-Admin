@@ -6,22 +6,15 @@ import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
 
-interface Uom {
+interface Attribute {
   uuid?: string;
-  uom_code?: string;
-  rounding_rule?: string;
-  rounding_value?: string;
-  decimal_scale?: string;
-  uom_category: UomCategory[];
+  attribute_name?: string;
+  category?: string;
+  is_required?: string;
 }
 
-interface UomCategory {
-  Category: {
-    category_name: string;
-  };
-}
 
-export const columns: ColumnDef<Uom>[] = [
+export const columns: ColumnDef<Attribute>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,15 +40,15 @@ export const columns: ColumnDef<Uom>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "uom_code",
+    accessorKey: "attribute_name",
     header: ({ column }) => (
-      <ColumnHeader column={column} title="UOM Code" />
+      <ColumnHeader column={column} title="Attribute" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("uom_code")}
+            {row.getValue("attribute_name")}
           </span>
         </div>
       );
@@ -65,33 +58,23 @@ export const columns: ColumnDef<Uom>[] = [
     },
   },
   {
-    accessorKey: "uom_category",
+    accessorKey: "category",
     header: ({ column }) => (
-      <ColumnHeader column={column} title="UOM Categories" />
+      <ColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
-      const uomCategories = row.getValue("uom_category") as UomCategory[];
-      const categoryNames = uomCategories
-        ?.map((item) => item.Category.category_name)
-        ?.join(", ")
-
-      return (
-        <div className="flex gap-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {categoryNames}
-          </span>
-        </div>
-      );
+      let category: any = row.getValue('category');
+      if (category?.category_name) {
+        return (
+          <div className="flex gap-2">
+            <span className="max-w-[500px] truncate font-medium">
+              {category?.category_name}
+            </span>
+          </div>
+        );
+      }
+      return 'N/A'
     },
-    filterFn: (row, id, value) => {
-      const uomCategories = row.getValue(id) as UomCategory[];
-      const categoryNames = uomCategories
-        .map((item) => item.Category.category_name)
-        .join(", ");
-
-      return categoryNames.includes(value);
-    },
-    enableSorting: false,
   },
   {
     accessorKey: "is_active",

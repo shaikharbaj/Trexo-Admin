@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -14,12 +14,18 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   onChange,
   className,
 }) => {
+  useEffect(() => {
+    const element = document.querySelector(".ql-container");
+    if (element) {
+      (element as HTMLElement).style.height = "120px";
+      (element as HTMLElement).style.overflowY = "auto";
+    }
+  }, []);
   return (
-    <div className={cn(className)}>
+    <div className={`${cn(className)}`}>
       <ReactQuill
         value={value}
         onChange={onChange}
-        theme="snow"
         modules={modules}
         formats={formats}
       />

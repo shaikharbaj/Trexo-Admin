@@ -5,6 +5,8 @@ import CreateUpdateCountryModal from "./country/create-update-modal";
 import CreateUpdateStateModal from "./state/create-update-modal";
 import CreateUpdateCityModal from "./city/create-update-modal";
 import CreateUpdateUomModal from "./uom/create-update-modal";
+import CreateUpdateAttributeModal from "./attribute/create-update-modal";
+import CreateUpdateCmsModal from "./cms/create-update-modal";
 
 export {
     CreateUpdateIndustryModal,
@@ -13,5 +15,7 @@ export {
     CreateUpdateStateModal,
     CreateUpdateBrandModal,
     CreateUpdateCityModal,
-    CreateUpdateUomModal
+    CreateUpdateUomModal,
+    CreateUpdateAttributeModal,
+    CreateUpdateCmsModal
 }

@@ -8,6 +8,7 @@ import globalSettingSlice from "./global-setting.slice";
 import modalSlice from "./modal.slice";
 import citySlice from "./city.slice";
 import uomSlice from "./uom.slice";
+import attributeSlice from "./attribute.slice";
 import cmsSlice from "./cms.slice";
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   modal: modalSlice,
   city: citySlice,
   uom: uomSlice,
+    attribute: attributeSlice,
   cms: cmsSlice,
 });
 

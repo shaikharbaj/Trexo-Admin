@@ -9,7 +9,7 @@ import { openPopup } from "@/service/modal.service";
 import { useAppSelector } from "@/hooks";
 import { RootState } from "@/redux/store";
 import { CmsTable } from "../tables";
-import CreateUpdateCmsModal from "../modals/cms/create-update-modal";
+import { CreateUpdateCmsModal } from "../modals";
 
 interface ICmsProps {}
 

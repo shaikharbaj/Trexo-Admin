@@ -36,13 +36,13 @@ const CreateUpdateCmsModal: React.FC<IModalProps> = ({ trans }) => {
     setValue,
     trigger,
     watch,
-    control
+    clearErrors,
+    control,
   } = useForm({
     mode: "all",
     resolver: zodResolver(cmsSchema),
     defaultValues: {
       title: "",
-      slug: "",
       content: "",
     },
   });
@@ -50,13 +50,17 @@ const CreateUpdateCmsModal: React.FC<IModalProps> = ({ trans }) => {
   useEffect(() => {
     if (data) {
       setValue("title", data?.title);
-      setValue("slug", data?.slug);
       setValue("content", data?.content);
     }
   }, [data]);
-
+  useEffect(() => {
+    if (modalName === "cms" && isOpen) {
+      clearErrors();
+    }
+  }, [isOpen, modalName]);
   const onSubmit = async (payload: any) => {
     startTransition(async () => {
+      console.log(payload)
       try {
         let response: any;
         if (action === "add") {
@@ -85,7 +89,7 @@ const CreateUpdateCmsModal: React.FC<IModalProps> = ({ trans }) => {
 
   return (
     <Dialog open={modalName === "cms" && isOpen}>
-      <DialogContent size="lg" hiddenCloseIcon={true}>
+      <DialogContent size="lg" handleModalClose={handleModalClose}>
         <DialogHeader className="p-0 mb-4">
           <DialogTitle className="font-medium pb-2 text-default-700 relative after:absolute after:h-0.5 after:rounded-md after:w-11 after:bg-primary after:left-0 after:bottom-0">
             {modalTitle}
@@ -93,7 +97,7 @@ const CreateUpdateCmsModal: React.FC<IModalProps> = ({ trans }) => {
         </DialogHeader>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="h-[350px]">
+            <div className="h-[335px]">
               <CmsForm
                 trans={trans}
                 isPending={isPending}

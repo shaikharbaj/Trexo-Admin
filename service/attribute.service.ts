@@ -2,19 +2,17 @@ import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
 
 import {
-    createUomThunk,
-    deleteUomThunk,
-    fetchRoundingRuleThunk,
-    fetchRoundingValueThunk,
-    fetchUomByIdThunk,
-    fetchUomForDropDownThunk,
-    updateUomThunk,
-} from "@/redux/thunk/uom.thunk";
+    createAttributeThunk,
+    deleteAttributeThunk,
+    fetchAttributeByIdThunk,
+    fetchAttributeForDropDownThunk,
+    updateAttributeThunk,
+} from "@/redux/thunk/attribute.thunk";
 
-//Function to create uom
-export const createUom = async (createPayload: any) => {
+//Function to create attribute
+export const createAttribute = async (createPayload: any) => {
     try {
-        const { payload } = await store.dispatch(createUomThunk(createPayload));
+        const { payload } = await store.dispatch(createAttributeThunk(createPayload));
         if (payload?.status !== true) {
             return {
                 status: payload?.status,
@@ -33,10 +31,10 @@ export const createUom = async (createPayload: any) => {
     }
 };
 
-//Function to delete uom
-export const deleteUom = async (deletePayload: any) => {
+//Function to delete attribute
+export const deleteAttribute = async (deletePayload: any) => {
     try {
-        const { payload } = await store.dispatch(deleteUomThunk(deletePayload));
+        const { payload } = await store.dispatch(deleteAttributeThunk(deletePayload));
         if (payload?.status !== true) {
             return {
                 status: payload?.status,
@@ -55,11 +53,11 @@ export const deleteUom = async (deletePayload: any) => {
     }
 };
 
-//Function to fetch uom by id
-export const fetchUomById = async (fetchByIdPayload: any) => {
+//Function to fetch attribute by id
+export const fetchAttributeById = async (fetchByIdPayload: any) => {
     try {
         const { payload } = await store.dispatch(
-            fetchUomByIdThunk(fetchByIdPayload)
+            fetchAttributeByIdThunk(fetchByIdPayload)
         );
         if (payload?.status !== true) {
             return {
@@ -79,11 +77,11 @@ export const fetchUomById = async (fetchByIdPayload: any) => {
     }
 };
 
-//Function to update uom
-export const updateUom = async (uuid: string, updatePayload: any) => {
+//Function to update attribute
+export const updateAttribute = async (uuid: string, updatePayload: any) => {
     try {
         const { payload } = await store.dispatch(
-            updateUomThunk({ uuid, payload: updatePayload })
+            updateAttributeThunk({ uuid, payload: updatePayload })
         );
         if (payload?.status !== true) {
             return {
@@ -103,11 +101,11 @@ export const updateUom = async (uuid: string, updatePayload: any) => {
     }
 };
 
-//Function to fetch uom for dropdown
-export const fetchUomForDropdown = async (
+//Function to fetch attribute for dropdown
+export const fetchAttributeForDropdown = async (
 ) => {
     try {
-        const { payload } = await store.dispatch(fetchUomForDropDownThunk());
+        const { payload } = await store.dispatch(fetchAttributeForDropDownThunk());
         if (payload?.status !== true) {
             return {
                 status: payload?.status,
@@ -125,50 +123,3 @@ export const fetchUomForDropdown = async (
         throw new Error(error.response?.data?.message || "Something went wrong.");
     }
 };
-
-//Function to fetch Rounding rule 
-export const fetchRoundingRule = async (
-) => {
-    try {
-        const { payload } = await store.dispatch(fetchRoundingRuleThunk());
-        if (payload?.status !== true) {
-            return {
-                status: payload?.status,
-                statusCode: payload?.statusCode,
-                message: payload?.message,
-            };
-        }
-        return {
-            status: payload?.status,
-            statusCode: payload?.statusCode,
-            message: payload?.message,
-            data: payload?.data,
-        };
-    } catch (error: any) {
-        throw new Error(error.response?.data?.message || "Something went wrong.");
-    }
-};
-
-//Function to fetch Rounding value 
-export const fetchRoundingValue = async (
-) => {
-    try {
-        const { payload } = await store.dispatch(fetchRoundingValueThunk());
-        if (payload?.status !== true) {
-            return {
-                status: payload?.status,
-                statusCode: payload?.statusCode,
-                message: payload?.message,
-            };
-        }
-        return {
-            status: payload?.status,
-            statusCode: payload?.statusCode,
-            message: payload?.message,
-            data: payload?.data,
-        };
-    } catch (error: any) {
-        throw new Error(error.response?.data?.message || "Something went wrong.");
-    }
-};
-
