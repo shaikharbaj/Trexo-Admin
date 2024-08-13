@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Trexopro",
+  name: "Trexopro Admin",
   description: null,
   theme: "violet",
   layout: "vertical", //semi-box, horizontal, vertical
