@@ -6,13 +6,15 @@ import StateTable from "./state/state-table";
 import CityTable from "./city/city-table";
 import UomTable from "./uom/uom-table";
 import AttributeTable from "./attribute/attribute-table";
+import CmsTable from "./cms/cms-table";
 export {
   IndustryTable,
   CategoryTable,
   CountryTable,
   StateTable,
   BrandTable,
-    UomTable,
-    AttributeTable,
+  UomTable,
+  AttributeTable,
   CityTable,
+  CmsTable,
 };
