@@ -9,13 +9,13 @@ import CreateUpdateAttributeModal from "./attribute/create-update-modal";
 import CreateUpdateCmsModal from "./cms/create-update-modal";
 
 export {
-    CreateUpdateIndustryModal,
-    CreateUpdateCategoryModal,
-    CreateUpdateCountryModal,
-    CreateUpdateStateModal,
-    CreateUpdateBrandModal,
-    CreateUpdateCityModal,
-    CreateUpdateUomModal,
-    CreateUpdateAttributeModal,
-    CreateUpdateCmsModal
-}
+  CreateUpdateIndustryModal,
+  CreateUpdateCategoryModal,
+  CreateUpdateCountryModal,
+  CreateUpdateStateModal,
+  CreateUpdateBrandModal,
+  CreateUpdateCityModal,
+  CreateUpdateUomModal,
+  CreateUpdateAttributeModal,
+  CreateUpdateCmsModal,
+};

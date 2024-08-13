@@ -10,6 +10,7 @@ import citySlice from "./city.slice";
 import uomSlice from "./uom.slice";
 import attributeSlice from "./attribute.slice";
 import cmsSlice from "./cms.slice";
+import contactusSlice from "./contact-us.slice";
 const rootReducer = combineReducers({
   auth: authSlice,
   datatable: datatableSlice,
@@ -20,8 +21,9 @@ const rootReducer = combineReducers({
   modal: modalSlice,
   city: citySlice,
   uom: uomSlice,
-    attribute: attributeSlice,
+  attribute: attributeSlice,
   cms: cmsSlice,
+  contactus: contactusSlice,
 });
 
 export default rootReducer;
