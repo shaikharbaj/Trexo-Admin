@@ -10,6 +10,7 @@ import citySchema from "./city/city.schema";
 import attributeSchema from "./attribute/attribute.schema";
 import uomSchema from "./uom/uom.schema";
 import cmsSchema from "./cms/cms.schema";
+import attributeValueSchema from "./attribute-value/attribute-value.schema";
 export {
   loginSchema,
   forgotPasswordSchema,
@@ -22,5 +23,7 @@ export {
   citySchema,
   attributeSchema,
   uomSchema,
-  cmsSchema
+  cmsSchema,
+  attributeValueSchema
+
 };
