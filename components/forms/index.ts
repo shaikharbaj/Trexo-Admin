@@ -8,6 +8,7 @@ import CityForm from "./city/create-update-form";
 import UomForm from "./uom/create-update-form";
 import AttributeForm from "./attribute/create-update-form";
 import CmsForm from "./cms/create-update-form";
+import SocialMediaForm from "./social-media/create-update-form";
 export {
     GlobalSettingForm,
     IndustryForm,
@@ -19,4 +20,5 @@ export {
     UomForm,
     AttributeForm,
     CmsForm,
+    SocialMediaForm,
 };

@@ -7,6 +7,7 @@ import CityTable from "./city/city-table";
 import UomTable from "./uom/uom-table";
 import AttributeTable from "./attribute/attribute-table";
 import CmsTable from "./cms/cms-table";
+import SocialMediaTable from "./social-media/social-media-table";
 import AttributeValueTable from "./attribute-value/attribute-value-table";
 import ContactUsTable from "./contact-us/contact-us-table";
 export {
@@ -19,6 +20,7 @@ export {
   AttributeTable,
   CityTable,
   CmsTable,
+  SocialMediaTable,
   AttributeValueTable,
   ContactUsTable
 };

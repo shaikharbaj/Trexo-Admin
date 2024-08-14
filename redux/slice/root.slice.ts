@@ -10,6 +10,7 @@ import citySlice from "./city.slice";
 import uomSlice from "./uom.slice";
 import attributeSlice from "./attribute.slice";
 import cmsSlice from "./cms.slice";
+import socialMediaSlice from "./social-media";
 import contactusSlice from "./contact-us.slice";
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   uom: uomSlice,
   attribute: attributeSlice,
   cms: cmsSlice,
+  socialMedia:socialMediaSlice,
   contactus: contactusSlice,
 });
 

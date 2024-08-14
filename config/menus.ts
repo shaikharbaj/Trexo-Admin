@@ -85,7 +85,7 @@ export const menusConfig = {
       icon: Settings,
       child: [
         {
-          title: "CMS",
+          title: "Cms",
           href: "/cms",
           icon: Settings,
         },
@@ -176,7 +176,7 @@ export const menusConfig = {
         icon: Settings,
         child: [
           {
-            title: "CMS",
+            title: "Cms",
             href: "/cms",
             icon: Settings,
           },
@@ -270,7 +270,7 @@ export const menusConfig = {
         icon: Settings,
         child: [
           {
-            title: "CMS",
+            title: "Cms",
             href: "/cms",
             icon: Settings,
           },
