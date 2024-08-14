@@ -1,7 +1,4 @@
-import {
-  DashBoard,
-  Settings,
-} from "@/components/svg";
+import { DashBoard, Settings } from "@/components/svg";
 
 export interface MenuItemProps {
   title: string;
@@ -80,7 +77,7 @@ export const menusConfig = {
           title: "UOM",
           href: "/uom",
           icon: Settings,
-        }
+        },
       ],
     },
     {
@@ -92,7 +89,17 @@ export const menusConfig = {
           href: "/cms",
           icon: Settings,
         },
+        {
+          title: "Social Media",
+          href: "/social-media",
+          icon: Settings,
+        },
       ],
+    },
+    {
+      title: "ContactUs",
+      href: "/contact-us",
+      icon: Settings,
     },
   ],
   sidebarNav: {
@@ -161,8 +168,7 @@ export const menusConfig = {
             title: "UOM",
             href: "/uom",
             icon: Settings,
-          }
-
+          },
         ],
       },
       {
@@ -174,7 +180,17 @@ export const menusConfig = {
             href: "/cms",
             icon: Settings,
           },
+          {
+            title: "Social Media",
+            href: "/social-media",
+            icon: Settings,
+          },
         ],
+      },
+      {
+        title: "ContactUs",
+        href: "/contact-us",
+        icon: Settings,
       },
     ],
     classic: [
@@ -246,7 +262,7 @@ export const menusConfig = {
             title: "UOM",
             href: "/uom",
             icon: Settings,
-          }
+          },
         ],
       },
       {
@@ -258,7 +274,17 @@ export const menusConfig = {
             href: "/cms",
             icon: Settings,
           },
+          {
+            title: "Social Media",
+            href: "/social-media",
+            icon: Settings,
+          },
         ],
+      },
+      {
+        title: "ContactUs",
+        href: "/contact-us",
+        icon: Settings,
       },
     ],
   },

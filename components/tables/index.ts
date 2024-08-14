@@ -8,6 +8,7 @@ import UomTable from "./uom/uom-table";
 import AttributeTable from "./attribute/attribute-table";
 import CmsTable from "./cms/cms-table";
 import AttributeValueTable from "./attribute-value/attribute-value-table";
+import ContactUsTable from "./contact-us/contact-us-table";
 export {
   IndustryTable,
   CategoryTable,
@@ -18,5 +19,6 @@ export {
   AttributeTable,
   CityTable,
   CmsTable,
-  AttributeValueTable
+  AttributeValueTable,
+  ContactUsTable
 };

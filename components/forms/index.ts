@@ -18,5 +18,5 @@ export {
     CityForm,
     UomForm,
     AttributeForm,
-    CmsForm
+    CmsForm,
 };
