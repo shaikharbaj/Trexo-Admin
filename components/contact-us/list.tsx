@@ -6,16 +6,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { openPopup } from "@/service/modal.service";
 import { useAppSelector } from "@/hooks";
 import { RootState } from "@/redux/store";
-import ContactUsTable from "../tables/contact-us/contact-us-table";
+import { ContactUsTable } from "../tables";
 
 interface IContactUsProps {}
 
 const ContactUsList: React.FunctionComponent<IContactUsProps> = () => {
   const t = useTranslations("ContactUsPage");
   const { refresh } = useAppSelector((state: RootState) => state.datatable);
-  const handleOpenModal = async () => {
-    await openPopup("contactus", `${t("Add")} ${t("ContactUs")}`, "add");
-  };
 
   return (
     <div className="space-y-6">

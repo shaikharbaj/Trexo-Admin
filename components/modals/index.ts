@@ -7,6 +7,7 @@ import CreateUpdateCityModal from "./city/create-update-modal";
 import CreateUpdateUomModal from "./uom/create-update-modal";
 import CreateUpdateAttributeModal from "./attribute/create-update-modal";
 import CreateUpdateCmsModal from "./cms/create-update-modal";
+import CreateUpdateAttributeValueModal from "./attribute-value/create-update-modal";
 
 export {
   CreateUpdateIndustryModal,
@@ -18,4 +19,5 @@ export {
   CreateUpdateUomModal,
   CreateUpdateAttributeModal,
   CreateUpdateCmsModal,
+    CreateUpdateAttributeValueModal,
 };
