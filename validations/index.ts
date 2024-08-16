@@ -3,13 +3,14 @@ import forgotPasswordSchema from "./auth/forgot-password.schema";
 import industrySchema from "./industry/industry.schema";
 import countrySchema from "./country/country.schema";
 import globalSettingSchema from "./global-settings/global-setting.schema";
-import stateSchema from "./state.schema";
+import stateSchema from "./state/state.schema";
 import brandSchema from "./brand/brand.schema";
 import categorySchema from "./category/category.schema";
 import citySchema from "./city/city.schema";
 import attributeSchema from "./attribute/attribute.schema";
 import uomSchema from "./uom/uom.schema";
 import cmsSchema from "./cms/cms.schema";
+import socialMediaSchema from "./social-media/social-media.schema";
 import attributeValueSchema from "./attribute-value/attribute-value.schema";
 export {
   loginSchema,
@@ -24,6 +25,7 @@ export {
   attributeSchema,
   uomSchema,
   cmsSchema,
+  socialMediaSchema,
   attributeValueSchema
 
 };
