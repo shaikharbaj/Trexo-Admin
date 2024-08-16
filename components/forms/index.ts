@@ -8,17 +8,19 @@ import CityForm from "./city/create-update-form";
 import UomForm from "./uom/create-update-form";
 import AttributeForm from "./attribute/create-update-form";
 import CmsForm from "./cms/create-update-form";
+import TestimonialForm from "./testimonial/create-update-form";
 import SocialMediaForm from "./social-media/create-update-form";
 export {
-    GlobalSettingForm,
-    IndustryForm,
-    CategoryForm,
-    CountryForm,
-    StateForm,
-    BrandForm,
-    CityForm,
-    UomForm,
-    AttributeForm,
-    CmsForm,
-    SocialMediaForm,
+  GlobalSettingForm,
+  IndustryForm,
+  CategoryForm,
+  CountryForm,
+  StateForm,
+  BrandForm,
+  CityForm,
+  UomForm,
+  AttributeForm,
+  CmsForm,
+  TestimonialForm,
+  SocialMediaForm,
 };

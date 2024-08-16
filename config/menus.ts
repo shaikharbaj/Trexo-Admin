@@ -94,6 +94,11 @@ export const menusConfig = {
           href: "/social-media",
           icon: Settings,
         },
+        {
+          title: "Testimonial",
+          href: "/testimonial",
+          icon: Settings,
+        },
       ],
     },
     {
@@ -183,6 +188,11 @@ export const menusConfig = {
           {
             title: "Social Media",
             href: "/social-media",
+            icon: Settings,
+          },
+          {
+            title: "Testimonial",
+            href: "/testimonial",
             icon: Settings,
           },
         ],
@@ -277,6 +287,11 @@ export const menusConfig = {
           {
             title: "Social Media",
             href: "/social-media",
+            icon: Settings,
+          },
+          {
+            title: "Testimonial",
+            href: "/testimonial",
             icon: Settings,
           },
         ],
