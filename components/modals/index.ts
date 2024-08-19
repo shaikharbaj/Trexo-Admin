@@ -9,6 +9,7 @@ import CreateUpdateAttributeModal from "./attribute/create-update-modal";
 import CreateUpdateCmsModal from "./cms/create-update-modal";
 import CreateUpdateSocialMediaModal from "./social-media/create-update-modal";
 import CreateUpdateAttributeValueModal from "./attribute-value/create-update-modal";
+import CreateUpdateTaxModal from "./tax/create-update-modal";
 import CreateUpdateTestimonialModal from "./testimonial/create-update-model";
 export {
   CreateUpdateIndustryModal,
@@ -23,4 +24,5 @@ export {
   CreateUpdateSocialMediaModal,
   CreateUpdateAttributeValueModal,
   CreateUpdateTestimonialModal,
+  CreateUpdateTaxModal,
 };

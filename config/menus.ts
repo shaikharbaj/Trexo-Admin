@@ -78,6 +78,11 @@ export const menusConfig = {
           href: "/uom",
           icon: Settings,
         },
+        {
+          title: "Tax",
+          href: "/tax",
+          icon: Settings,
+        },
       ],
     },
     {
@@ -172,6 +177,11 @@ export const menusConfig = {
           {
             title: "UOM",
             href: "/uom",
+            icon: Settings,
+          },
+          {
+            title: "Tax",
+            href: "/tax",
             icon: Settings,
           },
         ],
@@ -271,6 +281,11 @@ export const menusConfig = {
           {
             title: "UOM",
             href: "/uom",
+            icon: Settings,
+          },
+          {
+            title: "Tax",
+            href: "/tax",
             icon: Settings,
           },
         ],

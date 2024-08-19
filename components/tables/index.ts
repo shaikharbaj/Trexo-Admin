@@ -10,6 +10,7 @@ import CmsTable from "./cms/cms-table";
 import SocialMediaTable from "./social-media/social-media-table";
 import AttributeValueTable from "./attribute-value/attribute-value-table";
 import ContactUsTable from "./contact-us/contact-us-table";
+import TaxTable from "./tax/tax-table";
 import TestimonialTable from "./testimonial/testimonial-table";
 export {
   IndustryTable,
@@ -24,5 +25,6 @@ export {
   SocialMediaTable,
   AttributeValueTable,
   ContactUsTable,
-  TestimonialTable
+  TaxTable,
+  TestimonialTable,
 };
