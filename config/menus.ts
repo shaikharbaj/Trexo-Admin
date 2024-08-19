@@ -94,6 +94,11 @@ export const menusConfig = {
           href: "/social-media",
           icon: Settings,
         },
+        {
+          title: "FAQ",
+          href: "/faq",
+          icon: Settings,
+        },
       ],
     },
     {
@@ -185,6 +190,11 @@ export const menusConfig = {
             href: "/social-media",
             icon: Settings,
           },
+          {
+            title: "FAQ",
+            href: "/faq",
+            icon: Settings,
+          },
         ],
       },
       {
@@ -263,6 +273,7 @@ export const menusConfig = {
             href: "/uom",
             icon: Settings,
           },
+
         ],
       },
       {
@@ -277,6 +288,11 @@ export const menusConfig = {
           {
             title: "Social Media",
             href: "/social-media",
+            icon: Settings,
+          },
+          {
+            title: "FAQ",
+            href: "/faq",
             icon: Settings,
           },
         ],

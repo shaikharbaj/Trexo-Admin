@@ -20,6 +20,7 @@ const initialState = {
   filters: {
     searchText: "",
     is_active: "",
+    faq_type: "",
     sortColumn: "id",
     sortBy: "desc",
   },
@@ -56,7 +57,17 @@ export const datatable = createSlice({
         is_active: action.payload
       }
       state.pagination.currentPage = 1;
-      if(action.payload) {
+      if (action.payload) {
+        state.isFilterEnable = true;
+      }
+    },
+    setFaqType: (state, action: PayloadAction<any>) => {
+      state.filters = {
+        ...state.filters,
+        faq_type: action.payload
+      }
+      state.pagination.currentPage = 1;
+      if (action.payload) {
         state.isFilterEnable = true;
       }
     },
@@ -124,6 +135,7 @@ export const {
   resetData,
   setSearchText,
   setStatus,
+  setFaqType,
   setSorting,
   resetFilter,
   refreshData,

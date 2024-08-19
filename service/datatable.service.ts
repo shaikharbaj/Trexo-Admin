@@ -1,6 +1,7 @@
 import {
   refreshData,
   resetFilter,
+  setFaqType,
   setPageIndex,
   setPageSize,
   setSearchText,
@@ -62,6 +63,15 @@ export const filterSearchText = async (value: string) => {
 export const filterStatus = async (value: String[]) => {
   try {
     store.dispatch(setStatus(value.toString()));
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+//Function filter faq type
+export const filterFaqType = async (value: String[]) => {
+  try {
+    store.dispatch(setFaqType(value.toString()));
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");
   }

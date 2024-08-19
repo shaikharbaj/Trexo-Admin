@@ -12,6 +12,8 @@ import attributeSlice from "./attribute.slice";
 import cmsSlice from "./cms.slice";
 import socialMediaSlice from "./social-media";
 import contactusSlice from "./contact-us.slice";
+import faqSlice from "./faq.slice";
+import faqCategorySlice from "./faq-category.slice";
 const rootReducer = combineReducers({
   auth: authSlice,
   datatable: datatableSlice,
@@ -24,8 +26,10 @@ const rootReducer = combineReducers({
   uom: uomSlice,
   attribute: attributeSlice,
   cms: cmsSlice,
-  socialMedia:socialMediaSlice,
+  socialMedia: socialMediaSlice,
   contactus: contactusSlice,
+  faq: faqSlice,
+  faqCategory: faqCategorySlice
 });
 
 export default rootReducer;
