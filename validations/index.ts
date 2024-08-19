@@ -12,6 +12,7 @@ import uomSchema from "./uom/uom.schema";
 import cmsSchema from "./cms/cms.schema";
 import socialMediaSchema from "./social-media/social-media.schema";
 import attributeValueSchema from "./attribute-value/attribute-value.schema";
+import testimonialSchema from "./testimonial/testimonial.schema";
 export {
   loginSchema,
   forgotPasswordSchema,
@@ -26,6 +27,6 @@ export {
   uomSchema,
   cmsSchema,
   socialMediaSchema,
-  attributeValueSchema
-
+  attributeValueSchema,
+  testimonialSchema
 };

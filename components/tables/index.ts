@@ -11,6 +11,7 @@ import SocialMediaTable from "./social-media/social-media-table";
 import AttributeValueTable from "./attribute-value/attribute-value-table";
 import ContactUsTable from "./contact-us/contact-us-table";
 import FaqTable from "./faq/faq-table";
+import TestimonialTable from "./testimonial/testimonial-table";
 export {
   IndustryTable,
   CategoryTable,
@@ -24,5 +25,6 @@ export {
   SocialMediaTable,
   AttributeValueTable,
   ContactUsTable,
+  TestimonialTable,
   FaqTable
 };
