@@ -1,6 +1,7 @@
 import {
   refreshData,
   resetFilter,
+  setFaqType,
   setPageIndex,
   setPageSize,
   setSearchText,
@@ -82,6 +83,15 @@ export const filterTaxType = async (value: String[]) => {
 export const filterValueType = async (value: String[]) => {
   try {
     store.dispatch(setValueType(value.toString()));
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+//Function filter faq type
+export const filterFaqType = async (value: String[]) => {
+  try {
+    store.dispatch(setFaqType(value.toString()));
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");
   }

@@ -14,6 +14,8 @@ import socialMediaSlice from "./social-media";
 import contactusSlice from "./contact-us.slice";
 import taxSlice from "./tax.slice";
 import testimonialSlice from './testimonial.slice'
+import faqSlice from "./faq.slice";
+import faqCategorySlice from "./faq-category.slice";
 const rootReducer = combineReducers({
   auth: authSlice,
   datatable: datatableSlice,
@@ -29,7 +31,9 @@ const rootReducer = combineReducers({
   socialMedia: socialMediaSlice,
   contactus: contactusSlice,
   tax: taxSlice,
-  testimonial:testimonialSlice
+  testimonial: testimonialSlice,
+  faq: faqSlice,
+  faqCategory: faqCategorySlice
 });
 
 export default rootReducer;

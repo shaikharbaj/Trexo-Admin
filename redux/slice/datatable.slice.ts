@@ -22,6 +22,7 @@ const initialState = {
     is_active: "",
     tax_type: "",
     value_type: "",
+    faq_type: "",
     sortColumn: "id",
     sortBy: "desc",
   },
@@ -79,6 +80,16 @@ export const datatable = createSlice({
       };
       state.pagination.currentPage = 1;
       if (action.payload) {
+        state.isFilterEnable = true;
+      }
+    },
+    setFaqType: (state, action: PayloadAction<any>) => {
+      state.filters = {
+        ...state.filters,
+        faq_type: action.payload
+      }
+      state.pagination.currentPage = 1;
+      if  (action.payload) {
         state.isFilterEnable = true;
       }
     },
@@ -146,6 +157,7 @@ export const {
   resetData,
   setSearchText,
   setStatus,
+  setFaqType,
   setSorting,
   resetFilter,
   refreshData,

@@ -104,6 +104,11 @@ export const menusConfig = {
           href: "/testimonial",
           icon: Settings,
         },
+        {
+          title: "FAQ",
+          href: "/faq",
+          icon: Settings,
+        },
       ],
     },
     {
@@ -205,6 +210,11 @@ export const menusConfig = {
             href: "/testimonial",
             icon: Settings,
           },
+          {
+            title: "FAQ",
+            href: "/faq",
+            icon: Settings,
+          },
         ],
       },
       {
@@ -288,6 +298,7 @@ export const menusConfig = {
             href: "/tax",
             icon: Settings,
           },
+
         ],
       },
       {
@@ -307,6 +318,11 @@ export const menusConfig = {
           {
             title: "Testimonial",
             href: "/testimonial",
+            icon: Settings,
+          },
+          {
+            title: "FAQ",
+            href: "/faq",
             icon: Settings,
           },
         ],
