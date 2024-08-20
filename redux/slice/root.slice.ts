@@ -12,6 +12,7 @@ import attributeSlice from "./attribute.slice";
 import cmsSlice from "./cms.slice";
 import socialMediaSlice from "./social-media";
 import contactusSlice from "./contact-us.slice";
+import taxSlice from "./tax.slice";
 import testimonialSlice from './testimonial.slice'
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -25,8 +26,9 @@ const rootReducer = combineReducers({
   uom: uomSlice,
   attribute: attributeSlice,
   cms: cmsSlice,
-  socialMedia:socialMediaSlice,
+  socialMedia: socialMediaSlice,
   contactus: contactusSlice,
+  tax: taxSlice,
   testimonial:testimonialSlice
 });
 

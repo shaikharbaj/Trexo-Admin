@@ -6,6 +6,8 @@ import {
   setSearchText,
   setSorting,
   setStatus,
+  setTaxType,
+  setValueType,
 } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
 import { fetchDataThunk } from "@/redux/thunk/datatable.thunk";
@@ -62,6 +64,24 @@ export const filterSearchText = async (value: string) => {
 export const filterStatus = async (value: String[]) => {
   try {
     store.dispatch(setStatus(value.toString()));
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+//Function filter tax type
+export const filterTaxType = async (value: String[]) => {
+  try {
+    store.dispatch(setTaxType(value.toString()));
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+//Function filter value type
+export const filterValueType = async (value: String[]) => {
+  try {
+    store.dispatch(setValueType(value.toString()));
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");
   }
