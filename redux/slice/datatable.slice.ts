@@ -20,6 +20,8 @@ const initialState = {
   filters: {
     searchText: "",
     is_active: "",
+    tax_type: "",
+    value_type: "",
     faq_type: "",
     sortColumn: "id",
     sortBy: "desc",
@@ -46,16 +48,36 @@ export const datatable = createSlice({
     setSearchText: (state, action: PayloadAction<any>) => {
       state.filters = {
         ...state.filters,
-        searchText: action.payload
-      }
+        searchText: action.payload,
+      };
       state.pagination.currentPage = 1;
       state.isFilterEnable = true;
     },
     setStatus: (state, action: PayloadAction<any>) => {
       state.filters = {
         ...state.filters,
-        is_active: action.payload
+        is_active: action.payload,
+      };
+      state.pagination.currentPage = 1;
+      if (action.payload) {
+        state.isFilterEnable = true;
       }
+    },
+    setTaxType: (state, action: PayloadAction<any>) => {
+      state.filters = {
+        ...state.filters,
+        tax_type: action.payload,
+      };
+      state.pagination.currentPage = 1;
+      if (action.payload) {
+        state.isFilterEnable = true;
+      }
+    },
+    setValueType: (state, action: PayloadAction<any>) => {
+      state.filters = {
+        ...state.filters,
+        value_type: action.payload,
+      };
       state.pagination.currentPage = 1;
       if (action.payload) {
         state.isFilterEnable = true;
@@ -67,7 +89,7 @@ export const datatable = createSlice({
         faq_type: action.payload
       }
       state.pagination.currentPage = 1;
-      if (action.payload) {
+      if  (action.payload) {
         state.isFilterEnable = true;
       }
     },
@@ -75,8 +97,8 @@ export const datatable = createSlice({
       state.filters = {
         ...state.filters,
         sortBy: action.payload?.sortBy,
-        sortColumn: action.payload?.sortColumn
-      }
+        sortColumn: action.payload?.sortColumn,
+      };
       state.pagination.currentPage = 1;
       state.isFilterEnable = true;
     },
@@ -145,6 +167,8 @@ export const {
   previousPage,
   setPageIndex,
   resetPagination,
+  setTaxType,
+  setValueType,
 } = datatable.actions;
 
 export default datatable.reducer;

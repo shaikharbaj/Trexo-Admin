@@ -10,6 +10,7 @@ import AttributeForm from "./attribute/create-update-form";
 import CmsForm from "./cms/create-update-form";
 import TestimonialForm from "./testimonial/create-update-form";
 import SocialMediaForm from "./social-media/create-update-form";
+import TaxForm from "./tax/create-update-form";
 export {
   GlobalSettingForm,
   IndustryForm,
@@ -23,4 +24,5 @@ export {
   CmsForm,
   TestimonialForm,
   SocialMediaForm,
+  TaxForm,
 };

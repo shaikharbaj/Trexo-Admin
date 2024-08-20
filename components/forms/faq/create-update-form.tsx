@@ -92,7 +92,7 @@ const FaqForm: React.FC<IFormProps> = ({
                                     />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {faqCategories.map((category: any, categoryIndex: number) => {
+                                    {faqCategories?.map((category: any, categoryIndex: number) => {
                                         return (
                                             <SelectItem key={categoryIndex} value={category.uuid}>
                                                 {category.category_name}

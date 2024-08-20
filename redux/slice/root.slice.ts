@@ -12,6 +12,7 @@ import attributeSlice from "./attribute.slice";
 import cmsSlice from "./cms.slice";
 import socialMediaSlice from "./social-media";
 import contactusSlice from "./contact-us.slice";
+import taxSlice from "./tax.slice";
 import testimonialSlice from './testimonial.slice'
 import faqSlice from "./faq.slice";
 import faqCategorySlice from "./faq-category.slice";
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   cms: cmsSlice,
   socialMedia: socialMediaSlice,
   contactus: contactusSlice,
-  testimonial:testimonialSlice
+  tax: taxSlice,
+  testimonial: testimonialSlice,
   faq: faqSlice,
   faqCategory: faqCategorySlice
 });

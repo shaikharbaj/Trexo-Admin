@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -51,9 +51,13 @@ const CityForm: React.FC<IFormProps> = ({
   const [states, setStates] = useState<IState[]>([]);
   const country_uuid: any = watch("country_uuid");
   const [refresh, setRefresh] = useState<boolean>(false);
+  const hasFetchedCountries = useRef(false);
 
   useEffect(() => {
-    FetchCountryForDropdown();
+    if (!hasFetchedCountries.current) {
+      FetchCountryForDropdown();
+      hasFetchedCountries.current = true;
+    }
   }, []);
 
   //Function to fetch country for dropdown.......................
@@ -72,6 +76,9 @@ const CityForm: React.FC<IFormProps> = ({
   useEffect(() => {
     if (country_uuid) {
       if (action === "add") {
+        setValue("state_uuid", "");
+      }
+      if(action === 'edit' && states?.length>0){
         setValue("state_uuid", "");
       }
       setStates([]);
