@@ -13,6 +13,9 @@ import ContactUsTable from "./contact-us/contact-us-table";
 import TaxTable from "./tax/tax-table";
 import FaqTable from "./faq/faq-table";
 import TestimonialTable from "./testimonial/testimonial-table";
+import SellerTable from "./seller/seller-table";
+import CustomerTable from "./customer/customer-table";
+import AdminTable from "./admin/admin-table";
 export {
   IndustryTable,
   CategoryTable,
@@ -28,5 +31,8 @@ export {
   ContactUsTable,
   TaxTable,
   TestimonialTable,
-  FaqTable
+  SellerTable,
+  CustomerTable,
+  FaqTable,
+  AdminTable,
 };

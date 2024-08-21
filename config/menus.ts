@@ -116,6 +116,32 @@ export const menusConfig = {
       href: "/contact-us",
       icon: Settings,
     },
+    {
+      title: "Registered User",
+      icon: Settings,
+      child: [
+        {
+          title: "Admin",
+          href: "/admin",
+          icon: Settings,
+        },
+        {
+          title: "Seller",
+          href: "/supplier",
+          icon: Settings,
+        },
+        {
+          title: "Customer",
+          href: "/customer",
+          icon: Settings,
+        },
+        {
+          title: "Fiancier",
+          href: "#",
+          icon: Settings,
+        },
+      ],
+    },
   ],
   sidebarNav: {
     modern: [
@@ -222,6 +248,32 @@ export const menusConfig = {
         href: "/contact-us",
         icon: Settings,
       },
+      {
+        title: "Registered User",
+        icon: Settings,
+        child: [
+          {
+            title: "Admin",
+            href: "/admin",
+            icon: Settings,
+          },
+          {
+            title: "Seller",
+            href: "/seller",
+            icon: Settings,
+          },
+          {
+            title: "Customer",
+            href: "/customer",
+            icon: Settings,
+          },
+          {
+            title: "Fiancier",
+            href: "#",
+            icon: Settings,
+          },
+        ],
+      },
     ],
     classic: [
       {
@@ -298,7 +350,6 @@ export const menusConfig = {
             href: "/tax",
             icon: Settings,
           },
-
         ],
       },
       {
@@ -331,6 +382,32 @@ export const menusConfig = {
         title: "ContactUs",
         href: "/contact-us",
         icon: Settings,
+      },
+      {
+        title: "Registered User",
+        icon: Settings,
+        child: [
+          {
+            title: "Admin",
+            href: "/admin",
+            icon: Settings,
+          },
+          {
+            title: "Seller",
+            href: "/seller",
+            icon: Settings,
+          },
+          {
+            title: "Customer",
+            href: "/customer",
+            icon: Settings,
+          },
+          {
+            title: "Fiancier",
+            href: "#",
+            icon: Settings,
+          },
+        ],
       },
     ],
   },
