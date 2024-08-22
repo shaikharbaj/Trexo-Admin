@@ -16,6 +16,7 @@ import TestimonialTable from "./testimonial/testimonial-table";
 import SellerTable from "./seller/seller-table";
 import CustomerTable from "./customer/customer-table";
 import AdminTable from "./admin/admin-table";
+import OrderTable from "./order/order-table";
 export {
   IndustryTable,
   CategoryTable,
@@ -35,4 +36,5 @@ export {
   CustomerTable,
   FaqTable,
   AdminTable,
+  OrderTable,
 };

@@ -6,21 +6,24 @@ import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { TableCell, TableRow } from "@/components/ui/table";
 
-interface AdminUser {
+interface Order {
   uuid?: string;
-  unique_id: string;
-  profile_url: string;
-  name: string;
-  first_name: string;
-  middle_name: string;
-  last_name: string;
-  email: string;
-  mobile_number: string;
+  order_id?: string;
+  image: string;
+  title: string;
+  order_item: any;
+  category: string;
+  type: string;
+  price: string;
+  quantity: string;
+  seller: string;
+  created_at: string;
   is_active?: string;
 }
 
-export const columns: ColumnDef<AdminUser>[] = [
+export const columns: ColumnDef<Order>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -46,13 +49,13 @@ export const columns: ColumnDef<AdminUser>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "unique_id",
-    header: ({ column }) => <ColumnHeader column={column} title="Id" />,
+    accessorKey: "order_number",
+    header: ({ column }) => <ColumnHeader column={column} title="Order ID" />,
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("unique_id")}
+            {row.getValue("order_number")}
           </span>
         </div>
       );
@@ -62,17 +65,18 @@ export const columns: ColumnDef<AdminUser>[] = [
     },
   },
   {
-    accessorKey: "profile_url",
-    header: ({ column }) => <ColumnHeader column={column} title="Profile" />,
+    accessorKey: "image",
+    header: ({ column }) => <ColumnHeader column={column} title="Image" />,
     cell: ({ row }) => {
-      const profile_url: any = row.getValue("profile_url");
-      const logo = row.original.first_name.split("")[0];
+      const image: any = row.getValue("image");
+      // const logo = row.original.first_name.split("")[0];
+      const logo = "A";
       return (
         <div className="font-medium text-card-foreground/80">
           <div className="flex space-x-3 rtl:space-x-reverse items-center">
             <Avatar className="rounded-full">
-              {profile_url ? (
-                <AvatarImage src={profile_url} />
+              {image ? (
+                <AvatarImage src={image} />
               ) : (
                 <AvatarFallback>{logo}</AvatarFallback>
               )}
@@ -84,75 +88,14 @@ export const columns: ColumnDef<AdminUser>[] = [
     enableSorting: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: "product_title",
     header: ({ column }) => <ColumnHeader column={column} title="Name" />,
     cell: ({ row }) => {
-      const firstName = row.original.first_name;
-      const middleName = row.original.middle_name;
-      const lastName = row.original.last_name;
-      const fullName = [firstName, middleName, lastName]
-        .filter((name) => name && name.trim() !== "")
-        .join(" ");
-      return (
-        <div className="flex gap-2">
-          <span className="max-w-[500px] truncate font-medium">{fullName}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "mobile_number",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Mobile Number" />
-    ),
-    cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("mobile_number")}
+            {row.getValue("product_title")}
           </span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => <ColumnHeader column={column} title="Email" />,
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("email")}
-          </span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center">
-          <Badge
-            variant="soft"
-            color={
-              (row.getValue("status") === "ACTIVE" && "success") ||
-              (row.getValue("status") === "INACTIVE" && "destructive") ||
-              "default"
-            }
-          >
-            {row.getValue("status") === "ACTIVE" ? "Active" : "Inactive"}
-          </Badge>
         </div>
       );
     },
@@ -160,11 +103,99 @@ export const columns: ColumnDef<AdminUser>[] = [
       return value.includes(row.getValue(id));
     },
     enableSorting: false,
-    enableHiding: true,
+  },
+  {
+    accessorKey: "product_category",
+    header: ({ column }) => <ColumnHeader column={column} title="Category" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("product_category")}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: "type",
+    header: ({ column }) => <ColumnHeader column={column} title="Type" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("type")}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: "price",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Price(price per product)" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("price")}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: "quantity",
+    header: ({ column }) => <ColumnHeader column={column} title="Quantity" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("quantity")}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: "seller",
+    header: ({ column }) => <ColumnHeader column={column} title="Seller" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("seller")}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+     enableSorting: false,
   },
   {
     accessorKey: "created_at",
-    header: ({ column }) => <ColumnHeader column={column} title="Created At" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Ordered Date" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
