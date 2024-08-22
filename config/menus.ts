@@ -142,6 +142,11 @@ export const menusConfig = {
         },
       ],
     },
+    {
+      title: "Orders",
+      href: "/order",
+      icon: Settings,
+    },
   ],
   sidebarNav: {
     modern: [
@@ -273,6 +278,11 @@ export const menusConfig = {
             icon: Settings,
           },
         ],
+      },
+      {
+        title: "Orders",
+        href: "/order",
+        icon: Settings,
       },
     ],
     classic: [
@@ -409,8 +419,14 @@ export const menusConfig = {
           },
         ],
       },
+      {
+        title: "Orders",
+        href: "/order",
+        icon: Settings,
+      },
     ],
   },
+  
 };
 
 export type ModernNavType = (typeof menusConfig.sidebarNav.modern)[number];
