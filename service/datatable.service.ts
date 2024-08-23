@@ -16,7 +16,7 @@ import { fetchDataThunk } from "@/redux/thunk/datatable.thunk";
 //Function to fetch table data
 export const fetchTableData = async (tablePayload: any) => {
   try {
-    const { payload } = await store.dispatch(fetchDataThunk(tablePayload));
+    const { payload } = await store.dispatch(fetchDataThunk(tablePayload));    
     if (payload?.status !== true) {
       return {
         status: payload?.status,
@@ -28,6 +28,7 @@ export const fetchTableData = async (tablePayload: any) => {
       status: payload?.status,
       statusCode: payload?.statusCode,
       message: payload?.message,
+      data:payload?.data?.customeMeta
     };
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");
