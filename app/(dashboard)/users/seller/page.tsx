@@ -1,6 +1,4 @@
-import { CmsList } from "@/components/cms";
-import React from "react";
-
+import { SellerList } from "@/components/users";
 
 interface IPageProps {
   params: {
@@ -9,7 +7,7 @@ interface IPageProps {
 }
 
 const Page: React.FunctionComponent<IPageProps> = async () => {
-  return <CmsList />;
+  return <SellerList />;
 };
 
 export default Page;

@@ -1,5 +1,5 @@
-import { CmsList } from "@/components/cms";
 import React from "react";
+import { SocialMediaList } from "@/components/cms";
 
 
 interface IPageProps {
@@ -9,7 +9,7 @@ interface IPageProps {
 }
 
 const Page: React.FunctionComponent<IPageProps> = async () => {
-  return <CmsList />;
+  return <SocialMediaList />;
 };
 
 export default Page;

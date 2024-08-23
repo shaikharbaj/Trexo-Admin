@@ -2,7 +2,7 @@ import queryString from "query-string";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { privateClient } from "@/http/http-client";
 
-//Thunk to fetch country list
+//Thunk to fetch list of admin,seller and
 interface IListPayload {
   pageSize: number;
   currentPage: number;
@@ -41,12 +41,29 @@ export const supplierListThunk = createAsyncThunk(
   }
 );
 
-export const customerListThunk = createAsyncThunk(
-  "user/fetchAllCustomers",
+export const consumerListThunk = createAsyncThunk(
+  "user/fetchAllConsumers",
   async (payload: IListPayload) => {
     try {
       const queryParams = queryString.stringify(payload);
       const res = await privateClient.get(`/user?${queryParams}`);
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+
+export const financierListThunk = createAsyncThunk(
+  "user/fetchAllFinanciers",
+  async (payload: IListPayload) => {
+    try {
+      const queryParams = queryString.stringify(payload);
+      const res = await privateClient.get(`/financier?${queryParams}`);
       return res.data;
     } catch (error: any) {
       if (error?.response?.data) {

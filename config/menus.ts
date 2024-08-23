@@ -86,7 +86,7 @@ export const menusConfig = {
       ],
     },
     {
-      title: "CMS",
+      title: "Cms",
       icon: Settings,
       child: [
         {
@@ -96,12 +96,12 @@ export const menusConfig = {
         },
         {
           title: "Social Media",
-          href: "/social-media",
+          href: "/cms/social-media",
           icon: Settings,
         },
         {
           title: "Testimonial",
-          href: "/testimonial",
+          href: "/cms/testimonial",
           icon: Settings,
         },
         {
@@ -117,27 +117,27 @@ export const menusConfig = {
       icon: Settings,
     },
     {
-      title: "Registered User",
+      title: "Users",
       icon: Settings,
       child: [
         {
           title: "Admin",
-          href: "/admin",
+          href: "/users/admin",
           icon: Settings,
         },
         {
           title: "Seller",
-          href: "/supplier",
+          href: "/users/supplier",
           icon: Settings,
         },
         {
-          title: "Customer",
-          href: "/customer",
+          title: "Consumer",
+          href: "/users/consumer",
           icon: Settings,
         },
         {
-          title: "Fiancier",
-          href: "#",
+          title: "Financier",
+          href: "/users/financier",
           icon: Settings,
         },
       ],
@@ -223,7 +223,7 @@ export const menusConfig = {
         ],
       },
       {
-        title: "CMS",
+        title: "Cms",
         icon: Settings,
         child: [
           {
@@ -233,17 +233,17 @@ export const menusConfig = {
           },
           {
             title: "Social Media",
-            href: "/social-media",
+            href: "/cms/social-media",
             icon: Settings,
           },
           {
             title: "Testimonial",
-            href: "/testimonial",
+            href: "/cms/testimonial",
             icon: Settings,
           },
           {
             title: "FAQ",
-            href: "/faq",
+            href: "/cms/faq",
             icon: Settings,
           },
         ],
@@ -254,27 +254,27 @@ export const menusConfig = {
         icon: Settings,
       },
       {
-        title: "Registered User",
+        title: "Users",
         icon: Settings,
         child: [
           {
             title: "Admin",
-            href: "/admin",
+            href: "/users/admin",
             icon: Settings,
           },
           {
             title: "Seller",
-            href: "/seller",
+            href: "/users/seller",
             icon: Settings,
           },
           {
-            title: "Customer",
-            href: "/customer",
+            title: "Consumer",
+            href: "/users/consumer",
             icon: Settings,
           },
           {
-            title: "Fiancier",
-            href: "#",
+            title: "Financier",
+            href: "/users/financier",
             icon: Settings,
           },
         ],
@@ -363,7 +363,7 @@ export const menusConfig = {
         ],
       },
       {
-        title: "CMS",
+        title: "Cms",
         icon: Settings,
         child: [
           {
@@ -373,17 +373,17 @@ export const menusConfig = {
           },
           {
             title: "Social Media",
-            href: "/social-media",
+            href: "/cms/social-media",
             icon: Settings,
           },
           {
             title: "Testimonial",
-            href: "/testimonial",
+            href: "/cms/testimonial",
             icon: Settings,
           },
           {
             title: "FAQ",
-            href: "/faq",
+            href: "/cms/faq",
             icon: Settings,
           },
         ],
@@ -394,27 +394,27 @@ export const menusConfig = {
         icon: Settings,
       },
       {
-        title: "Registered User",
+        title: "Users",
         icon: Settings,
         child: [
           {
             title: "Admin",
-            href: "/admin",
+            href: "/users/admin",
             icon: Settings,
           },
           {
             title: "Seller",
-            href: "/seller",
+            href: "/users/seller",
             icon: Settings,
           },
           {
-            title: "Customer",
-            href: "/customer",
+            title: "Consumer",
+            href: "/users/consumer",
             icon: Settings,
           },
           {
-            title: "Fiancier",
-            href: "#",
+            title: "Financier",
+            href: "/users/financier",
             icon: Settings,
           },
         ],
@@ -426,7 +426,6 @@ export const menusConfig = {
       },
     ],
   },
-  
 };
 
 export type ModernNavType = (typeof menusConfig.sidebarNav.modern)[number];
