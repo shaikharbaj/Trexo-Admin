@@ -6,11 +6,15 @@ import CreateUpdateStateModal from "./state/create-update-modal";
 import CreateUpdateCityModal from "./city/create-update-modal";
 import CreateUpdateUomModal from "./uom/create-update-modal";
 import CreateUpdateAttributeModal from "./attribute/create-update-modal";
-import CreateUpdateCmsModal from "./cms/create-update-modal";
-import CreateUpdateSocialMediaModal from "./social-media/create-update-modal";
+import {
+  CreateUpdateCmsModal,
+  CreateUpdateFaqModal,
+  CreateUpdateSocialMediaModal,
+  CreateUpdateTestimonialModal,
+} from "./cms";
 import CreateUpdateAttributeValueModal from "./attribute-value/create-update-modal";
 import CreateUpdateTaxModal from "./tax/create-update-modal";
-import CreateUpdateTestimonialModal from "./testimonial/create-update-model";
+
 export {
   CreateUpdateIndustryModal,
   CreateUpdateCategoryModal,
@@ -23,6 +27,7 @@ export {
   CreateUpdateCmsModal,
   CreateUpdateSocialMediaModal,
   CreateUpdateAttributeValueModal,
+  CreateUpdateFaqModal,
   CreateUpdateTestimonialModal,
   CreateUpdateTaxModal,
 };

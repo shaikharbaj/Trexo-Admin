@@ -7,10 +7,8 @@ import StateForm from "./state/create-update-form";
 import CityForm from "./city/create-update-form";
 import UomForm from "./uom/create-update-form";
 import AttributeForm from "./attribute/create-update-form";
-import CmsForm from "./cms/create-update-form";
-import TestimonialForm from "./testimonial/create-update-form";
-import SocialMediaForm from "./social-media/create-update-form";
 import TaxForm from "./tax/create-update-form";
+import { CmsForm,FaqForm,SocialMediaForm,TestimonialForm } from "./cms";
 export {
   GlobalSettingForm,
   IndustryForm,
@@ -25,4 +23,5 @@ export {
   TestimonialForm,
   SocialMediaForm,
   TaxForm,
+  FaqForm
 };

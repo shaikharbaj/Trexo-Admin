@@ -6,17 +6,15 @@ import StateTable from "./state/state-table";
 import CityTable from "./city/city-table";
 import UomTable from "./uom/uom-table";
 import AttributeTable from "./attribute/attribute-table";
-import CmsTable from "./cms/cms-table";
-import SocialMediaTable from "./social-media/social-media-table";
 import AttributeValueTable from "./attribute-value/attribute-value-table";
 import ContactUsTable from "./contact-us/contact-us-table";
 import TaxTable from "./tax/tax-table";
-import FaqTable from "./faq/faq-table";
-import TestimonialTable from "./testimonial/testimonial-table";
-import SellerTable from "./seller/seller-table";
-import CustomerTable from "./customer/customer-table";
-import AdminTable from "./admin/admin-table";
+import SellerTable from "./users/seller/seller-table";
+import ConsumerTable from "./users/consumer/consumer-table";
+import AdminTable from "./users/admin/admin-table";
 import OrderTable from "./order/order-table";
+import FinancierTable from "./users/financiers/financier-table";
+import { CmsTable,SocialMediaTable,FaqTable,TestimonialTable } from "./cms";
 export {
   IndustryTable,
   CategoryTable,
@@ -33,8 +31,9 @@ export {
   TaxTable,
   TestimonialTable,
   SellerTable,
-  CustomerTable,
+  ConsumerTable,
   FaqTable,
   AdminTable,
   OrderTable,
+  FinancierTable,
 };
