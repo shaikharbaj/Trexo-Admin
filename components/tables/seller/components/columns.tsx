@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
-import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -20,7 +19,7 @@ interface Supplier {
   is_active?: string;
 }
 
-export const columns: ColumnDef<Supplier>[] = [
+export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (categoryMeta) => [
   {
     id: "select",
     header: ({ table }) => (
@@ -106,21 +105,22 @@ export const columns: ColumnDef<Supplier>[] = [
     },
   },
   {
-    accessorKey: "category",
+    accessorKey: "product_category_id",
     header: ({ column }) => <ColumnHeader column={column} title="Category" />,
     cell: ({ row }) => {
-      const category: any = row.getValue("category");
+      const category: string[] = row.getValue("product_category_id");
       if (category) {
+        const categoryNames = category.map(id => categoryMeta[id] || "Unknown").join(", ");
         return (
           <div className="flex gap-2">
             <span className="max-w-[500px] truncate font-medium">
-              {row.getValue("category")}
+              {categoryNames}
             </span>
           </div>
         );
-      }
+      }  
       return "N/A";
-    },
+    },  
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
