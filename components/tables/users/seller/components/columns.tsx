@@ -13,7 +13,7 @@ interface Supplier {
   first_name: string;
   middle_name: string;
   category: string;
-  product_category_id:string;
+  product_category_id: string;
   last_name: string;
   email: string;
   mobile_number: string;
@@ -68,7 +68,7 @@ export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (
     header: ({ column }) => <ColumnHeader column={column} title="Image" />,
     cell: ({ row }) => {
       const profile_url: any = row.getValue("profile_url");
-      const logo = row.original.first_name.split("")[0];
+      const logo = row?.original?.first_name?.split("")[0];
       return (
         <div className="font-medium text-card-foreground/80">
           <div className="flex space-x-3 rtl:space-x-reverse items-center">
@@ -91,9 +91,9 @@ export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (
       <ColumnHeader column={column} title="Seller Name" />
     ),
     cell: ({ row }) => {
-      const firstName = row.original.first_name;
-      const middleName = row.original.middle_name;
-      const lastName = row.original.last_name;
+      const firstName = row?.original?.first_name;
+      const middleName = row?.original?.middle_name;
+      const lastName = row?.original?.last_name;
       const fullName = [firstName, middleName, lastName]
         .filter((name) => name && name.trim() !== "")
         .join(" ");
@@ -112,7 +112,7 @@ export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (
     header: ({ column }) => <ColumnHeader column={column} title="Category" />,
     cell: ({ row }) => {
       const category: string[] = row.getValue("product_category_id");
-      if (category) {
+      if (category && Array.isArray(category)) {
         const categoryNames = category
           .map((id) => categoryMeta[id] || "Unknown")
           .join(", ");

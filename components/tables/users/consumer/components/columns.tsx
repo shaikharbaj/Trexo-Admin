@@ -66,7 +66,7 @@ export const columns: ColumnDef<Consumer>[] = [
     header: ({ column }) => <ColumnHeader column={column} title="Profile" />,
     cell: ({ row }) => {
       const profile_url: any = row.getValue("profile_url");
-      const logo = row.original.first_name.split("")[0];
+      const logo = row?.original?.first_name?.split("")[0];
       return (
         <div className="font-medium text-card-foreground/80">
           <div className="flex space-x-3 rtl:space-x-reverse items-center">
@@ -87,9 +87,9 @@ export const columns: ColumnDef<Consumer>[] = [
     accessorKey: "name",
     header: ({ column }) => <ColumnHeader column={column} title="Name" />,
     cell: ({ row }) => {
-      const firstName = row.original.first_name;
-      const middleName = row.original.middle_name;
-      const lastName = row.original.last_name;
+      const firstName = row?.original?.first_name;
+      const middleName = row?.original?.middle_name;
+      const lastName = row?.original?.last_name;
       const fullName = [firstName, middleName, lastName]
         .filter((name) => name && name.trim() !== "")
         .join(" ");
