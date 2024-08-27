@@ -22,12 +22,12 @@ interface ITableProps {
 }
 
 const transformData = (data: any[]): any[] => {
-  return data.flatMap((order: any) =>
-    order.order_item.map((item: any) => ({
+  return data?.flatMap((order: any) =>
+    order?.order_item?.map((item: any) => ({
       ...order,
       ...item,
-      product_title: item.product.title,
-      product_category: item.product.category.category_name,
+      product_title: item?.product?.title,
+      product_category: item?.product?.category?.category_name,
     }))
   );
 };

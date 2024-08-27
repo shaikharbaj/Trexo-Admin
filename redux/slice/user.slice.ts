@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   adminListThunk,
-  customerListThunk,
+  consumerListThunk,
   supplierListThunk,
 } from "../thunk/user.thunk";
 
@@ -44,14 +44,14 @@ export const user = createSlice({
         state.isLoading = false;
       });
     builder
-      .addCase(customerListThunk.pending, (state: any) => {
+      .addCase(consumerListThunk.pending, (state: any) => {
         state.isLoading = true;
       })
-      .addCase(customerListThunk.fulfilled, (state: any, action: any) => {
+      .addCase(consumerListThunk.fulfilled, (state: any, action: any) => {
         state.isLoading = false;
         state.list = action?.payload?.data?.result || [];
       })
-      .addCase(customerListThunk.rejected, (state: any) => {
+      .addCase(consumerListThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },
