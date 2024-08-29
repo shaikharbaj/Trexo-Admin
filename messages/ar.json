@@ -17,7 +17,7 @@
     "UOM": "وحدة القياس",
     "Social Media": "وسائل التواصل الاجتماعي",
     "Cms": "نظام إدارة المحتوى",
-    "ContactUs": "اتصال",
+    "Contact Us": "اتصال",
     "Testimonial": "شهادة",
     "FAQ": "الأسئلة الشائعة",
     "Users": "المستخدمون",
@@ -587,7 +587,7 @@
   "ContactUsPage": {
     "Dashboard": "لوحة التحكم",
     "Master": "الرئيسية",
-    "ContactUs": "اتصل بنا",
+    "Contact Us": "اتصل بنا",
     "Add New": "إضافة جديدة",
     "Search": "بحث",
     "Reset": "إعادة تعيين",

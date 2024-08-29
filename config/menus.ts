@@ -106,13 +106,13 @@ export const menusConfig = {
         },
         {
           title: "FAQ",
-          href: "/faq",
+          href: "/cms/faq",
           icon: Settings,
         },
       ],
     },
     {
-      title: "ContactUs",
+      title: "Contact Us",
       href: "/contact-us",
       icon: Settings,
     },
@@ -127,7 +127,7 @@ export const menusConfig = {
         },
         {
           title: "Seller",
-          href: "/users/supplier",
+          href: "/users/seller",
           icon: Settings,
         },
         {
@@ -249,7 +249,7 @@ export const menusConfig = {
         ],
       },
       {
-        title: "ContactUs",
+        title: "Contact Us",
         href: "/contact-us",
         icon: Settings,
       },
@@ -389,7 +389,7 @@ export const menusConfig = {
         ],
       },
       {
-        title: "ContactUs",
+        title: "Contact Us",
         href: "/contact-us",
         icon: Settings,
       },
