@@ -4,7 +4,7 @@ import { getCookie } from "@/utils/cookie";
 const API_BASE_URL: string = process.env.API_BASE_URL as string;
 
 const publicClient: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: '/api/',
   timeout: 10000,
   headers: {
     Accept: "application/json",
@@ -26,7 +26,7 @@ publicClient.interceptors.request.use(
 );
 
 const privateClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: '/api/',
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
