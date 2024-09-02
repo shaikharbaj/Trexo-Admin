@@ -314,7 +314,11 @@
     "Please enter footer content": "Please enter footer content",
     "Please enter meta description": "Please enter meta description",
     "Ecommerce": "Ecommerce",
-    "Loading": "Loading"
+    "Loading": "Loading",
+    "Phone number must be at least 10 digits": "Phone number must be at least 10 digits",
+    "Phone number must be at most 14 digits": "Phone number must be at most 14 digits",
+    "OTP explore time should be greater than 0": "OTP explore time should be greater than 0",
+    "Revenue percentage should be greater than 0": "Revenue percentage should be greater than 0"
   },
   "CityPage": {
     "Dashboard": "Dashboard",
@@ -792,7 +796,9 @@
     "Admins": "Admins",
     "Financiers": "Financiers",
     "Customers": "Customers",
-    "Sellers": "Sellers"
+    "Sellers": "Sellers",
+    "Suppliers": "Suppliers",
+    "CMS": "CMS"
   },
   "OrderPage": {
     "Dashboard": "Dashboard",

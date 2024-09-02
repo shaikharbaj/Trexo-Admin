@@ -34,6 +34,7 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
     reset,
     setValue,
     control,
+    clearErrors
   } = useForm({
     mode: "all",
     resolver: zodResolver(categorySchema),
@@ -49,16 +50,23 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
   });
 
   useEffect(() => {
-    if (data) {
-      setValue("industry_id", data?.industry?.uuid || "");
-      setValue("category_type", data?.category_type || "");
-      setValue("category_name", data?.category_name || "");
-      setValue("category_description", data?.category_description || "");
-      setValue("meta_title", data?.meta_title || "");
-      setValue("meta_keywords", data?.meta_keywords || "");
-      setValue("meta_description", data?.meta_description || "");
+    if (isOpen) {
+      clearErrors();
+      if (action === "edit") {
+        if (data) {
+          setValue("industry_id", data?.industry?.uuid || "");
+          setValue("category_type", data?.category_type || "");
+          setValue("category_name", data?.category_name || "");
+          setValue("category_description", data?.category_description || "");
+          setValue("meta_title", data?.meta_title || "");
+          setValue("meta_keywords", data?.meta_keywords || "");
+          setValue("meta_description", data?.meta_description || "");
+        }
+      } else {
+        reset();
+      }
     }
-  }, [data]);
+  }, [isOpen, action, clearErrors, reset, data]);
 
   const onSubmit = async (payload: any) => {
     startTransition(async () => {

@@ -11,7 +11,7 @@ import { useAppSelector } from "@/hooks";
 import { RootState } from "@/redux/store";
 import { CreateUpdateFaqModal } from "@/components/modals";
 
-interface IFaqProps {}
+interface IFaqProps { }
 
 const FaqList: React.FunctionComponent<IFaqProps> = () => {
   const t = useTranslations("FaqPage");
@@ -25,7 +25,7 @@ const FaqList: React.FunctionComponent<IFaqProps> = () => {
       <div className="flex items-center flex-wrap justify-between gap-4">
         <Breadcrumbs>
           <BreadcrumbItem href="/dashboard">{t("Dashboard")}</BreadcrumbItem>
-          <BreadcrumbItem>{t("Master")}</BreadcrumbItem>
+          <BreadcrumbItem>{t("CMS")}</BreadcrumbItem>
           <BreadcrumbItem>{t("FAQ")}</BreadcrumbItem>
         </Breadcrumbs>
       </div>

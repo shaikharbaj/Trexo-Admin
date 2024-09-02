@@ -58,24 +58,34 @@ const CategoryForm: React.FC<IFormProps> = ({
       <div className="space-y-5 mb-2">
         <div className="flex flex-col gap-2">
           <Label>
-            {trans('Industry')} <span className=" text-destructive">*</span>
+            {trans("Industry")}
+            <span className="text-destructive">*</span>
           </Label>
           <Controller
             control={control}
             name="industry_id"
             render={({ field: { onChange, onBlur, value, ref } }) => (
-              <Select onValueChange={onChange} value={(value) ? value : undefined}>
+              <Select
+                onValueChange={onChange}
+                value={value ? value : undefined}
+              >
                 <SelectTrigger color={errors?.industry_id && "destructive"}>
-                  <SelectValue placeholder={trans('Select industry')} className="whitespace-nowrap" />
+                  <SelectValue
+                    placeholder={trans("Select industry")}
+                    className="whitespace-nowrap"
+                  />
                 </SelectTrigger>
                 <SelectContent>
-                  {
-                    industries.map((industry: any, industryIndex: number) => {
-                      return (
-                        <SelectItem key={industryIndex} value={industry.uuid}>{industry.industry_name}</SelectItem>
-                      )
-                    })
-                  }
+                  {industries?.map((industry: any) => {
+                    return (
+                      <SelectItem
+                        value={industry?.uuid}
+                        key={industry?.uuid}
+                      >
+                        {industry?.industry_name}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             )}

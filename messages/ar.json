@@ -312,7 +312,11 @@
     "Please enter address": "يرجى إدخال العنوان",
     "Please enter footer content": "يرجى إدخال محتوى التذييل",
     "Please enter meta description": "يرجى إدخال وصف الميتا",
-    "Ecommerce": "التجارة الإلكترونية"
+    "Ecommerce": "التجارة الإلكترونية",
+    "Phone number must be at least 10 digits": "يجب أن يتكون رقم الهاتف من 10 أرقام على الأقل",
+    "Phone number must be at most 14 digits": "يجب ألا يزيد رقم الهاتف عن 14 رقمًا",
+    "OTP explore time should be greater than 0": "يجب أن يكون وقت صلاحية رمز التحقق أكبر من 0",
+    "Revenue percentage should be greater than 0": "يجب أن تكون نسبة الإيرادات أكبر من 0"
   },
   "CityPage": {
     "Dashboard": "لوحة القيادة",
@@ -790,12 +794,13 @@
     "Admins": "مديرون",
     "Financiers": "ماليون",
     "Customers": "عملاء",
-    "Suppliers": "موردون"
+    "Suppliers": "موردون",
+    "CMS": "نظام إدارة المحتوى"
   },
   "AdminUserPage": {
     "Dashboard": "لوحة القيادة",
     "Admin": "مسؤل",
-    "Users":"المستخدمون",
+    "Users": "المستخدمون",
     "Registered Admin": "المسؤول المسجل",
     "Registered Users": "المستخدمين المسجلين",
     "Add New": "أضف جديد",
@@ -881,7 +886,7 @@
     "Image": "صورة",
     "Profile": "حساب تعريفي",
     "Name": "اسم",
-    "Users":"المستخدمون",
+    "Users": "المستخدمون",
     "Pending": "قيد الانتظار",
     "Suspended": "معلق",
     "Blocked": "محظور"
