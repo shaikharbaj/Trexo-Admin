@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
 import { formatDate } from "@/utils/date";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 interface Supplier {
   uuid?: string;
@@ -51,10 +52,16 @@ export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (
     accessorKey: "unique_id",
     header: ({ column }) => <ColumnHeader column={column} title="Id" />,
     cell: ({ row }) => {
+      const uuid = row?.original?.uuid;
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("unique_id")}
+            <Link
+              href={`/users/seller/${uuid}/business-details`}
+              className="text-blue-600 hover:underline"
+            >
+              {row.getValue("unique_id")}
+            </Link>
           </span>
         </div>
       );

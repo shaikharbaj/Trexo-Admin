@@ -25,13 +25,15 @@ import avatar5 from "@/public/images/avatar/avatar-5.jpg";
 
 const ProfileInfo = () => {
   const navigation = useRouter();
-  const {isProfileLoading, profile} = useAppSelector((state: RootState) => state.profile);
+  const { isProfileLoading, profile } = useAppSelector(
+    (state: RootState) => state.profile
+  );
 
   useEffect(() => {
-    if(Object.keys(profile).length === 0 || profile?.uuid === undefined) {
+    if (Object.keys(profile).length === 0 || profile?.uuid === undefined) {
       fetchProfile();
     }
-  },[]);
+  }, []);
 
   //Function to handel logout
   const handelLogout = () => {
@@ -39,7 +41,7 @@ const ProfileInfo = () => {
     if (response?.status === true && response?.statusCode === 200) {
       navigation.replace("login");
     }
-  }
+  };
 
   return (
     <DropdownMenu>
@@ -80,22 +82,22 @@ const ProfileInfo = () => {
             {
               name: "profile",
               icon: "heroicons:user",
-              href: "/dashboard"
+              href: "/profile",
             },
             {
               name: "Billing",
               icon: "heroicons:megaphone",
-              href: "/dashboard"
+              href: "/dashboard",
             },
             {
               name: "Settings",
               icon: "heroicons:paper-airplane",
-              href: "/dashboard"
+              href: "/dashboard",
             },
             {
               name: "Keyboard shortcuts",
               icon: "heroicons:language",
-              href: "/dashboard"
+              href: "/dashboard",
             },
           ].map((item, index) => (
             <Link
