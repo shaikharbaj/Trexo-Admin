@@ -2,6 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   adminListThunk,
   consumerListThunk,
+  fetchSellerDocumentsByIdThunk,
+  fetchSellerVerificationByIdThunk,
+  financierListThunk,
+  loadAdminBasicInfoByIdThunk,
+  loadConsumerBasicInfoByIdThunk,
+  loadFinancierBasicInfoByIdThunk,
+  loadSellerBankDetailsByIdThunk,
+  loadSellerBasicInfoByIdThunk,
   supplierListThunk,
 } from "../thunk/user.thunk";
 
@@ -54,6 +62,117 @@ export const user = createSlice({
       .addCase(consumerListThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
+    builder
+      .addCase(financierListThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(financierListThunk.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.list = action?.payload?.data?.result || [];
+      })
+      .addCase(financierListThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(loadAdminBasicInfoByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        loadAdminBasicInfoByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(loadAdminBasicInfoByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(loadSellerBasicInfoByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        loadSellerBasicInfoByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(loadSellerBasicInfoByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(loadConsumerBasicInfoByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        loadConsumerBasicInfoByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(loadConsumerBasicInfoByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(loadFinancierBasicInfoByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        loadFinancierBasicInfoByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(loadFinancierBasicInfoByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(loadSellerBankDetailsByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        loadSellerBankDetailsByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(loadSellerBankDetailsByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(fetchSellerVerificationByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchSellerVerificationByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(fetchSellerVerificationByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(fetchSellerDocumentsByIdThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchSellerDocumentsByIdThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+          state.error = action?.payload;
+        }
+      )
+      .addCase(fetchSellerDocumentsByIdThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    
   },
 });
 

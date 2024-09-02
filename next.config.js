@@ -47,7 +47,8 @@ const nextConfig = {
   },
   env: {
     PILOT_BASE_URL: process.env.PILOT_BASE_URL,
-    API_BASE_URL: process.env.API_BASE_URL
+    API_BASE_URL: process.env.API_BASE_URL,
+    AWS_URL: process.env.AWS_URL,
   },
   images: {
     remotePatterns: [
@@ -66,6 +67,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
+      },
+      {
+        protocol: 'https',
+        hostname: 'trexoprouatnew.s3.ap-south-1.amazonaws.com',
+        pathname: '/**',
       },
     ],
   },
