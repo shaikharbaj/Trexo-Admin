@@ -1,10 +1,12 @@
-import AdminProfileLayout from "@/components/profile/admin-profile-layout";
-export const metadata = {
-  title: "User Profile",
+import AdminProfile from "@/components/profile/admin-profile";
+interface IPageProps {
+  params: {
+    lang: any;
+  };
+}
+
+const Page: React.FunctionComponent<IPageProps> = async () => {
+  return <AdminProfile />;
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <AdminProfileLayout>{children}</AdminProfileLayout>;
-};
-
-export default Layout;
+export default Page;

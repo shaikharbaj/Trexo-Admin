@@ -16,6 +16,7 @@ import taxSlice from "./tax.slice";
 import testimonialSlice from './testimonial.slice'
 import faqSlice from "./faq.slice";
 import faqCategorySlice from "./faq-category.slice";
+import userSlice from './user.slice'
 const rootReducer = combineReducers({
   auth: authSlice,
   datatable: datatableSlice,
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   tax: taxSlice,
   testimonial: testimonialSlice,
   faq: faqSlice,
-  faqCategory: faqCategorySlice
+  faqCategory: faqCategorySlice,
+  user:userSlice
 });
 
 export default rootReducer;
