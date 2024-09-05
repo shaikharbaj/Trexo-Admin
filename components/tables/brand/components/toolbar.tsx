@@ -26,15 +26,18 @@ export function Toolbar({ table, isFilterEnable, trans }: ToolbarProps) {
       label: trans("Inactive"),
     },
   ];
-  
+
   const viewOptionLabel = {
     brand_name: trans("Brand Name"),
+    brandCategory: trans("Brand Categories"),
     is_active: trans("Status"),
     created_at: trans("Created At"),
-    updated_at: trans("Updated At")
-  }
+    updated_at: trans("Updated At"),
+  };
   //Function to handel global filter
-  const handleFilterChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilterChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     try {
       await filterSearchText(event.target.value);
     } catch (error: any) {
@@ -54,16 +57,13 @@ export function Toolbar({ table, isFilterEnable, trans }: ToolbarProps) {
   return (
     <div className="flex flex-1 flex-wrap items-center gap-2">
       <Input
-        placeholder={trans("Search") + '...'}
+        placeholder={trans("Search") + "..."}
         onChange={handleFilterChange}
         className="h-8 min-w-[200px] max-w-sm"
       />
 
       {statusOptions.length && (
-        <Filter
-          title={trans("Status")}
-          options={statusOptions}
-        />
+        <Filter title={trans("Status")} options={statusOptions} />
       )}
       {isFilterEnable && (
         <Button
@@ -71,12 +71,15 @@ export function Toolbar({ table, isFilterEnable, trans }: ToolbarProps) {
           onClick={handelResetFilter}
           className="h-8 px-2 lg:px-3"
         >
-          {trans('Reset')}
+          {trans("Reset")}
           <X className="ltr:ml-2 rtl:mr-2 h-4 w-4" />
         </Button>
       )}
-      <DataTableViewOptions trans={trans} table={table} optionLabel={viewOptionLabel} />
+      <DataTableViewOptions
+        trans={trans}
+        table={table}
+        optionLabel={viewOptionLabel}
+      />
     </div>
-
   );
 }
