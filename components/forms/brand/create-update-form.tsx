@@ -4,49 +4,62 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { default as MultiSelect } from "react-select";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
-import { Controller } from "react-hook-form";
-import { fetchCategoryDropdown } from "@/service/category.service";
-import toast from "react-hot-toast";
+import React, { useState, useEffect } from "react";
+import FileUploaderSingle from "@/components/ui/file-uploader-single";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
+type FileWithPreview = File & {
+  preview: string;
+};
 interface IFormProps {
   trans: any;
   isPending: boolean;
   register?: any;
-  errors?: any;
   control?: any;
+  errors?: any;
+  file: FileWithPreview | null;
+  setFile: (file: FileWithPreview | null) => void;
 }
-interface ICategory {
-  id: number;
-  uuid: string;
-  category_name: string;
+
+interface FileWithPreview extends File {
+  preview: string;
 }
 const BrandForm: React.FC<IFormProps> = ({
   trans,
   isPending,
   register,
-  errors,
   control,
+  errors,
+  file,
+  setFile,
 }) => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  useEffect(() => {
-    fetchCategory();
-  }, []);
+ const [fileError, setFileError] = useState<string | null>(null);
 
-  //Function to fetch categories
-  const fetchCategory = async () => {
-    try {
-      const response = await fetchCategoryDropdown();
-      if (response?.status !== true && response?.statusCode !== 200) {
-        toast.error(response?.message);
-      }
-      setCategories(response?.data);
-    } catch (error: any) {
-      toast.error(error?.message);
+  useEffect(() => {
+    if (file) {
+      validateFile(file);
     }
+  }, [file]);
+
+  const validateFile = (file: FileWithPreview): string | true => {
+    if (!file.type.startsWith("image/")) return "Only image files are allowed";
+    if (file.size > 2 * 1024 * 1024) return "File size should be less than 2MB";
+    return true;
   };
 
-  console.log(categories);
+  const handleSetFile = (selectedFile: FileWithPreview | null) => {
+    if (selectedFile) {
+      const validation = validateFile(selectedFile);
+      if (validation !== true) {
+        setFileError(validation as string);
+      } else {
+        setFileError(null);
+      }
+    }
+    setFile(selectedFile);
+  };
 
   return (
     <ScrollArea className="h-full">
@@ -114,6 +127,9 @@ const BrandForm: React.FC<IFormProps> = ({
             size="lg"
             placeholder={trans("Enter brand name")}
             {...register("brand_name")}
+            className={cn("", {
+              "border-destructive": errors?.brand_name,
+            })}
           />
           {errors.brand_name && (
             <div className=" text-destructive">
@@ -193,6 +209,13 @@ const BrandForm: React.FC<IFormProps> = ({
               {trans(errors.meta_description.message)}
             </div>
           )}
+        </div>
+        <Label>
+            {trans('Upload File Here')}
+          </Label>
+        <div className="mt-4">
+          <FileUploaderSingle file={file} setFile={handleSetFile} />
+          {fileError && <p className="text-red-500">{fileError}</p>}
         </div>
       </div>
     </ScrollArea>
