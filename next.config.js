@@ -1,22 +1,22 @@
 /** @type {import('next').NextConfig} */
-const withNextIntl = require('next-intl/plugin')();
+const withNextIntl = require("next-intl/plugin")();
 const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*', // Proxy requests from /api/* to the backend
-        destination: 'https://api.trexopro.katdev.com//:path*' // Your backend URL
-      }
+        source: "/api/:path*", // Proxy requests from /api/* to the backend
+        destination: "http://localhost:7000/:path*", // Your backend URL
+      },
     ];
   },
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/login',
+        source: "/",
+        destination: "/login",
         permanent: true,
       },
-    ]
+    ];
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
@@ -53,9 +53,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'trexoprouatnew.s3.ap-south-1.amazonaws.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "trexoprouatnew.s3.ap-south-1.amazonaws.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
@@ -76,6 +76,5 @@ const nextConfig = {
     ],
   },
 };
-
 
 module.exports = withNextIntl(nextConfig);
