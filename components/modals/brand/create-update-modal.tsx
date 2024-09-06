@@ -37,6 +37,7 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
     register,
     formState: { errors },
     reset,
+    control,
     setValue,
     clearErrors,
     control,
@@ -47,6 +48,7 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
       brand_name: "",
       brand_description: "",
       meta_title: "",
+      category_ids: "",
       meta_keywords: "",
       meta_description: "",
     },
@@ -85,13 +87,15 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
         }
 
         let response: any;
-
+        console.log(payload);
+        //Converting category ids in json
+        let categoryIds = payload.category_ids.split(",");
+        payload.category_ids = JSON.stringify(categoryIds);
         if (action === "add") {
           response = await createBrand(formData);
         } else {
           response = await updateBrand(data?.uuid, formData);
         }
-
         if (response?.status === true && response?.statusCode === 200) {
           reset();
           toast.success(response?.message);
@@ -120,7 +124,7 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
         </DialogHeader>
         <div>
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-            <div className="h-[450px]">
+            <div className="h-[350px]">
               <BrandForm
                 trans={trans}
                 isPending={isPending}
@@ -138,12 +142,16 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
                   variant="outline"
                   onClick={handleModalClose}
                 >
-                  {trans('Cancel')}
+                  {trans("Cancel")}
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isPending ? trans("Loading") + '...' : action === 'add' ? trans('Save') : trans('Update')}
+                {isPending
+                  ? trans("Loading") + "..."
+                  : action === "add"
+                  ? trans("Save")
+                  : trans("Update")}
               </Button>
             </div>
           </form>

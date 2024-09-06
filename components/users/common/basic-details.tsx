@@ -3,10 +3,9 @@ import { useParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import {
   fetchAdminBasicDetailsById,
-  fetchConsumerBasicDetailsById
+  fetchConsumerBasicDetailsById,
 } from "@/service/user.service";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 interface IBasicDetailsProps {
   props?: any;
 }
@@ -95,9 +94,7 @@ const BasicDetails: React.FC<IBasicDetailsProps> = ({ props }) => {
                 <Label className="mb-2" htmlFor="status">
                   Status
                 </Label>
-                <p>{
-                  basicinformation?.status
-                }</p>
+                <p>{basicinformation?.status}</p>
               </div>
               <div>
                 <Label className="mb-2" htmlFor="pincode">

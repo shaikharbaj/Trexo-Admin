@@ -81,7 +81,6 @@ export const user = createSlice({
         loadAdminBasicInfoByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(loadAdminBasicInfoByIdThunk.rejected, (state: any) => {
@@ -95,7 +94,6 @@ export const user = createSlice({
         loadSellerBasicInfoByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(loadSellerBasicInfoByIdThunk.rejected, (state: any) => {
@@ -109,7 +107,6 @@ export const user = createSlice({
         loadConsumerBasicInfoByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(loadConsumerBasicInfoByIdThunk.rejected, (state: any) => {
@@ -123,7 +120,6 @@ export const user = createSlice({
         loadFinancierBasicInfoByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(loadFinancierBasicInfoByIdThunk.rejected, (state: any) => {
@@ -137,7 +133,6 @@ export const user = createSlice({
         loadSellerBankDetailsByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(loadSellerBankDetailsByIdThunk.rejected, (state: any) => {
@@ -152,7 +147,6 @@ export const user = createSlice({
         fetchSellerVerificationByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(fetchSellerVerificationByIdThunk.rejected, (state: any) => {
@@ -166,13 +160,11 @@ export const user = createSlice({
         fetchSellerDocumentsByIdThunk.fulfilled,
         (state: any, action: any) => {
           state.isLoading = false;
-          state.error = action?.payload;
         }
       )
       .addCase(fetchSellerDocumentsByIdThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
-    
   },
 });
 

@@ -226,7 +226,8 @@
     "Please select category type": "Please select category type.",
     "Please enter category name": "Please enter category name.",
     "Please enter category description": "Please enter category description.",
-    "Meta description must be less than 100 characters": "Meta description must be less than 100 characters."
+    "Meta description must be less than 100 characters": "Meta description must be less than 100 characters.",
+    "Category description must be less than 100 characters":"Category description must be less than 100 characters."
   },
   "BrandPage": {
     "Brand Image": "Brand Image",
@@ -277,7 +278,11 @@
     "Enter meta description": "Enter meta description",
     "Please enter brand name": "Please enter brand name.",
     "Please enter brand description": "Please enter brand description",
-    "Brand description must be less than 100 characters": "Brand description must be less than 100 characters"
+    "Brand description must be less than 100 characters": "Brand description must be less than 100 characters",
+    "Select categories":"Select categories",
+    "Category":"Category",
+    "Brand Categories":"Brand Categories",
+    "Please select at least one category":"Please select at least one category"
   },
   "GlobalSettingPage": {
     "Dashboard": "Dashboard",

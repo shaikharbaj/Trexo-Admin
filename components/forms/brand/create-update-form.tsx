@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
+import { default as MultiSelect } from "react-select";
 import { cn } from "@/lib/utils";
 import React, { useState, useEffect } from "react";
 import FileUploaderSingle from "@/components/ui/file-uploader-single";
@@ -25,7 +26,6 @@ interface IFormProps {
 interface FileWithPreview extends File {
   preview: string;
 }
-
 const BrandForm: React.FC<IFormProps> = ({
   trans,
   isPending,
@@ -65,7 +65,62 @@ const BrandForm: React.FC<IFormProps> = ({
     <ScrollArea className="h-full">
       <div className="space-y-5 mb-2">
         <div className="flex flex-col gap-2">
-          <Label>{trans('Brand Name')} <span className="text-destructive">*</span></Label>
+          <Label>
+            {trans("Category")} <span className=" text-destructive">*</span>
+          </Label>
+          <Controller
+            control={control}
+            name="category_ids"
+            render={({ field: { onChange, value } }) => (
+              <MultiSelect
+                className={`${
+                  errors?.category_ids ? "border-red-500" : "border-gray-300"
+                }`}
+                isMulti
+                options={categories.map((category) => ({
+                  label: category.category_name,
+                  value: category.uuid,
+                }))}
+                value={categories
+                  .filter((category) => value?.includes(category.uuid))
+                  .map((category) => ({
+                    label: category.category_name,
+                    value: category.uuid,
+                  }))}
+                onChange={(selected) =>
+                  onChange(selected ? selected.map((item) => item.value) : [])
+                }
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: errors?.category_ids
+                      ? "#EF4444"
+                      : baseStyles.borderColor,
+                    "&:hover": {
+                      borderColor: errors?.category_ids
+                        ? "#EF4444"
+                        : baseStyles.borderColor,
+                    },
+                  }),
+                  placeholder: (baseStyles, state) => ({
+                    ...baseStyles,
+                    color: errors?.category_ids ? "#EF4444" : baseStyles.color,
+                  }),
+                }}
+                placeholder={trans("Select categories")}
+              />
+            )}
+          />
+          {errors.category_ids && (
+            <div className=" text-destructive">
+              {trans(errors.category_ids.message)}
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>
+            {trans("Brand Name")} <span className="text-destructive">*</span>
+          </Label>
           <Input
             disabled={isPending}
             type="text"
@@ -83,7 +138,10 @@ const BrandForm: React.FC<IFormProps> = ({
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>{trans('Brand Description')} <span className="text-destructive">*</span></Label>
+          <Label>
+            {trans("Brand Description")}{" "}
+            <span className="text-destructive">*</span>
+          </Label>
           <Textarea
             placeholder={trans("Enter brand description")}
             rows={4}
@@ -100,9 +158,7 @@ const BrandForm: React.FC<IFormProps> = ({
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>
-            {trans('Meta Title')}
-          </Label>
+          <Label>{trans("Meta Title")}</Label>
           <Input
             type="text"
             size="lg"
@@ -114,13 +170,13 @@ const BrandForm: React.FC<IFormProps> = ({
             })}
           />
           {errors.meta_title && (
-            <div className=" text-destructive">{trans(errors.meta_title.message)}</div>
+            <div className=" text-destructive">
+              {trans(errors.meta_title.message)}
+            </div>
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>
-            {trans('Meta Keyword')}
-          </Label>
+          <Label>{trans("Meta Keyword")}</Label>
           <Input
             type="text"
             size="lg"
@@ -138,9 +194,7 @@ const BrandForm: React.FC<IFormProps> = ({
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>
-            {trans('Meta Description')}
-          </Label>
+          <Label>{trans("Meta Description")}</Label>
           <Textarea
             placeholder={trans("Enter meta description")}
             rows={4}
