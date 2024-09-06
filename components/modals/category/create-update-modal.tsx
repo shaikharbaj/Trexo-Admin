@@ -1,4 +1,4 @@
-import React, { useEffect, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +18,10 @@ import { categorySchema } from "@/validations";
 import { createCategory, updateCategory } from "@/service/category.service";
 import toast from "react-hot-toast";
 
+type FileWithPreview = File & {
+  preview: string;
+};
+
 interface IModalProps {
   trans: any;
 }
@@ -27,6 +31,7 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
     (state: RootState) => state.modal
   );
   const [isPending, startTransition] = useTransition();
+  const [file, setFile] = useState<FileWithPreview | null>(null); // Manage file state here
   const {
     handleSubmit,
     register,
@@ -71,12 +76,24 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
   const onSubmit = async (payload: any) => {
     startTransition(async () => {
       try {
+        const formData = new FormData();
+
+        for (const key in payload) {
+          if (payload.hasOwnProperty(key)) {
+            formData.append(key, payload[key]);
+          }
+        }
+
+        if (file) {
+          formData.append("file", file);
+        }
+
         let response: any;
 
         if (action === "add") {
-          response = await createCategory(payload);
+          response = await createCategory(formData);
         } else {
-          response = await updateCategory(data?.uuid, payload);
+          response = await updateCategory(data?.uuid, formData);
         }
 
         if (response?.status === true && response?.statusCode === 200) {
@@ -115,6 +132,8 @@ const CreateUpdateCategoryModal: React.FC<IModalProps> = ({ trans }) => {
                 register={register}
                 control={control}
                 errors={errors}
+                file={file}  
+                setFile={setFile}  
               />
             </div>
             <div className=" flex justify-end gap-3 mt-6">
