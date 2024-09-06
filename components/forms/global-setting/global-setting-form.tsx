@@ -77,7 +77,7 @@ const GlobalSettingForm: React.FunctionComponent = () => {
   // Function to handle form submit
   const onSubmit = (data: any) => {
     data.otp_explore_time = parseInt(data.otp_explore_time);
-    data.revenue_percentage = parseInt(data.revenue_percentage);
+    data.revenue_percentage = parseFloat(data.revenue_percentage);
     startTransition(async () => {
       try {
         const updateResponse: any = await updateGlobalSetting(data);
