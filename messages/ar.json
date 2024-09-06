@@ -223,7 +223,8 @@
     "Please select category type": "الرجاء تحديد نوع الفئة.",
     "Please enter category name": "الرجاء إدخال اسم الفئة.",
     "Please enter category description": "الرجاء إدخال وصف الفئة.",
-    "Meta description must be less than 100 characters": "يجب أن يكون الوصف التعريفي أقل من 100 حرف"
+    "Meta description must be less than 100 characters": "يجب أن يكون الوصف التعريفي أقل من 100 حرف",
+    "Category description must be less than 100 characters": "يجب أن يكون وصف الفئة أقل من 100 حرف."
   },
   "BrandPage": {
     "Dashboard": "لوحة القيادة",
@@ -273,7 +274,11 @@
     "Please enter brand name": "الرجاء إدخال اسم العلامة التجارية.",
     "Please enter brand description": "الرجاء إدخال وصف العلامة التجارية",
     "Brand description must be less than 100 characters": "يجب أن يكون وصف العلامة التجارية أقل من 100 حرف",
-    "Meta description must be less than 100 characters": "يجب أن يكون الوصف التعريفي أقل من 100 حرف"
+    "Meta description must be less than 100 characters": "يجب أن يكون الوصف التعريفي أقل من 100 حرف",
+    "Brand Categories": "فئات العلامة التجارية",
+    "Please select at least one category": "الرجاء تحديد فئة واحدة على الأقل",
+    "Select categories": "اختيار الفئات",
+    "Category": "فئة"
   },
   "GlobalSettingPage": {
     "Dashboard": "لوحة القيادة",

@@ -32,6 +32,7 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
     register,
     formState: { errors },
     reset,
+    control,
     setValue,
   } = useForm({
     mode: "all",
@@ -40,6 +41,7 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
       brand_name: "",
       brand_description: "",
       meta_title: "",
+      category_ids: "",
       meta_keywords: "",
       meta_description: "",
     },
@@ -47,6 +49,10 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
 
   useEffect(() => {
     if (data) {
+      setValue(
+        "category_ids",
+        data?.brandCategory.map((item: any) => item.category.uuid) || []
+      );
       setValue("brand_name", data?.brand_name);
       setValue("brand_description", data?.brand_description);
       setValue("meta_title", data?.meta_title);
@@ -59,13 +65,16 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
     startTransition(async () => {
       try {
         let response: any;
-
+        console.log(payload);
+        //Converting category ids in json
+        let categoryIds = payload.category_ids.split(",");
+        payload.category_ids = JSON.stringify(categoryIds);
         if (action === "add") {
+          console.log(payload);
           response = await createBrand(payload);
         } else {
           response = await updateBrand(data?.uuid, payload);
         }
-
         if (response?.status === true && response?.statusCode === 200) {
           reset();
           toast.success(response?.message);
@@ -86,7 +95,7 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
 
   return (
     <Dialog open={modalName === "brand" && isOpen}>
-      <DialogContent size="lg" hiddenCloseIcon={true}>
+      <DialogContent size="lg" handleModalClose={handleModalClose}>
         <DialogHeader className="p-0 mb-4">
           <DialogTitle className="font-medium pb-2 text-default-700 relative after:absolute after:h-0.5 after:rounded-md after:w-11 after:bg-primary after:left-0 after:bottom-0">
             {modalTitle}
@@ -94,11 +103,12 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
         </DialogHeader>
         <div>
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-            <div className="h-[450px]">
+            <div className="h-[350px]">
               <BrandForm
                 trans={trans}
                 isPending={isPending}
                 register={register}
+                control={control}
                 errors={errors}
               />
             </div>
@@ -109,12 +119,16 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
                   variant="outline"
                   onClick={handleModalClose}
                 >
-                  {trans('Cancel')}
+                  {trans("Cancel")}
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isPending ? trans("Loading") + '...' : action === 'add' ? trans('Save') : trans('Update')}
+                {isPending
+                  ? trans("Loading") + "..."
+                  : action === "add"
+                  ? trans("Save")
+                  : trans("Update")}
               </Button>
             </div>
           </form>
