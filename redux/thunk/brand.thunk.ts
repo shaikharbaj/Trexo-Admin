@@ -32,6 +32,7 @@ interface ICreateBrandPayload {
   meta_title: string;
   meta_keywords: string;
   meta_description: string;
+  image_brand: string;
 }
 
 export const createBrandThunk = createAsyncThunk(
@@ -76,6 +77,7 @@ interface IUpdateBrandPayload {
   meta_title: string;
   meta_keywords: string;
   meta_description: string;
+  image_brand: string;
 }
 
 interface IUpdateBrandParams {
