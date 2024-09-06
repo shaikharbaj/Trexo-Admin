@@ -229,6 +229,8 @@
     "Meta description must be less than 100 characters": "Meta description must be less than 100 characters."
   },
   "BrandPage": {
+    "Brand Image": "Brand Image",
+    "Upload File Here": "Upload File Here",
     "Dashboard": "Dashboard",
     "Master": "Master",
     "Brand": "Brand",

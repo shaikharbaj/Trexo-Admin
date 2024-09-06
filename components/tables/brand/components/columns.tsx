@@ -5,6 +5,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
+import Image from "next/image";
+import { getS3BasePath } from "@/config/aws";
+import { Avatar, AvatarFallback} from "@/components/ui/avatar";
 
 interface Industry {
   uuid?: string;
@@ -12,6 +15,8 @@ interface Industry {
   is_active?: string;
   slug?: string;
 }
+
+const AWS_URL = getS3BasePath();
 
 export const columns: ColumnDef<Industry>[] = [
   {
@@ -55,6 +60,37 @@ export const columns: ColumnDef<Industry>[] = [
     filterFn: (row, id, value) => {      
       return value.includes(row.getValue(id));
     },
+  },
+  {
+    accessorKey: "image",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Brand Image" />
+    ),
+    cell: ({ row }) => {
+      const brandName = row.getValue("brand_name") as string;
+
+      return (
+        <div className="flex gap-2">
+          {row.original.image ? (
+            <Image
+              className="w-16 h-16 rounded-[100%]"
+              src={`${AWS_URL}/brand/${row.original.id}/small/${row.original.image}`}
+              width={200}
+              height={200}
+              alt={row.original.brand}
+            />
+          ) : (
+            <Avatar className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+              <AvatarFallback>
+                {brandName.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          )}
+        </div>
+      );
+    },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "is_active",

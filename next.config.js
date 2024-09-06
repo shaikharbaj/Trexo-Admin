@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*', // Proxy requests from /api/* to the backend
-        destination: 'http://localhost:7000/:path*' // Your backend URL
+        destination: 'https://api.trexopro.katdev.com//:path*' // Your backend URL
       }
     ];
   },
@@ -53,6 +53,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: 'trexoprouatnew.s3.ap-south-1.amazonaws.com',
+        pathname: '/**',
+      },
+      {
         protocol: "https",
         hostname: "api.lorem.space",
       },
@@ -67,11 +72,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
-      },
-      {
-        protocol: 'https',
-        hostname: 'trexoprouatnew.s3.ap-south-1.amazonaws.com',
-        pathname: '/**',
       },
     ],
   },
