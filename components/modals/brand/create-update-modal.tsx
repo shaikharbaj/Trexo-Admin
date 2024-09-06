@@ -40,7 +40,6 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
     control,
     setValue,
     clearErrors,
-    control,
   } = useForm({
     mode: "all",
     resolver: zodResolver(brandSchema),
@@ -64,6 +63,10 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
           setValue("meta_title", data?.meta_title || "");
           setValue("meta_keywords", data?.meta_keywords || "");
           setValue("meta_description", data?.meta_description || "");
+          setValue(
+            "category_ids",
+            data?.brandCategory.map((item: any) => item.category.uuid) || []
+          );
         }
       } else {
         reset();
@@ -77,9 +80,6 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
         const formData = new FormData();
 
         // Append all payload fields to FormData
-        Object.keys(payload).forEach((key) => {
-          formData.append(key, payload[key]);
-        });
 
         // Append file if it's available
         if (file) {
@@ -87,10 +87,16 @@ const CreateUpdateBrandModal: React.FC<IModalProps> = ({ trans }) => {
         }
 
         let response: any;
-        console.log(payload);
         //Converting category ids in json
         let categoryIds = payload.category_ids.split(",");
-        payload.category_ids = JSON.stringify(categoryIds);
+        const jsonCategory = JSON.stringify(categoryIds);
+        Object.keys(payload).forEach((key) => {
+          if (key === "category_ids") {
+            formData.append("category_ids", jsonCategory);
+          } else {
+            formData.append(key, payload[key]);
+          }
+        });
         if (action === "add") {
           response = await createBrand(formData);
         } else {

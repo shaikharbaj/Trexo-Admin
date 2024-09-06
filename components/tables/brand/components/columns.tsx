@@ -7,11 +7,13 @@ import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
 import Image from "next/image";
 import { getS3BasePath } from "@/config/aws";
-import { Avatar, AvatarFallback} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface Brand {
+  id: number;
   uuid?: string;
-  brand_name?: string;
+  image?: string;
+  brand_name: string;
   brandCategory?: IBrandCategory[];
   is_active?: string;
   slug?: string;
@@ -24,7 +26,7 @@ interface IBrandCategory {
 
 const AWS_URL = getS3BasePath();
 
-export const columns: ColumnDef<Industry>[] = [
+export const columns: ColumnDef<Brand>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -81,7 +83,7 @@ export const columns: ColumnDef<Industry>[] = [
               src={`${AWS_URL}/brand/${row.original.id}/small/${row.original.image}`}
               width={200}
               height={200}
-              alt={row.original.brand}
+              alt={row.original.brand_name}
             />
           ) : (
             <Avatar className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
@@ -97,7 +99,7 @@ export const columns: ColumnDef<Industry>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "is_active",
+    accessorKey: "brandCategory",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Brand Categories" />
     ),
@@ -126,6 +128,7 @@ export const columns: ColumnDef<Industry>[] = [
     enableSorting: false,
     enableHiding: true,
   },
+
   {
     accessorKey: "is_active",
     header: ({ column }) => <ColumnHeader column={column} title="Status" />,
