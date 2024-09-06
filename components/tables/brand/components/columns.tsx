@@ -6,14 +6,20 @@ import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
 
-interface Industry {
+interface Brand {
   uuid?: string;
   brand_name?: string;
+  brandCategory?: IBrandCategory[];
   is_active?: string;
   slug?: string;
 }
+interface IBrandCategory {
+  category: {
+    category_name: string;
+  };
+}
 
-export const columns: ColumnDef<Industry>[] = [
+export const columns: ColumnDef<Brand>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -40,9 +46,7 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     accessorKey: "brand_name",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Brand Name" />
-    ),
+    header: ({ column }) => <ColumnHeader column={column} title="Brand Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
@@ -52,30 +56,60 @@ export const columns: ColumnDef<Industry>[] = [
         </div>
       );
     },
-    filterFn: (row, id, value) => {      
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
   },
   {
-    accessorKey: "is_active",
+    accessorKey: "brandCategory",
     header: ({ column }) => (
-      <ColumnHeader column={column} title="Status" />
+      <ColumnHeader column={column} title="Brand Categories" />
     ),
+    cell: ({ row }) => {
+      const brandCategories = row.getValue("brandCategory") as IBrandCategory[];
+      const categoryNames = brandCategories
+        ?.map((item) => item.category.category_name)
+        ?.join(", ");
+
+      return (
+        <div className="flex gap-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {categoryNames}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      const brandCategories = row.getValue(id) as IBrandCategory[];
+      const categoryNames = brandCategories
+        .map((item) => item.category.category_name)
+        .join(", ");
+
+      return categoryNames.includes(value);
+    },
+    enableSorting: false,
+    enableHiding: true,
+  },
+  {
+    accessorKey: "is_active",
+    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
           <Badge
-          variant="soft"
+            variant="soft"
             color={
-              (row.getValue('is_active') === true && "success") ||
-              (row.getValue('is_active') === false && "destructive") || "default"
-            }>
-            {row.getValue('is_active') === true ? 'Active' : "Inactive"}
+              (row.getValue("is_active") === true && "success") ||
+              (row.getValue("is_active") === false && "destructive") ||
+              "default"
+            }
+          >
+            {row.getValue("is_active") === true ? "Active" : "Inactive"}
           </Badge>
         </div>
       );
     },
-    filterFn: (row, id, value) => {     
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     enableSorting: false,
@@ -83,19 +117,17 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     accessorKey: "created_at",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Created At" />
-    ),
+    header: ({ column }) => <ColumnHeader column={column} title="Created At" />,
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-          {formatDate(row.getValue("created_at"))}
+            {formatDate(row.getValue("created_at"))}
           </span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {     
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     enableSorting: true,
@@ -103,19 +135,17 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     accessorKey: "updated_at",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Updated At" />
-    ),
+    header: ({ column }) => <ColumnHeader column={column} title="Updated At" />,
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-          {formatDate(row.getValue("updated_at"))}
+            {formatDate(row.getValue("updated_at"))}
           </span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {     
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     enableSorting: true,
@@ -123,9 +153,7 @@ export const columns: ColumnDef<Industry>[] = [
   },
   {
     id: "actions",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Action" />
-    ),
-    cell: ({ row }) => <RowActions row={row} />
+    header: ({ column }) => <ColumnHeader column={column} title="Action" />,
+    cell: ({ row }) => <RowActions row={row} />,
   },
 ];

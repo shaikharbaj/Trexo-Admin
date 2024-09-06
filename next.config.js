@@ -73,6 +73,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        protocol: 'https',
+        hostname: 'trexoprouatnew.s3.ap-south-1.amazonaws.com',
+        pathname: '/**',
+      },
     ],
   },
 };

@@ -17,7 +17,9 @@ const globalSettingSchema = z.object({
         .refine(value => /^[0-9]+$/.test(value.toString()), { message: "OTP explore time should only contain number" }),
     revenue_percentage: z.coerce.string()
         .min(1, { message: "Please enter revenue percentage" })
-        .refine(value => /^[0-9]+$/.test(value.toString()), { message: "Revenue percentage should only contain number" })
+        .refine(value => /^[0-9]+(\.[0-9]*)?$/.test(value.toString()), {
+            message: "Revenue percentage should only contain number"
+        })
         .refine(value => parseFloat(value) > 0, { message: "Revenue percentage should be greater than 0" })
         .refine(value => parseFloat(value) <= 100, { message: "Revenue percentage should not be more than 100" }),
     currency_symbol: z.string().min(1, { message: "Please select currency symbol" }),

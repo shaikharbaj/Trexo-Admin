@@ -6,6 +6,7 @@ import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 interface Financer {
   uuid?: string;
@@ -49,10 +50,16 @@ export const columns: ColumnDef<Financer>[] = [
     accessorKey: "unique_id",
     header: ({ column }) => <ColumnHeader column={column} title="Id" />,
     cell: ({ row }) => {
+      const uuid = row?.original?.uuid;
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("unique_id")}
+            <Link
+              href={`/users/financier/${uuid}/business-details`}
+              className="text-blue-600 hover:underline"
+            >
+              {row.getValue("unique_id")}
+            </Link>
           </span>
         </div>
       );
