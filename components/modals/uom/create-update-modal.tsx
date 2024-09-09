@@ -74,7 +74,7 @@ const CreateUpdateUomModal: React.FC<IModalProps> = ({ trans }) => {
     const onSubmit = async (payload: any) => {
         startTransition(async () => {
             try {
-                //Converting category ids in json
+                //Converting category ids in json.
                 let categoryIds = payload.category_ids.split(",");
                 payload.category_ids = JSON.stringify(categoryIds);
                 //Converting decimal scale into number

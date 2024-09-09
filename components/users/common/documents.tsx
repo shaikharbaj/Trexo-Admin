@@ -5,6 +5,8 @@ import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+const AWS_URL = getS3BasePath();
+
 const Document = () => {
   const [documents, setDocuments] = useState<any>([]);
   const pathname = usePathname();
@@ -39,7 +41,7 @@ const Document = () => {
 
   const downloadDocumentHandler = (doc: string, user_id: number) => {
     const link = document.createElement("a");
-    const fileUrl = getS3BasePath(`users/${user_id}/documents/${doc}`);
+    const fileUrl = `${AWS_URL}/users/${user_id}/documents/${doc}`;
     link.href = fileUrl;
     link.download = doc;
     document.body.appendChild(link);

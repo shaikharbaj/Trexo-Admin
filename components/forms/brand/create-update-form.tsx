@@ -9,10 +9,20 @@ import FileUploaderSingle from "@/components/ui/file-uploader-single";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { Controller } from "react-hook-form";
+import { fetchCategoryDropdown } from "@/service/category.service";
+import toast from "react-hot-toast";
+
+interface ICategory {
+  id: number;
+  uuid: string;
+  category_name: string;
+}
 
 type FileWithPreview = File & {
   preview: string;
 };
+
 interface IFormProps {
   trans: any;
   isPending: boolean;
@@ -23,9 +33,6 @@ interface IFormProps {
   setFile: (file: FileWithPreview | null) => void;
 }
 
-interface FileWithPreview extends File {
-  preview: string;
-}
 const BrandForm: React.FC<IFormProps> = ({
   trans,
   isPending,
@@ -35,7 +42,7 @@ const BrandForm: React.FC<IFormProps> = ({
   file,
   setFile,
 }) => {
- const [fileError, setFileError] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
 
   useEffect(() => {
     if (file) {
@@ -59,6 +66,24 @@ const BrandForm: React.FC<IFormProps> = ({
       }
     }
     setFile(selectedFile);
+  };
+
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
+  //Function to fetch categories
+  const fetchCategory = async () => {
+    try {
+      const response = await fetchCategoryDropdown();
+      if (response?.status !== true && response?.statusCode !== 200) {
+        toast.error(response?.message);
+      }
+      setCategories(response?.data);
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
   };
 
   return (
@@ -210,9 +235,7 @@ const BrandForm: React.FC<IFormProps> = ({
             </div>
           )}
         </div>
-        <Label>
-            {trans('Upload File Here')}
-          </Label>
+        <Label>{trans("Upload File Here")}</Label>
         <div className="mt-4">
           <FileUploaderSingle file={file} setFile={handleSetFile} />
           {fileError && <p className="text-red-500">{fileError}</p>}

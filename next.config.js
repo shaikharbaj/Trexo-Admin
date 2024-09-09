@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withNextIntl = require('next-intl/plugin')();
+const withNextIntl = require("next-intl/plugin")();
 const nextConfig = {
   async rewrites() {
     return [
@@ -12,11 +12,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/login',
+        source: "/",
+        destination: "/login",
         permanent: true,
       },
-    ]
+    ];
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
@@ -53,9 +53,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'trexoprouatnew.s3.ap-south-1.amazonaws.com',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "trexoprouatnew.s3.ap-south-1.amazonaws.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
@@ -76,6 +76,5 @@ const nextConfig = {
     ],
   },
 };
-
 
 module.exports = withNextIntl(nextConfig);
