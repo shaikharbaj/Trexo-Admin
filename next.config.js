@@ -2,10 +2,13 @@
 const withNextIntl = require("next-intl/plugin")();
 const nextConfig = {
   async rewrites() {
+    const isDevelopment = process.env.NODE_ENV === 'development';
     return [
       {
         source: '/api/:path*', // Proxy requests from /api/* to the backend
-        destination: 'https://api.trexopro.katdev.com/:path*' // Your backend URL
+        destination: isDevelopment
+          ? 'http://localhost:7000/:path*'  // Backend URL for development
+          : 'https://api.trexopro.katdev.com/:path*'  // Backend URL for production
       }
     ];
   },
@@ -49,6 +52,7 @@ const nextConfig = {
     PILOT_BASE_URL: process.env.PILOT_BASE_URL,
     API_BASE_URL: process.env.API_BASE_URL,
     AWS_URL: process.env.AWS_URL,
+    ENCRYPT_PASSWORD: process.env.ENCRYPT_PASSWORD,
   },
   images: {
     remotePatterns: [

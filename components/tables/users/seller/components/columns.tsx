@@ -10,7 +10,6 @@ import Link from "next/link";
 interface Supplier {
   uuid?: string;
   unique_id: string;
-  profile_url: string;
   first_name: string;
   middle_name: string;
   category: string;
@@ -71,28 +70,6 @@ export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (
     },
   },
   {
-    accessorKey: "profile_url",
-    header: ({ column }) => <ColumnHeader column={column} title="Image" />,
-    cell: ({ row }) => {
-      const profile_url: any = row.getValue("profile_url");
-      const logo = row?.original?.first_name?.split("")[0];
-      return (
-        <div className="font-medium text-card-foreground/80">
-          <div className="flex space-x-3 rtl:space-x-reverse items-center">
-            <Avatar className="rounded-full">
-              {profile_url ? (
-                <AvatarImage src={profile_url} />
-              ) : (
-                <AvatarFallback>{logo}</AvatarFallback>
-              )}
-            </Avatar>
-          </div>
-        </div>
-      );
-    },
-    enableSorting: false,
-  },
-  {
     accessorKey: "seller_name",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Seller Name" />
@@ -104,8 +81,21 @@ export const columns: (categoryMeta: any) => ColumnDef<Supplier>[] = (
       const fullName = [firstName, middleName, lastName]
         .filter((name) => name && name.trim() !== "")
         .join(" ");
+        const profile_url: any = row.getValue("profile_url");
+      const logo = row?.original?.first_name?.split("")[0];
       return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          <div className="font-medium text-card-foreground/80">
+          <div className="flex space-x-3 rtl:space-x-reverse items-center">
+            <Avatar className="rounded-full">
+              {profile_url ? (
+                <AvatarImage src={profile_url} />
+              ) : (
+                <AvatarFallback>{logo}</AvatarFallback>
+              )}
+            </Avatar>
+          </div>
+        </div>
           <span className="max-w-[500px] truncate font-medium">{fullName}</span>
         </div>
       );

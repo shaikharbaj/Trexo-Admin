@@ -141,6 +141,7 @@ export const datatable = createSlice({
     builder
       .addCase(fetchDataThunk.pending, (state: any) => {
         state.isLoading = true;
+        state.data = [];
       })
       .addCase(fetchDataThunk.fulfilled, (state: any, action: any) => {
         state.isLoading = false;

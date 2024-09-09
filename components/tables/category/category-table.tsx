@@ -23,7 +23,7 @@ interface ITableProps {
 }
 
 const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
-  const { isLoading, refresh, data, isFilterEnable, filters, pagination } = useAppSelector(
+  const { isLoading, data, isFilterEnable, filters, pagination } = useAppSelector(
     (state: RootState) => state.datatable
   );
   const [rowSelection, setRowSelection] = React.useState({});
@@ -67,7 +67,7 @@ const CategoryTable: React.FC<ITableProps> = ({ trans }) => {
 
   // Function to fetch industry data
   const handleFetchCategory = async () => {
-    try {
+    try {      
       const datatablePayload = {
         url: "/category",
         page_size: pagination.perPage,

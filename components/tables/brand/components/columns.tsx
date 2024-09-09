@@ -55,14 +55,32 @@ export const columns: ColumnDef<Brand>[] = [
     accessorKey: "brand_name",
     header: ({ column }) => <ColumnHeader column={column} title="Brand Name" />,
     cell: ({ row }) => {
+      const brandName = row.getValue("brand_name") as string;
+    
       return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          {row.original.image ? (
+            <Image
+              className="w-8 h-8 rounded-[100%]"
+              src={`${AWS_URL}/brand/${row.original.id}/small/${row.original.image}`}
+              width={200}
+              height={200}
+              alt={brandName || "Brand Image"}
+            />
+          ) : (
+            <Avatar className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+              <AvatarFallback>
+                {brandName ? brandName.charAt(0).toUpperCase() : "?"}
+              </AvatarFallback>
+            </Avatar>
+          )}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("brand_name")}
+            {brandName || "Unknown Brand"}
           </span>
         </div>
       );
     },
+    
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
@@ -77,21 +95,7 @@ export const columns: ColumnDef<Brand>[] = [
 
       return (
         <div className="flex gap-2">
-          {row.original.image ? (
-            <Image
-              className="w-16 h-16 rounded-[100%]"
-              src={`${AWS_URL}/brand/${row.original.id}/small/${row.original.image}`}
-              width={200}
-              height={200}
-              alt={row.original.brand_name}
-            />
-          ) : (
-            <Avatar className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-              <AvatarFallback>
-                {brandName.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-          )}
+          
         </div>
       );
     },

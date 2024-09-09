@@ -50,11 +50,27 @@ export const columns: ColumnDef<Industry>[] = [
       <ColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
-      if(row.getValue("category_name")) {
+      const categoryName = row.getValue("category_name") as string;
+      if (row.getValue("category_name")) {
         return (
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            {row.original.image ? (
+            <Image
+              className="w-8 h-8 rounded-[100%]"
+              src={`${AWS_URL}/category/${row.original.id}/small/${row.original.image}`}
+              width={200}
+              height={200}
+              alt={categoryName || "Category Image"}
+            />
+          ) : (
+            <Avatar className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+              <AvatarFallback>
+                {categoryName ? categoryName.charAt(0).toUpperCase() : "?"}
+              </AvatarFallback>
+            </Avatar>
+          )}
             <span className="max-w-[500px] truncate font-medium">
-              {row.getValue("category_name")}
+              {categoryName || "Unknown Category"}
             </span>
           </div>
         );
@@ -63,44 +79,13 @@ export const columns: ColumnDef<Industry>[] = [
     },
   },
   {
-    accessorKey: "image",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Image" />
-    ),
-    cell: ({ row }) => {
-      const categoryName = row.getValue("category_name") as string;
-
-      return (
-        <div className="flex gap-2">
-          {row.original.image ? (
-             <Image
-              className="w-16 h-16 rounded-[100%]"
-              src={`${AWS_URL}/category/${row.original.id}/small/${row.original.image}`}
-              width={200}
-               height={200}
-               alt={row.original.category}
-              />
-              ) : (
-            <Avatar className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-              <AvatarFallback>
-                {categoryName.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-                            )}
-        </div>
-      );
-    },
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     accessorKey: "industry",
     header: ({ column }) => (
       <ColumnHeader column={column} title="Industry" />
     ),
     cell: ({ row }) => {
       let industryObj: any = row.getValue('industry');
-      if(industryObj?.industry_name) {
+      if (industryObj?.industry_name) {
         return (
           <div className="flex gap-2">
             <span className="max-w-[500px] truncate font-medium">
@@ -118,7 +103,7 @@ export const columns: ColumnDef<Industry>[] = [
       <ColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      if(row.getValue("created_at")) {
+      if (row.getValue("created_at")) {
         return (
           <div className="flex gap-2">
             <span className="max-w-[500px] truncate font-medium">
@@ -138,7 +123,7 @@ export const columns: ColumnDef<Industry>[] = [
       <ColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      if(row.getValue("updated_at")) {
+      if (row.getValue("updated_at")) {
         return (
           <div className="flex gap-2">
             <span className="max-w-[500px] truncate font-medium">

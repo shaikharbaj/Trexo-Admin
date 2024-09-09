@@ -11,7 +11,6 @@ import Link from "next/link";
 interface AdminUser {
   uuid?: string;
   unique_id: string;
-  profile_url: string;
   name: string;
   first_name: string;
   middle_name: string;
@@ -69,28 +68,6 @@ export const columns: ColumnDef<AdminUser>[] = [
     },
   },
   {
-    accessorKey: "profile_url",
-    header: ({ column }) => <ColumnHeader column={column} title="Profile" />,
-    cell: ({ row }) => {
-      const profile_url: any = row.getValue("profile_url");
-      const logo = row?.original?.first_name?.split("")[0];
-      return (
-        <div className="font-medium text-card-foreground/80">
-          <div className="flex space-x-3 rtl:space-x-reverse items-center">
-            <Avatar className="rounded-full">
-              {profile_url ? (
-                <AvatarImage src={profile_url} />
-              ) : (
-                <AvatarFallback>{logo}</AvatarFallback>
-              )}
-            </Avatar>
-          </div>
-        </div>
-      );
-    },
-    enableSorting: false,
-  },
-  {
     accessorKey: "name",
     header: ({ column }) => <ColumnHeader column={column} title="Name" />,
     cell: ({ row }) => {
@@ -100,8 +77,21 @@ export const columns: ColumnDef<AdminUser>[] = [
       const fullName = [firstName, middleName, lastName]
         .filter((name) => name && name.trim() !== "")
         .join(" ");
+      const profile_url: any = row.getValue("profile_url");
+      const initial = row?.original?.first_name?.split("")[0];
       return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          <div className="font-medium text-card-foreground/80">
+            <div className="flex space-x-3 rtl:space-x-reverse items-center">
+              <Avatar className="rounded-full">
+                {profile_url ? (
+                  <AvatarImage src={profile_url} />
+                ) : (
+                  <AvatarFallback>{initial}</AvatarFallback>
+                )}
+              </Avatar>
+            </div>
+          </div>
           <span className="max-w-[500px] truncate font-medium">{fullName}</span>
         </div>
       );
@@ -164,14 +154,14 @@ export const columns: ColumnDef<AdminUser>[] = [
             {row.getValue("status") === "ACTIVE"
               ? "Active"
               : row.getValue("status") === "INACTIVE"
-              ? "Inactive"
-              : row.getValue("status") === "PENDING"
-              ? "Pending"
-              : row.getValue("status") === "SUSPENDED"
-              ? "Suspended"
-              : row.getValue("status") === "BLOCKED"
-              ? "Blocked"
-              : "Unknown"}
+                ? "Inactive"
+                : row.getValue("status") === "PENDING"
+                  ? "Pending"
+                  : row.getValue("status") === "SUSPENDED"
+                    ? "Suspended"
+                    : row.getValue("status") === "BLOCKED"
+                      ? "Blocked"
+                      : "Unknown"}
           </Badge>
         </div>
       );

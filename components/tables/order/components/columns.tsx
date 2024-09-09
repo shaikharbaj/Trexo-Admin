@@ -11,7 +11,6 @@ import { TableCell, TableRow } from "@/components/ui/table";
 interface Order {
   uuid?: string;
   order_id?: string;
-  image: string;
   title: string;
   order_item: any;
   category: string;
@@ -65,34 +64,24 @@ export const columns: ColumnDef<Order>[] = [
     },
   },
   {
-    accessorKey: "image",
-    header: ({ column }) => <ColumnHeader column={column} title="Image" />,
+    accessorKey: "product_title",
+    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
     cell: ({ row }) => {
       const image: any = row.getValue("image");
-      // const logo = row.original.first_name.split("")[0];
-      const logo = "A";
+      const productName = row.getValue("product_title") as string;
       return (
-        <div className="font-medium text-card-foreground/80">
+        <div className="flex gap-2 items-center">
+          <div className="font-medium text-card-foreground/80">
           <div className="flex space-x-3 rtl:space-x-reverse items-center">
             <Avatar className="rounded-full">
               {image ? (
                 <AvatarImage src={image} />
               ) : (
-                <AvatarFallback>{logo}</AvatarFallback>
+                <AvatarFallback>{productName ? productName.charAt(0).toUpperCase() : "?"}</AvatarFallback>
               )}
             </Avatar>
           </div>
         </div>
-      );
-    },
-    enableSorting: false,
-  },
-  {
-    accessorKey: "product_title",
-    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("product_title")}
           </span>
