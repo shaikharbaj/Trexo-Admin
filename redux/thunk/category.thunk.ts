@@ -50,6 +50,7 @@ export const fetchCategoryDropdownThunk = createAsyncThunk(
 interface ICreateCategoryPayload {
   industry_id: string;
   category_type: string;
+  imageUrl: string;
   category_name: string;
   category_description: string;
   meta_title: string;
@@ -96,6 +97,7 @@ export const fetchCategoryByIdThunk = createAsyncThunk(
 interface IUpdateCategoryPayload {
   industry_id: string;
   category_type: string;
+  imageUrl: string;
   category_name: string;
   category_description: string;
   meta_title: string;

@@ -4,17 +4,17 @@ import { Upload } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-
+ 
 interface FileWithPreview extends File {
   preview: string;
 }
-
+ 
 interface IFileUploaderSingle {
-  file: FileWithPreview | null; 
+  file: FileWithPreview | null;
   setFile: (files: FileWithPreview | null) => void;
 }
-
-
+ 
+ 
 const FileUploaderSingle:React.FC<IFileUploaderSingle> = ({ file, setFile }) => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
@@ -26,7 +26,7 @@ const FileUploaderSingle:React.FC<IFileUploaderSingle> = ({ file, setFile }) => 
       setFile(Object.assign(selectedFile));
     },
   });
-
+ 
   const img = file && (
     <Image
       key={file.name}
@@ -37,11 +37,11 @@ const FileUploaderSingle:React.FC<IFileUploaderSingle> = ({ file, setFile }) => 
       src={URL.createObjectURL(file)}
     />
   );
-
+ 
   const closeTheFile = () => {
     setFile(null);
   };
-
+ 
   return (
     <div className={file ? "h-[300px] w-full" : ""}>
       {file ? (
@@ -60,7 +60,7 @@ const FileUploaderSingle:React.FC<IFileUploaderSingle> = ({ file, setFile }) => 
       ) : (
         <div {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
-
+ 
           <div className="w-full text-center border-dashed border rounded-md py-[52px] flex items-center flex-col">
             <div className="h-12 w-12 inline-flex rounded-md bg-muted items-center justify-center mb-3">
               <Upload className="text-default-500" />
@@ -74,5 +74,5 @@ const FileUploaderSingle:React.FC<IFileUploaderSingle> = ({ file, setFile }) => 
     </div>
   );
 };
-
+ 
 export default FileUploaderSingle;

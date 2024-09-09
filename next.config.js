@@ -4,9 +4,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*", // Proxy requests from /api/* to the backend
-        destination: "http://localhost:7000/:path*", // Your backend URL
-      },
+        source: '/api/:path*', // Proxy requests from /api/* to the backend
+        destination: 'https://api.trexopro.katdev.com/:path*' // Your backend URL
+      }
     ];
   },
   async redirects() {
