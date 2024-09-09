@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Trexopro Admin",
   description: null,
   theme: "violet",
-  layout: "vertical", //semi-box, horizontal, vertical
+  layout: "horizontal", //semi-box, horizontal, vertical
   hideSideBar: false,
   sidebarType: "module", //popover, classic, module
   sidebarColor: null,

@@ -34,7 +34,7 @@ const SingleIconMenu = ({ index, activeIndex, item, locationName, trans }: {
                   }
                 )}
               >
-                <item.icon className="w-8 h-8" />
+                {/* <item.icon className="w-8 h-8" /> */}
               </Link>
             ) : (
               <button
@@ -48,7 +48,7 @@ const SingleIconMenu = ({ index, activeIndex, item, locationName, trans }: {
                   }
                 )}
               >
-                <item.icon className="w-6 h-6" />
+                {/* <item.icon className="w-6 h-6" /> */}
               </button>
             )}
           </TooltipTrigger>

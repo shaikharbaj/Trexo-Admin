@@ -46,7 +46,7 @@ export default function MainMenu() {
                   className="flex items-center"
                 >
                   <div className="flex items-center py-4 cursor-pointer group data-[state=open]:text-primary">
-                    <item.icon className="h-5 w-5 mr-2" />
+                    {/* <item.icon className="h-5 w-5 mr-2" /> */}
                     <span className="text-sm font-medium text-default-700">
                       {t(item.title)}
                     </span>
@@ -60,7 +60,7 @@ export default function MainMenu() {
                 <Link href={item.href} passHref>
                   <NavigationMenu.Link asChild>
                     <div className="flex items-center py-4 cursor-pointer">
-                      <item.icon className="h-5 w-5 mr-2" />
+                      {/* <item.icon className="h-5 w-5 mr-2" /> */}
                       <span className="text-sm font-medium text-default-700">
                         {t(item.title)}
                       </span>
@@ -105,7 +105,7 @@ export default function MainMenu() {
                               value={tab.title}
                               className="capitalize data-[state=active]:shadow-none data-[state=active]:bg-transparent data-[state=active]:text-primary transition duration-150 before:transition-all before:duration-150 relative before:absolute before:left-1/2 before:-bottom-[30px] before:h-[2px] px-0 before:-translate-x-1/2 before:w-0 data-[state=active]:before:bg-primary data-[state=active]:before:w-full"
                             >
-                              <tab.icon className="h-5 w-5 mr-2" />
+                              {/* <tab.icon className="h-5 w-5 mr-2" /> */}
                               <span className="text-sm font-medium text-default-700">
                                 {tab.title}
                               </span>
