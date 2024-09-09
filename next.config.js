@@ -52,7 +52,6 @@ const nextConfig = {
     PILOT_BASE_URL: process.env.PILOT_BASE_URL,
     API_BASE_URL: process.env.API_BASE_URL,
     AWS_URL: process.env.AWS_URL,
-    ENCRYPT_PASSWORD: process.env.ENCRYPT_PASSWORD,
   },
   images: {
     remotePatterns: [
