@@ -85,7 +85,7 @@ export default function MainMenu() {
                           childItem={childItem}
                           trans={t}
                         >
-                          <childItem.icon className="h-5 w-5" />
+                          {/* <childItem.icon className="h-5 w-5" /> */}
                         </ListItem>
                       ))}
                     </div>

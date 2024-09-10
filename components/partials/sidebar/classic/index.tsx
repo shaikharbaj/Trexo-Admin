@@ -148,7 +148,7 @@ const ClassicSidebar = () => {
         </ul>
         {!collapsed && (
           <div className="-mx-2 ">
-            <AddBlock />
+            {/* <AddBlock /> */}
           </div>
         )}
       </ScrollArea>
