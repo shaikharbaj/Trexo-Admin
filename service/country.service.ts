@@ -5,6 +5,7 @@ import {
   deleteCountryThunk,
   fetchCountryByIdThunk,
   fetchCountryForDropDownThunk,
+  toggleCountryThunk,
   updateCountryThunk,
 } from "@/redux/thunk/country.thunk";
 
@@ -117,6 +118,28 @@ export const fetchCountryForDropdown = async (
       statusCode: payload?.statusCode,
       message: payload?.message,
       data: payload?.data,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+
+//Function to toggle country  
+export const toggleCountry = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleCountryThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
     };
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Something went wrong.");

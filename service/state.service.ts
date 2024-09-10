@@ -5,6 +5,7 @@ import {
   deleteStateThunk,
   fetchStateByIdThunk,
   fetchStateDropdownThunk,
+  toggleStateThunk,
   updateStateThunk,
 } from "@/redux/thunk/state.thunk";
 
@@ -102,7 +103,7 @@ export const fetchStateById = async (fetchByIdPayload: any) => {
 
 
 //Function to fetch state for dropdown
-export const fetchStateDropdown = async (fetchDropdownStatePayload:any) => {
+export const fetchStateDropdown = async (fetchDropdownStatePayload: any) => {
   try {
     const { payload } = await store.dispatch(fetchStateDropdownThunk(fetchDropdownStatePayload));
     return payload;
@@ -110,5 +111,26 @@ export const fetchStateDropdown = async (fetchDropdownStatePayload:any) => {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
     );
+  }
+};
+
+//Function to toggle state
+export const toggleState = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleStateThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
   }
 };

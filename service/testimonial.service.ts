@@ -4,6 +4,7 @@ import {
   createTestimonialThunk,
   deleteTestimonialThunk,
   fetchTestimonialByIdThunk,
+  toggleTestimonialThunk,
   updateTestimonialThunk,
 } from "@/redux/thunk/testimonial.thunk";
 
@@ -93,6 +94,28 @@ export const deleteTestimonial = async (deletePayload: any) => {
       };
     }
     store.dispatch(refreshData());
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+
+//Function to toggle testimonials  
+export const toggleTestimonials = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleTestimonialThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
     return {
       status: payload?.status,
       statusCode: payload?.statusCode,

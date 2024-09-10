@@ -30,8 +30,8 @@ export const socialMediaListThunk = createAsyncThunk(
 
 //Thunk to create social media
 interface ICreateSocialMediaPayload {
-    title: string;
-    link: string;
+  title: string;
+  link: string;
 }
 
 export const createSocialMediaThunk = createAsyncThunk(
@@ -71,8 +71,8 @@ export const fetchSocialMediaByIdThunk = createAsyncThunk(
 
 //Thunk to update social media
 interface IUpdateSocialMediaPayload {
-    title: string;
-    link: string;
+  title: string;
+  link: string;
 }
 
 interface IUpdateSocialMediaParams {
@@ -105,6 +105,23 @@ export const deleteSocialMediaThunk = createAsyncThunk(
   async (payload: IDeleteSocialMediaPayload) => {
     try {
       const res = await privateClient.delete(`/social-media/${payload}`);
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+
+//Thunk to toggle social media  
+export const toggleSocialMediaThunk = createAsyncThunk(
+  "product/toggle-social-media",
+  async (payload: any) => {
+    try {
+      const res = await privateClient.patch(`/social-media/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
       return res.data;
     } catch (error: any) {
       if (error?.response?.data) {

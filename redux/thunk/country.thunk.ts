@@ -132,3 +132,19 @@ export const fetchCountryForDropDownThunk = createAsyncThunk(
     }
   }
 );
+
+//Thunk to toggle country  
+export const toggleCountryThunk = createAsyncThunk(
+  "product/toggle-country",
+  async (payload: any) => {
+    try {
+      const res = await privateClient.patch(`/country/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);

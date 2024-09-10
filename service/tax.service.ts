@@ -4,6 +4,7 @@ import {
   createTaxThunk,
   deleteTaxThunk,
   fetchTaxByIdThunk,
+  toggleTaxThunk,
   updateTaxThunk,
 } from "@/redux/thunk/tax.thunk";
 
@@ -89,6 +90,28 @@ export const deleteTax = async (deletePayload: any) => {
       };
     }
     store.dispatch(refreshData());
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+
+//Function to toggle attributes  
+export const toggleTax = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleTaxThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
     return {
       status: payload?.status,
       statusCode: payload?.statusCode,

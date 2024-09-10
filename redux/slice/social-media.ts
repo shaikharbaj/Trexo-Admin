@@ -4,6 +4,7 @@ import {
   deleteSocialMediaThunk,
   fetchSocialMediaByIdThunk,
   socialMediaListThunk,
+  toggleSocialMediaThunk,
   updateSocialMediaThunk,
 } from "../thunk/social-media.thunk";
 
@@ -81,6 +82,17 @@ export const socialMedia = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteSocialMediaThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleSocialMediaThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleSocialMediaThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleSocialMediaThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

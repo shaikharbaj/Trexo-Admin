@@ -6,6 +6,7 @@ import {
     fetchUomByIdThunk,
     fetchUomForDropDownThunk,
     updateUomThunk,
+    toggleUomThunk,
 } from "../thunk/uom.thunk";
 
 const initialState = {
@@ -90,6 +91,17 @@ export const uom = createSlice({
                 state.refresh = !state.refresh;
             })
             .addCase(deleteUomThunk.rejected, (state: any) => {
+                state.isLoading = false;
+            });
+        builder
+            .addCase(toggleUomThunk.pending, (state: any) => {
+                state.isLoading = true;
+            })
+            .addCase(toggleUomThunk.fulfilled, (state: any) => {
+                state.isLoading = false;
+                state.refresh = !state.refresh;
+            })
+            .addCase(toggleUomThunk.rejected, (state: any) => {
                 state.isLoading = false;
             });
     },

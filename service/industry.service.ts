@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createIndustryThunk, deleteIndustryThunk, fetchIndustryByIdThunk, fetchIndustryDropdownThunk, updateIndustryThunk } from "@/redux/thunk/industry.thunk";
+import { createIndustryThunk, deleteIndustryThunk, fetchIndustryByIdThunk, fetchIndustryDropdownThunk, toggleIndustryThunk, updateIndustryThunk } from "@/redux/thunk/industry.thunk";
 
 //Function to create industry
 export const createIndustry = async (createPayload: any) => {
@@ -74,5 +74,28 @@ export const fetchIndustryDropdown = async () => {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
     );
+  }
+};
+
+
+
+//Function to toggle industry  
+export const toggleIndustry = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleIndustryThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
   }
 };

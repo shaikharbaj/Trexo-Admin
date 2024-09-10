@@ -116,3 +116,20 @@ export const fetchCmsByIdThunk = createAsyncThunk(
     }
   }
 );
+
+
+//Thunk to toggle cms  
+export const toggleCmsThunk = createAsyncThunk(
+  "product/toggle-attribute",
+  async (payload: any) => {
+    try {
+      const res = await privateClient.patch(`/cms/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);

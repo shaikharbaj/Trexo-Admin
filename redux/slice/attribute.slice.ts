@@ -5,6 +5,7 @@ import {
     deleteAttributeThunk,
     fetchAttributeByIdThunk,
     fetchAttributeForDropDownThunk,
+    toggleAttributeThunk,
     updateAttributeThunk,
 } from "../thunk/attribute.thunk";
 
@@ -90,6 +91,17 @@ export const attribute = createSlice({
                 state.refresh = !state.refresh;
             })
             .addCase(deleteAttributeThunk.rejected, (state: any) => {
+                state.isLoading = false;
+            });
+        builder
+            .addCase(toggleAttributeThunk.pending, (state: any) => {
+                state.isLoading = true;
+            })
+            .addCase(toggleAttributeThunk.fulfilled, (state: any) => {
+                state.isLoading = false;
+                state.refresh = !state.refresh;
+            })
+            .addCase(toggleAttributeThunk.rejected, (state: any) => {
                 state.isLoading = false;
             });
     },

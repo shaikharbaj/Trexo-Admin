@@ -8,6 +8,7 @@ import {
     fetchRoundingValueThunk,
     fetchUomByIdThunk,
     fetchUomForDropDownThunk,
+    toggleUomThunk,
     updateUomThunk,
 } from "@/redux/thunk/uom.thunk";
 
@@ -166,6 +167,28 @@ export const fetchRoundingValue = async (
             statusCode: payload?.statusCode,
             message: payload?.message,
             data: payload?.data,
+        };
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || "Something went wrong.");
+    }
+};
+
+
+//Function to toggle uom  
+export const toggleUom = async (data: any) => {
+    try {
+        const { payload } = await store.dispatch(toggleUomThunk(data));
+        if (payload?.status !== true) {
+            return {
+                status: payload?.status,
+                statusCode: payload?.statusCode,
+                message: payload?.message,
+            };
+        }
+        return {
+            status: payload?.status,
+            statusCode: payload?.statusCode,
+            message: payload?.message,
         };
     } catch (error: any) {
         throw new Error(error.response?.data?.message || "Something went wrong.");

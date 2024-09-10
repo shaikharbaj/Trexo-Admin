@@ -5,6 +5,7 @@ import {
   deleteCountryThunk,
   fetchCountryByIdThunk,
   fetchCountryForDropDownThunk,
+  toggleCountryThunk,
   updateCountryThunk,
 } from "../thunk/country.thunk";
 
@@ -35,7 +36,7 @@ export const country = createSlice({
       .addCase(countryListThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
-      builder
+    builder
       .addCase(fetchCountryByIdThunk.pending, (state: any) => {
         state.isLoading = true;
       })
@@ -46,7 +47,7 @@ export const country = createSlice({
       .addCase(fetchCountryByIdThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
-      builder
+    builder
       .addCase(fetchCountryForDropDownThunk.pending, (state: any) => {
         state.isLoading = true;
       })
@@ -90,6 +91,17 @@ export const country = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteCountryThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleCountryThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleCountryThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleCountryThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

@@ -6,6 +6,7 @@ import {
     fetchFaqByIdThunk,
     fetchFaqForDropDownThunk,
     updateFaqThunk,
+    toggleFaqThunk,
 } from "../thunk/faq.thunk";
 
 const initialState = {
@@ -90,6 +91,17 @@ export const faq = createSlice({
                 state.refresh = !state.refresh;
             })
             .addCase(deleteFaqThunk.rejected, (state: any) => {
+                state.isLoading = false;
+            });
+        builder
+            .addCase(toggleFaqThunk.pending, (state: any) => {
+                state.isLoading = true;
+            })
+            .addCase(toggleFaqThunk.fulfilled, (state: any) => {
+                state.isLoading = false;
+                state.refresh = !state.refresh;
+            })
+            .addCase(toggleFaqThunk.rejected, (state: any) => {
                 state.isLoading = false;
             });
     },

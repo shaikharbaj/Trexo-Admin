@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createCmsThunk, deleteCmsThunk, fetchCmsByIdThunk, updateCmsThunk } from "@/redux/thunk/cms.thunk";
+import { createCmsThunk, deleteCmsThunk, fetchCmsByIdThunk, toggleCmsThunk, updateCmsThunk } from "@/redux/thunk/cms.thunk";
 import {
   createCountryThunk,
   deleteCountryThunk,
@@ -91,6 +91,27 @@ export const updateCms = async (uuid: string, updatePayload: any) => {
       };
     }
     store.dispatch(refreshData());
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
+  }
+};
+
+//Function to toggle cms  
+export const toggleCms = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleCmsThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
     return {
       status: payload?.status,
       statusCode: payload?.statusCode,

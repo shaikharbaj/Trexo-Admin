@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createSocialMediaThunk, deleteSocialMediaThunk, fetchSocialMediaByIdThunk, updateSocialMediaThunk } from "@/redux/thunk/social-media.thunk";
+import { createSocialMediaThunk, deleteSocialMediaThunk, fetchSocialMediaByIdThunk, toggleSocialMediaThunk, updateSocialMediaThunk } from "@/redux/thunk/social-media.thunk";
 
 //Function to create social media
 export const createSocialMedia = async (createPayload: any) => {
@@ -62,5 +62,27 @@ export const deleteSocialMedia = async (deletePayload: any) => {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
     );
+  }
+};
+
+
+//Function to toggle social media  
+export const toggleSocialMedia = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleSocialMediaThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
   }
 };

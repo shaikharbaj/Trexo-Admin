@@ -120,3 +120,20 @@ export const deleteTaxThunk = createAsyncThunk(
     }
   }
 );
+
+
+//Thunk to toggle tax  
+export const toggleTaxThunk = createAsyncThunk(
+  "product/toggle-tax",
+  async (payload: any) => {
+    try {
+      const res = await privateClient.patch(`/tax/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);

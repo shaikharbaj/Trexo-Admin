@@ -138,3 +138,20 @@ export const fetchStateDropdownThunk = createAsyncThunk(
     }
   }
 );
+
+
+//Thunk to toggle State  
+export const toggleStateThunk = createAsyncThunk(
+  "product/toggle-state",
+  async (payload: any) => {
+    try {
+      const res = await privateClient.patch(`/state/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);

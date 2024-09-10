@@ -8,6 +8,10 @@ import { formatDate } from "@/utils/date";
 import Image from "next/image";
 import { getS3BasePath } from "@/config/aws";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useState } from "react";
+import { toggleBrands } from "@/service/brand.service";
+import toast from "react-hot-toast";
+import { Switch } from "@/components/ui/switch";
 
 interface Brand {
   id: number;
@@ -56,7 +60,7 @@ export const columns: ColumnDef<Brand>[] = [
     header: ({ column }) => <ColumnHeader column={column} title="Brand Name" />,
     cell: ({ row }) => {
       const brandName = row.getValue("brand_name") as string;
-    
+
       return (
         <div className="flex gap-2 items-center">
           {row.original.image ? (
@@ -80,7 +84,7 @@ export const columns: ColumnDef<Brand>[] = [
         </div>
       );
     },
-    
+
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
@@ -95,7 +99,7 @@ export const columns: ColumnDef<Brand>[] = [
 
       return (
         <div className="flex gap-2">
-          
+
         </div>
       );
     },
@@ -135,20 +139,43 @@ export const columns: ColumnDef<Brand>[] = [
 
   {
     accessorKey: "is_active",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => {
+      const [activate, setActivate] = useState<boolean>(row.getValue('is_active'))
+      const handleToggle = (uuid: any) => {
+        try {
+          setActivate((prevActivate) => {
+            const newActivate = !prevActivate;
+            const payload = {
+              uuid: uuid,
+              is_active: newActivate
+            };
+            // Call toggle with the updated value of activate
+            toggleBrands(payload).then((response) => {
+              if (response?.status !== true && response?.statusCode !== 200) {
+                toast.error(response?.message);
+                return;
+              } else {
+                toast.success(response?.message);
+              }
+            }).catch((error) => {
+              toast.error(error?.message);
+            });
+
+            // Return the new state
+            return newActivate;
+          });
+        } catch (error: any) {
+          toast.error(error?.message);
+        }
+      }
       return (
         <div className="flex items-center">
-          <Badge
-            variant="soft"
-            color={
-              (row.getValue("is_active") === true && "success") ||
-              (row.getValue("is_active") === false && "destructive") ||
-              "default"
-            }
-          >
-            {row.getValue("is_active") === true ? "Active" : "Inactive"}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {row.getValue('is_active') === true ? (<Switch color="success" id="switch_success" defaultChecked onClick={() => { handleToggle(row.original.uuid) }} />) : (<Switch color="success" id="switch_success" onClick={() => { handleToggle(row.original.uuid) }} />)}
+          </div>
         </div>
       );
     },

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cityListThunk, createCityThunk, deleteCityThunk, fetchCityByIdThunk, updateCityThunk } from "../thunk/city.thunk";
+import { cityListThunk, createCityThunk, deleteCityThunk, fetchCityByIdThunk, toggleCityThunk, updateCityThunk } from "../thunk/city.thunk";
 
 const initialState = {
   isLoading: false,
@@ -72,6 +72,17 @@ export const city = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteCityThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleCityThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleCityThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleCityThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

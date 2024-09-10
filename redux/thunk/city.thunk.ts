@@ -28,7 +28,7 @@ export const cityListThunk = createAsyncThunk(
 //Thunk to create city
 interface ICityPayload {
     city_name: string;
-    country_uuid:string,
+    country_uuid: string,
     state_uuid: string;
     is_active?: boolean;
 }
@@ -51,7 +51,7 @@ export const createCityThunk = createAsyncThunk(
 //Thunk to update city
 interface IUpdateCityPayload {
     city_name: string;
-    country_uuid:string;
+    country_uuid: string;
     state_uuid: string;
     is_active?: boolean;
 }
@@ -105,6 +105,22 @@ export const fetchCityByIdThunk = createAsyncThunk(
     async (payload: IFetchCityByIdPayload) => {
         try {
             const res = await privateClient.get(`/city/${payload}`);
+            return res.data;
+        } catch (error: any) {
+            if (error?.response?.data) {
+                return error?.response?.data;
+            }
+            return error;
+        }
+    }
+);
+
+//Thunk to toggle city
+export const toggleCityThunk = createAsyncThunk(
+    "product/toggle-attribute",
+    async (payload: any) => {
+        try {
+            const res = await privateClient.patch(`/city/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
             return res.data;
         } catch (error: any) {
             if (error?.response?.data) {
