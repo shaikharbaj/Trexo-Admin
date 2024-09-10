@@ -36,19 +36,19 @@ const Bankdetails = () => {
     <div>
       <div className="container">
         <React.Fragment>
-          <div className="mt-2 mb-1 text-default-900 font-semibold text-base">
+          <div className="mt-2 mb-1 text-default-900 text-base">
             <div className="space-y-4 mb-6">
               <div className="space-y-3">
                 <div className="grid gap-8 grid-cols-3">
                   <div className="">
                     <Label className="mb-2" htmlFor="account_holder_name">
-                      Account Holder Name <span className="text-warning">*</span>
+                      Account Holder Name
                     </Label>
                     <p>{bankdetails?.account_holder_name}</p>
                   </div>
                   <div className="">
                     <Label className="mb-2" htmlFor="account_number">
-                      Account Number <span className="text-warning">*</span>
+                      Account Number
                     </Label>
                     <p>{bankdetails?.account_number}</p>
                   </div>
@@ -56,13 +56,13 @@ const Bankdetails = () => {
                 <div className="grid gap-8 grid-cols-3">
                   <div className="">
                     <Label className="mb-2" htmlFor="ifsc_code">
-                      IFSC Code <span className="text-warning">*</span>
+                      IFSC Code
                     </Label>
                     <p>{bankdetails?.ifsc_code}</p>
                   </div>
                   <div className="">
                     <Label className="mb-2" htmlFor="branch_name">
-                      Branch <span className="text-warning">*</span>
+                      Branch
                     </Label>
                     <p>{bankdetails?.branch_name}</p>
                   </div>
@@ -70,7 +70,7 @@ const Bankdetails = () => {
                 <div className="grid gap-8 grid-cols-3">
                   <div className="">
                     <Label className="mb-2" htmlFor="account_type">
-                      Account Type <span className="text-warning">*</span>
+                      Account Type
                     </Label>
                     <p>{bankdetails?.account_type}</p>
                   </div>

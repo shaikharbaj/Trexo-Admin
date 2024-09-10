@@ -50,7 +50,7 @@ const BusinessDetails = () => {
       <div className="rounded-lg pt-3 max-w-2xl mx-auto">
         <div className="mb-6">
           <h2 className="text-sm text-gray-500 font-medium">Business Name</h2>
-          <p className="text-xl font-semibold">
+          <p className="font-semibold">
             {businessDetails?.company_name}
           </p>
         </div>
@@ -59,7 +59,7 @@ const BusinessDetails = () => {
             <h3 className="text-sm text-gray-500 font-medium">
               Product / Services
             </h3>
-            <p className="text-lg text-gray-800">
+            <p className="text-gray-800">
               {businessDetails?.company_offerings}
             </p>
           </div>
@@ -67,7 +67,7 @@ const BusinessDetails = () => {
             <h3 className="text-sm text-gray-500 font-medium">
               Product Industry
             </h3>
-            <p className="text-lg text-gray-800">
+            <p className="text-gray-800">
               {businessDetails?.product_industry}
             </p>
           </div>
@@ -75,7 +75,7 @@ const BusinessDetails = () => {
             <h3 className="text-sm text-gray-500 font-medium">
               Product Category
             </h3>
-            <p className="text-lg text-gray-800">
+            <p className="text-gray-800">
               {createSlug(
                 businessDetails?.product_category_id,
                 businessDetails?.categoryMeta
@@ -84,7 +84,7 @@ const BusinessDetails = () => {
           </div>
           <div>
             <h3 className="text-sm text-gray-500 font-medium">GST Number</h3>
-            <p className="text-lg text-gray-800 flex items-center">
+            <p className="text-gray-800 flex items-center">
               {businessDetails?.gst_number}
               {businessDetails?.gst_number && (
                 <span className="ml-2 text-green-500">✔️</span>
@@ -93,7 +93,7 @@ const BusinessDetails = () => {
           </div>
           <div>
             <h3 className="text-sm text-gray-500 font-medium">PAN Number</h3>
-            <p className="text-lg text-gray-800 flex items-center">
+            <p className="text-gray-800 flex items-center">
               {businessDetails?.pan_card_number}
               {businessDetails?.gst_number && (
                 <span className="ml-2 text-green-500">✔️</span>
@@ -105,7 +105,7 @@ const BusinessDetails = () => {
           <h2 className="text-sm text-gray-500 font-medium mb-2">
             Shipping Address
           </h2>
-          <p className="text-lg text-gray-800">
+          <p className="text-gray-800">
             {
               [
                 businessDetails?.UserAddress[0]?.address1,
