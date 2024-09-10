@@ -8,6 +8,7 @@ import { getS3BasePath } from "@/config/aws";
 
 const Verification = () => {
   const [verification, setVerification] = useState<any>(null);
+  const AWS_URL = getS3BasePath();
   const [status, setStatus] = useState({
     label: "",
     colorClass: "",
@@ -73,7 +74,7 @@ const Verification = () => {
         <>
           <div className="w-1/4">
             <Image
-              src={getS3BasePath() + `users/${verification?.user_id}/verification/${verification?.code_image}`}
+              src={`${AWS_URL}/users/${verification?.user_id}/verification/${verification?.code_image}`}
               alt="Verification Image"
               className="rounded-lg object-cover"
               width={150}

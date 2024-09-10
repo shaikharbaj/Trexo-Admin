@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ProfileHeader, ProfileSidebar } from "../partials/profile";
+import { ProfileSidebar } from "../partials/profile";
 
 import ProfileTabs from "../partials/profile/profile.tabs";
 import {
@@ -66,7 +66,6 @@ const UserProfileLayout: React.FC<UserProfileLayoutProps> = ({ children }) => {
 
   return (
     <React.Fragment>
-      <ProfileHeader basicinformation={basicinformation} />
       <div className="grid grid-cols-12 gap-6 mt-6">
         <div className="col-span-12 lg:col-span-4">
           <ProfileSidebar basicinformation={basicinformation} />
