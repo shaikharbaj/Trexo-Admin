@@ -19,7 +19,7 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = () => {
                         className="relative h-[200px] lg:h-[296px] rounded-t-2xl w-full object-cover bg-no-repeat"
                         style={{ backgroundImage: `url(${coverImage.src})` }}
                     >
-                        <div className="flex justify-end pt-6 pr-6  divide-x divide-primary-foreground  gap-4">
+                        {/* <div className="flex justify-end pt-6 pr-6  divide-x divide-primary-foreground  gap-4">
                             <div>
                                 <div className="text-xl font-semibold text-primary-foreground">
                                     24.5K
@@ -32,7 +32,7 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = () => {
                                 </div>
                                 <div className="text-sm text-default-200">Following</div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="flex items-center gap-4 absolute ltr:left-10 rtl:right-10 ">
                             <div>
                                 <Image
