@@ -182,7 +182,7 @@ const ModuleSidebar = () => {
               </div>
             ))}
           </ScrollArea>
-          <FooterMenu />
+          {/* <FooterMenu /> */}
         </div>
         {/* end small menu */}
 
@@ -245,7 +245,7 @@ const ModuleSidebar = () => {
               </ul>
             </div>
           </ScrollArea>
-          <LogoutFooter />
+          {/* <LogoutFooter /> */}
         </div>
         {/* end main panel */}
       </div>
