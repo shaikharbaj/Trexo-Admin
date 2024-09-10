@@ -1,5 +1,5 @@
+import Bankdetails from "@/components/users/seller/banking-details";
 import React from "react";
-import Bankdetails from "@/components/users/common/bank-details";
 
 interface IPageProps {
   params: {

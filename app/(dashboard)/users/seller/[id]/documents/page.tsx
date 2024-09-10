@@ -1,5 +1,5 @@
+import Document from "@/components/users/seller/documents";
 import React from "react";
-import Document from "@/components/users/common/documents";
 
 interface IPageProps {
   params: {

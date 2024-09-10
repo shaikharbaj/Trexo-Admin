@@ -1,5 +1,5 @@
+import Verification from "@/components/users/seller/verification";
 import React from "react";
-import Verification from "@/components/users/common/verification";
 
 interface IPageProps {
   params: {

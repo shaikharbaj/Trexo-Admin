@@ -207,3 +207,116 @@ export const fetchSellerDocumentsByIdThunk = createAsyncThunk(
     }
   }
 );
+
+//Thunk to update onboarding status...
+interface updateSellerBusinessDetailsStatusPayload {
+  uuid: string;
+  admin_status: string;
+  reason?: string;
+}
+export const updateSellerBusinessDetailsStatusThunk = createAsyncThunk(
+  "user/update-seller-business-details-status",
+  async (payload: updateSellerBusinessDetailsStatusPayload) => {
+    try {
+      const pay =
+        payload?.admin_status === "APPROVED"
+          ? { admin_status: payload.admin_status }
+          : { admin_status: payload.admin_status, reason: payload.reason };
+
+      const res = await privateClient.patch(
+        `/admin/on-boarding/basic-info-update/${payload.uuid}`,
+        pay
+      );
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+//Thunk to update onboarding status...
+interface updateSellerBankDetailsStatusPayload {
+  uuid: string;
+  admin_status: string;
+  reason?: string;
+}
+export const updateSellerBankDetailsStatusThunk = createAsyncThunk(
+  "user/update-seller-bank-details-status",
+  async (payload: updateSellerBankDetailsStatusPayload) => {
+    try {
+      const pay =
+        payload?.admin_status === "APPROVED"
+          ? { admin_status: payload.admin_status }
+          : { admin_status: payload.admin_status, reason: payload.reason };
+      const res = await privateClient.patch(
+        `/admin/on-boarding/banking-info-update/${payload.uuid}`,
+        pay
+      );
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+//Thunk to update onboarding status...
+interface updateSellerVerificationDetailsStatusPayload {
+  uuid: string;
+  admin_status: string;
+  reason?: string;
+}
+export const updateSellerVerificationDetailsStatusThunk = createAsyncThunk(
+  "user/update-seller-verification-details-status",
+  async (payload: updateSellerVerificationDetailsStatusPayload) => {
+    try {
+      const pay =
+        payload?.admin_status === "APPROVED"
+          ? { admin_status: payload.admin_status }
+          : { admin_status: payload.admin_status, reason: payload.reason };
+      const res = await privateClient.patch(
+        `/admin/on-boarding/verification-update/${payload.uuid}`,
+        pay
+      );
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+
+//Thunk to update onboarding status...
+interface updateSellerDocumentDetailsStatusPayload {
+  uuid: string;
+  admin_status: string;
+  reason?: string;
+}
+export const updateSellerDocumentDetailsStatusThunk = createAsyncThunk(
+  "user/update-seller-document-details-status",
+  async (payload: updateSellerDocumentDetailsStatusPayload) => {
+    try {
+      const pay =
+        payload?.admin_status === "APPROVED"
+          ? { admin_status: payload.admin_status }
+          : { admin_status: payload.admin_status, reason: payload.reason };
+      const res = await privateClient.patch(
+        `/admin/on-boarding/document-update/${payload.uuid}`,
+        pay
+      );
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);

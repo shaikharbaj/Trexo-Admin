@@ -1,5 +1,5 @@
 import React from "react";
-import BasicDetails from "@/components/users/common/basic-details";
+import BasicDetails from "@/components/users/consumer/basic-details";
 
 interface IPageProps {
   params: {

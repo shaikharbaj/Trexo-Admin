@@ -11,6 +11,10 @@ import {
   loadSellerBankDetailsByIdThunk,
   loadSellerBasicInfoByIdThunk,
   supplierListThunk,
+  updateSellerBankDetailsStatusThunk,
+  updateSellerBusinessDetailsStatusThunk,
+  updateSellerDocumentDetailsStatusThunk,
+  updateSellerVerificationDetailsStatusThunk,
 } from "../thunk/user.thunk";
 
 const initialState = {
@@ -165,6 +169,61 @@ export const user = createSlice({
       .addCase(fetchSellerDocumentsByIdThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
+    builder
+      .addCase(updateSellerBusinessDetailsStatusThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        updateSellerBusinessDetailsStatusThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+        }
+      )
+      .addCase(
+        updateSellerBusinessDetailsStatusThunk.rejected,
+        (state: any) => {
+          state.isLoading = false;
+        }
+      );
+    builder
+      .addCase(updateSellerBankDetailsStatusThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        updateSellerBankDetailsStatusThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+        }
+      )
+      .addCase(updateSellerBankDetailsStatusThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+      builder
+      .addCase(updateSellerVerificationDetailsStatusThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        updateSellerVerificationDetailsStatusThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+        }
+      )
+      .addCase(updateSellerVerificationDetailsStatusThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+      builder
+      .addCase(updateSellerDocumentDetailsStatusThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        updateSellerDocumentDetailsStatusThunk.fulfilled,
+        (state: any, action: any) => {
+          state.isLoading = false;
+        }
+      )
+      .addCase(updateSellerDocumentDetailsStatusThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      })
   },
 });
 

@@ -1,6 +1,5 @@
+import BusinessDetails from "@/components/users/seller/business-details";
 import React from "react";
-import BasicDetails from "@/components/users/common/basic-details";
-import BusinessDetails from "@/components/users/common/business-details";
 
 interface IPageProps {
   params: {
