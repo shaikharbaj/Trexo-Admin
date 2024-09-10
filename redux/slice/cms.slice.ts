@@ -12,6 +12,7 @@ import {
   createCmsThunk,
   deleteCmsThunk,
   fetchCmsByIdThunk,
+  toggleCmsThunk,
   updateCmsThunk,
 } from "../thunk/cms.thunk";
 
@@ -86,6 +87,17 @@ export const cms = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteCmsThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleCmsThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleCmsThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleCmsThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

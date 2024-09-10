@@ -4,6 +4,7 @@ import {
   deleteTaxThunk,
   fetchTaxByIdThunk,
   taxListThunk,
+  toggleTaxThunk,
   updateTaxThunk,
 } from "../thunk/tax.thunk";
 
@@ -78,6 +79,17 @@ export const tax = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteTaxThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleTaxThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleTaxThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleTaxThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

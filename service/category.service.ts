@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createCategoryThunk, deleteCategoryThunk, fetchCategoryByIdThunk, fetchCategoryDropdownThunk, updateCategoryThunk } from "@/redux/thunk/category.thunk";
+import { createCategoryThunk, deleteCategoryThunk, fetchCategoryByIdThunk, fetchCategoryDropdownThunk, toggleCategoryThunk, updateCategoryThunk } from "@/redux/thunk/category.thunk";
 
 //Function to create category
 export const createCategory = async (createPayload: any) => {
@@ -75,5 +75,26 @@ export const fetchCategoryDropdown = async () => {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
     );
+  }
+};
+
+//Function to toggle category  
+export const toggleCategory = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleCategoryThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
   }
 };

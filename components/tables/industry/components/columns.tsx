@@ -5,6 +5,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
+import { useState } from "react";
+import { toggleIndustry } from "@/service/industry.service";
+import toast from "react-hot-toast";
+import { Switch } from "@/components/ui/switch";
 
 interface Industry {
   uuid?: string;
@@ -52,7 +56,7 @@ export const columns: ColumnDef<Industry>[] = [
         </div>
       );
     },
-    filterFn: (row, id, value) => {      
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
   },
@@ -62,20 +66,43 @@ export const columns: ColumnDef<Industry>[] = [
       <ColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
+      const [activate, setActivate] = useState<boolean>(row.getValue('is_active'))
+      const handleToggle = (uuid: any) => {
+        try {
+          setActivate((prevActivate) => {
+            const newActivate = !prevActivate;
+            const payload = {
+              uuid: uuid,
+              is_active: newActivate
+            };
+            // Call toggle with the updated value of activate
+            toggleIndustry(payload).then((response) => {
+              if (response?.status !== true && response?.statusCode !== 200) {
+                toast.error(response?.message);
+                return;
+              } else {
+                toast.success(response?.message);
+              }
+            }).catch((error) => {
+              toast.error(error?.message);
+            });
+
+            // Return the new state
+            return newActivate;
+          });
+        } catch (error: any) {
+          toast.error(error?.message);
+        }
+      }
       return (
         <div className="flex items-center">
-          <Badge
-          variant="soft"
-            color={
-              (row.getValue('is_active') === true && "success") ||
-              (row.getValue('is_active') === false && "destructive") || "default"
-            }>
-            {row.getValue('is_active') === true ? 'Active' : "Inactive"}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {row.getValue('is_active') === true ? (<Switch color="success" id="switch_success" defaultChecked onClick={() => { handleToggle(row.original.uuid) }} />) : (<Switch color="success" id="switch_success" onClick={() => { handleToggle(row.original.uuid) }} />)}
+          </div>
         </div>
       );
     },
-    filterFn: (row, id, value) => {     
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     enableSorting: false,
@@ -90,12 +117,12 @@ export const columns: ColumnDef<Industry>[] = [
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-          {formatDate(row.getValue("created_at"))}
+            {formatDate(row.getValue("created_at"))}
           </span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {     
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     enableSorting: true,
@@ -110,12 +137,12 @@ export const columns: ColumnDef<Industry>[] = [
       return (
         <div className="flex gap-2">
           <span className="max-w-[500px] truncate font-medium">
-          {formatDate(row.getValue("updated_at"))}
+            {formatDate(row.getValue("updated_at"))}
           </span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {     
+    filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     enableSorting: true,

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { categoryListThunk, createCategoryThunk, deleteCategoryThunk, fetchCategoryByIdThunk, updateCategoryThunk } from "../thunk/category.thunk";
+import { categoryListThunk, createCategoryThunk, deleteCategoryThunk, fetchCategoryByIdThunk, toggleCategoryThunk, updateCategoryThunk } from "../thunk/category.thunk";
 
 
 const initialState = {
   isLoading: false,
   list: [],
   error: {},
-  refresh:false
+  refresh: false
 };
 
 export const category = createSlice({
@@ -73,6 +73,17 @@ export const category = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteCategoryThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleCategoryThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleCategoryThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleCategoryThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

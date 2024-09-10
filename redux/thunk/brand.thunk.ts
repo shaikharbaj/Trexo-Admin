@@ -119,3 +119,20 @@ export const deleteBrandThunk = createAsyncThunk(
     }
   }
 );
+
+//Thunk to toggle brand
+export const toggleBrandThunk = createAsyncThunk(
+  "product/toggle-brand",
+  async (payload: any) => {
+    try {
+      const res = await privateClient.patch(`/brand/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+      return res.data;
+    } catch (error: any) {
+      if (error?.response?.data) {
+        return error?.response?.data;
+      }
+      return error;
+    }
+  }
+);
+

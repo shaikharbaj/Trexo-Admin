@@ -8,6 +8,7 @@ import {
     fetchFaqByIdThunk,
     fetchFaqForDropDownThunk,
     updateFaqThunk,
+    toggleFaqThunk,
 } from "@/redux/thunk/faq.thunk";
 
 //Function to create uom
@@ -142,6 +143,28 @@ export const fetchFaqTypes = async (
             statusCode: payload?.statusCode,
             message: payload?.message,
             data: payload?.data,
+        };
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || "Something went wrong.");
+    }
+};
+
+
+//Function to toggle faq  
+export const toggleFaq = async (data: any) => {
+    try {
+        const { payload } = await store.dispatch(toggleFaqThunk(data));
+        if (payload?.status !== true) {
+            return {
+                status: payload?.status,
+                statusCode: payload?.statusCode,
+                message: payload?.message,
+            };
+        }
+        return {
+            status: payload?.status,
+            statusCode: payload?.statusCode,
+            message: payload?.message,
         };
     } catch (error: any) {
         throw new Error(error.response?.data?.message || "Something went wrong.");

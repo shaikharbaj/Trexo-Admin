@@ -4,6 +4,7 @@ import {
   deleteTestimonialThunk,
   fetchTestimonialByIdThunk,
   testimonialListThunk,
+  toggleTestimonialThunk,
   updateTestimonialThunk,
 } from "../thunk/testimonial.thunk";
 
@@ -81,6 +82,17 @@ export const testimonial = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteTestimonialThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleTestimonialThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleTestimonialThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleTestimonialThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

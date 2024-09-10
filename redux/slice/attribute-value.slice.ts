@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAttributeValueThunk, deleteAttributeValueThunk, fetchAttributeValueByIdThunk, attributeValueListThunk, updateAttributeValueThunk } from "../thunk/attribute-value.thunk";
+import { createAttributeValueThunk, deleteAttributeValueThunk, fetchAttributeValueByIdThunk, attributeValueListThunk, updateAttributeValueThunk, toggleAttributeValueThunk } from "../thunk/attribute-value.thunk";
 
 
 const initialState = {
@@ -73,6 +73,17 @@ export const attribute_value = createSlice({
                 state.refresh = !state.refresh;
             })
             .addCase(deleteAttributeValueThunk.rejected, (state: any) => {
+                state.isLoading = false;
+            });
+        builder
+            .addCase(toggleAttributeValueThunk.pending, (state: any) => {
+                state.isLoading = true;
+            })
+            .addCase(toggleAttributeValueThunk.fulfilled, (state: any) => {
+                state.isLoading = false;
+                state.refresh = !state.refresh;
+            })
+            .addCase(toggleAttributeValueThunk.rejected, (state: any) => {
                 state.isLoading = false;
             });
     },

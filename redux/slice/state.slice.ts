@@ -5,6 +5,7 @@ import {
   fetchStateByIdThunk,
   fetchStateDropdownThunk,
   stateListThunk,
+  toggleStateThunk,
   updateStateThunk,
 } from "../thunk/state.thunk";
 
@@ -46,7 +47,7 @@ export const state = createSlice({
       .addCase(fetchStateByIdThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
-      builder
+    builder
       .addCase(fetchStateDropdownThunk.pending, (state: any) => {
         state.isLoading = true;
       })
@@ -90,6 +91,17 @@ export const state = createSlice({
         state.refresh = !state.refresh;
       })
       .addCase(deleteStateThunk.rejected, (state: any) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(toggleStateThunk.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(toggleStateThunk.fulfilled, (state: any) => {
+        state.isLoading = false;
+        state.refresh = !state.refresh;
+      })
+      .addCase(toggleStateThunk.rejected, (state: any) => {
         state.isLoading = false;
       });
   },

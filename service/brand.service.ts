@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createBrandThunk, deleteBrandThunk, fetchBrandByIdThunk, updateBrandThunk } from "@/redux/thunk/brand.thunk";
+import { createBrandThunk, deleteBrandThunk, fetchBrandByIdThunk, toggleBrandThunk, updateBrandThunk } from "@/redux/thunk/brand.thunk";
 
 //Function to create brand
 export const createBrand = async (createPayload: any) => {
@@ -62,5 +62,27 @@ export const deleteBrand = async (deletePayload: any) => {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
     );
+  }
+};
+
+
+//Function to toggle brand
+export const toggleBrands = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleBrandThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
   }
 };

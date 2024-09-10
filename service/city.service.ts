@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createCityThunk, deleteCityThunk, fetchCityByIdThunk, updateCityThunk } from "@/redux/thunk/city.thunk";
+import { createCityThunk, deleteCityThunk, fetchCityByIdThunk, toggleCityThunk, updateCityThunk } from "@/redux/thunk/city.thunk";
 
 //Function to create city
 export const createCity = async (createPayload: any) => {
@@ -62,5 +62,27 @@ export const deleteCity = async (deletePayload: any) => {
     throw new Error(
       error.response?.data?.message || "Something went wrong."
     );
+  }
+};
+
+
+//Function to toggle attributes  
+export const toggleCity = async (data: any) => {
+  try {
+    const { payload } = await store.dispatch(toggleCityThunk(data));
+    if (payload?.status !== true) {
+      return {
+        status: payload?.status,
+        statusCode: payload?.statusCode,
+        message: payload?.message,
+      };
+    }
+    return {
+      status: payload?.status,
+      statusCode: payload?.statusCode,
+      message: payload?.message,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Something went wrong.");
   }
 };

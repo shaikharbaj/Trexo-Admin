@@ -149,4 +149,19 @@ export const fetchFaqTypesThunk = createAsyncThunk(
 );
 
 
+//Thunk to toggle faq  
+export const toggleFaqThunk = createAsyncThunk(
+    "product/toggle-faq",
+    async (payload: any) => {
+        try {
+            const res = await privateClient.patch(`/faq/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+            return res.data;
+        } catch (error: any) {
+            if (error?.response?.data) {
+                return error?.response?.data;
+            }
+            return error;
+        }
+    }
+);
 

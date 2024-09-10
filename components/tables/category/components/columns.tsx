@@ -8,9 +8,14 @@ import { formatDate } from "@/utils/date";
 import Image from 'next/image';
 import { getS3BasePath } from "@/config/aws";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useState } from "react";
+import { toggleCategory } from "@/service/category.service";
+import toast from "react-hot-toast";
+import { Switch } from "@/components/ui/switch";
 
 interface Industry {
   id: string;
+  uuid: string
   industry: string;
   category: string;
   status: string;
@@ -55,20 +60,20 @@ export const columns: ColumnDef<Industry>[] = [
         return (
           <div className="flex gap-2 items-center">
             {row.original.image ? (
-            <Image
-              className="w-8 h-8 rounded-[100%]"
-              src={`${AWS_URL}/category/${row.original.id}/small/${row.original.image}`}
-              width={200}
-              height={200}
-              alt={categoryName || "Category Image"}
-            />
-          ) : (
-            <Avatar className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-              <AvatarFallback>
-                {categoryName ? categoryName.charAt(0).toUpperCase() : "?"}
-              </AvatarFallback>
-            </Avatar>
-          )}
+              <Image
+                className="w-8 h-8 rounded-[100%]"
+                src={`${AWS_URL}/category/${row.original.id}/small/${row.original.image}`}
+                width={200}
+                height={200}
+                alt={categoryName || "Category Image"}
+              />
+            ) : (
+              <Avatar className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                <AvatarFallback>
+                  {categoryName ? categoryName.charAt(0).toUpperCase() : "?"}
+                </AvatarFallback>
+              </Avatar>
+            )}
             <span className="max-w-[500px] truncate font-medium">
               {categoryName || "Unknown Category"}
             </span>
@@ -143,23 +148,47 @@ export const columns: ColumnDef<Industry>[] = [
       <ColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      let isActiveValue = row.getValue('is_active');
+      const [activate, setActivate] = useState<boolean>(row.getValue('is_active'))
+      const handleToggle = (uuid: any) => {
+        try {
+          setActivate((prevActivate) => {
+            const newActivate = !prevActivate;
+            const payload = {
+              uuid: uuid,
+              is_active: newActivate
+            };
+            // Call toggle with the updated value of activate
+            toggleCategory(payload).then((response) => {
+              if (response?.status !== true && response?.statusCode !== 200) {
+                toast.error(response?.message);
+                return;
+              } else {
+                toast.success(response?.message);
+              }
+            }).catch((error) => {
+              toast.error(error?.message);
+            });
+
+            // Return the new state
+            return newActivate;
+          });
+        } catch (error: any) {
+          toast.error(error?.message);
+        }
+      }
       return (
         <div className="flex items-center">
-          <Badge
-            variant="soft"
-            className=" capitalize"
-            color={
-              (isActiveValue === true && "success") ||
-              (isActiveValue === false && "destructive") || "default"
-            }>
-            {isActiveValue === true ? 'Active' : "Inactive"}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {row.getValue('is_active') === true ? (<Switch color="success" id="switch_success" defaultChecked onClick={() => { handleToggle(row.original.uuid) }} />) : (<Switch color="success" id="switch_success" onClick={() => { handleToggle(row.original.uuid) }} />)}
+          </div>
         </div>
       );
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
   {
     id: "actions",

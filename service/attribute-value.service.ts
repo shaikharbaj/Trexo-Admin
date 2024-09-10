@@ -1,6 +1,6 @@
 import { refreshData } from "@/redux/slice/datatable.slice";
 import { store } from "@/redux/store";
-import { createAttributeValueThunk, deleteAttributeValueThunk, fetchAttributeValueByIdThunk, fetchAttributeValueDropdownThunk, updateAttributeValueThunk } from "@/redux/thunk/attribute-value.thunk";
+import { createAttributeValueThunk, deleteAttributeValueThunk, fetchAttributeValueByIdThunk, fetchAttributeValueDropdownThunk, toggleAttributeValueThunk, updateAttributeValueThunk } from "@/redux/thunk/attribute-value.thunk";
 
 //Function to create attribute value
 export const createAttributeValue = async (createPayload: any) => {
@@ -74,5 +74,28 @@ export const fetchAttributeValueDropdown = async () => {
         throw new Error(
             error.response?.data?.message || "Something went wrong."
         );
+    }
+};
+
+
+
+//Function to toggle attributes value
+export const toggleAttributeValues = async (data: any) => {
+    try {
+        const { payload } = await store.dispatch(toggleAttributeValueThunk(data));
+        if (payload?.status !== true) {
+            return {
+                status: payload?.status,
+                statusCode: payload?.statusCode,
+                message: payload?.message,
+            };
+        }
+        return {
+            status: payload?.status,
+            statusCode: payload?.statusCode,
+            message: payload?.message,
+        };
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || "Something went wrong.");
     }
 };

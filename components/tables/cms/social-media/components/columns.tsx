@@ -5,14 +5,18 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ColumnHeader } from "./column-header";
 import { RowActions } from "./actions";
 import { formatDate } from "@/utils/date";
+import { useState } from "react";
+import { toggleSocialMedia } from "@/service/social-media.service";
+import toast from "react-hot-toast";
+import { Switch } from "@/components/ui/switch";
 
 interface SocialMedia {
   uuid?: string;
   title?: string;
   link?: string;
   is_active?: string;
-  created_at?:string;
-  updated_at?:string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export const columns: ColumnDef<SocialMedia>[] = [
@@ -74,20 +78,43 @@ export const columns: ColumnDef<SocialMedia>[] = [
   },
   {
     accessorKey: "is_active",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => {
+      const [activate, setActivate] = useState<boolean>(row.getValue('is_active'))
+      const handleToggle = (uuid: any) => {
+        try {
+          setActivate((prevActivate) => {
+            const newActivate = !prevActivate;
+            const payload = {
+              uuid: uuid,
+              is_active: newActivate
+            };
+            // Call toggle with the updated value of activate
+            toggleSocialMedia(payload).then((response) => {
+              if (response?.status !== true && response?.statusCode !== 200) {
+                toast.error(response?.message);
+                return;
+              } else {
+                toast.success(response?.message);
+              }
+            }).catch((error) => {
+              toast.error(error?.message);
+            });
+
+            // Return the new state
+            return newActivate;
+          });
+        } catch (error: any) {
+          toast.error(error?.message);
+        }
+      }
       return (
         <div className="flex items-center">
-          <Badge
-            variant="soft"
-            color={
-              (row.getValue("is_active") === true && "success") ||
-              (row.getValue("is_active") === false && "destructive") ||
-              "default"
-            }
-          >
-            {row.getValue("is_active") === true ? "Active" : "Inactive"}
-          </Badge>
+          <div className="flex items-center gap-2">
+            {row.getValue('is_active') === true ? (<Switch color="success" id="switch_success" defaultChecked onClick={() => { handleToggle(row.original.uuid) }} />) : (<Switch color="success" id="switch_success" onClick={() => { handleToggle(row.original.uuid) }} />)}
+          </div>
         </div>
       );
     },

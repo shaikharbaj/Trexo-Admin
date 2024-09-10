@@ -6,6 +6,7 @@ import {
     deleteAttributeThunk,
     fetchAttributeByIdThunk,
     fetchAttributeForDropDownThunk,
+    toggleAttributeThunk,
     updateAttributeThunk,
 } from "@/redux/thunk/attribute.thunk";
 
@@ -118,6 +119,27 @@ export const fetchAttributeForDropdown = async (
             statusCode: payload?.statusCode,
             message: payload?.message,
             data: payload?.data,
+        };
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || "Something went wrong.");
+    }
+};
+
+//Function to toggle attributes  
+export const toggleAttributes = async (data: any) => {
+    try {
+        const { payload } = await store.dispatch(toggleAttributeThunk(data));
+        if (payload?.status !== true) {
+            return {
+                status: payload?.status,
+                statusCode: payload?.statusCode,
+                message: payload?.message,
+            };
+        }
+        return {
+            status: payload?.status,
+            statusCode: payload?.statusCode,
+            message: payload?.message,
         };
     } catch (error: any) {
         throw new Error(error.response?.data?.message || "Something went wrong.");

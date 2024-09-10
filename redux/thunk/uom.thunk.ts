@@ -167,3 +167,20 @@ export const fetchRoundingValueThunk = createAsyncThunk(
         }
     }
 );
+
+
+//Thunk to toggle uom  
+export const toggleUomThunk = createAsyncThunk(
+    "product/toggle-uom",
+    async (payload: any) => {
+        try {
+            const res = await privateClient.patch(`/uom/toggle/visibility/${payload?.uuid}`, { is_active: payload.is_active });
+            return res.data;
+        } catch (error: any) {
+            if (error?.response?.data) {
+                return error?.response?.data;
+            }
+            return error;
+        }
+    }
+);
